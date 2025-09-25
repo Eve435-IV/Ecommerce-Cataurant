@@ -1,0 +1,186 @@
+.searchbar{
+    display: flex;
+    background-color: rgb(255, 0, 0);
+    padding: 9px;  
+    padding-left: 45px;
+    padding-right: 45px;
+    align-items: center;
+    position: sticky;
+    top: 88px;
+    z-index: 1;
+}
+    
+.searchform{
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    flex: 1;
+    margin-left:15px;
+    margin-right: 15px;
+    border-radius: 10px;
+    height: 40px;
+    color: rgb(255, 0, 0);
+    border:rgb(255, 0, 0) 1px solid;
+}
+.search{
+    display: flex;
+    flex: 1;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    outline: none;
+    padding-bottom: 10px;
+}
+
+.icon{
+    color: rgb(255, 0, 0);
+    font-size: 33px;
+    margin-left: 4px;
+    margin-top: 3px;
+    margin-right: 10px;
+}
+.searchlink{
+    display: flex;
+    gap: 2px;
+    flex: 0;
+    padding: 8px;
+    margin-right: 15px;
+    padding-bottom: 10px;
+    margin-top: -5px;
+}
+.searchtext{
+    align-items: center;
+    padding: 3px;
+    border-radius: 10px;
+    background-color:rgb(255, 0, 0);
+    border:rgb(255, 255, 255)1px solid;
+    color: rgb(255, 255, 255);
+    padding-left: 20px;
+    padding-right:20px;
+    font-weight: bold;
+}
+.searchtext:hover{
+    border:rgb(255, 0, 0) 1px solid;
+    color: rgb(255, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border:rgb(255, 0, 0) 1px solid;
+}
+.recomended,
+.filter{
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 7px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 0, 0);
+    border:rgb(255, 255, 255) 2px solid;
+    padding-left: 20px;
+    padding-right:20px;
+    gap: 6px;
+    font-weight: bold;
+}
+.recomended:hover,
+.filter:hover{
+    border:rgb(255, 0, 0) 2px solid;
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+}
+
+/* ===========================
+   1440px (Large Screens)
+=========================== */
+@media screen and (max-width: 1440px) {
+  .searchbar {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .searchform {
+    height: 40px;
+  }
+  .searchtext,
+  .filter,
+  .recomended {
+    font-size: 16px;
+  }
+}
+
+/* ===========================
+   1024px (Tablets)
+=========================== */
+@media screen and (max-width: 1024px) {
+  .searchbar {
+    top: 60px;
+    padding-left: 25px;
+    padding-right: 25px;
+    flex-wrap: wrap;
+  }
+  .searchform {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .searchtext,
+  .filter,
+  .recomended {
+    display: none;
+    /* font-size: 14px;
+    padding: 5px 15px; */
+  }
+}
+
+/* ===========================
+   768px (Small Tablets / Phones)
+=========================== */
+@media screen and (max-width: 768px) {
+  .searchbar {
+    top: 62px;
+    border-bottom:red 3px solid;
+    border-top:red 3px solid ;
+  }
+  .searchform {
+    width: 150px;
+    margin: 0;
+  }
+  .search{
+    width: 10px;
+  }
+  .searchlink {
+    justify-content: center;
+  }
+  .searchtext{
+    display: none;
+  }
+  .filter,
+  .recomended {
+    
+    font-size: 14px;
+    width: 24px;
+    justify-content: center;
+  }
+}
+
+/* ===========================
+   375px (Mobile Phones)
+=========================== */
+@media screen and (max-width: 500px) {
+  .searchbar {
+    padding-right: 20px;
+    padding: 8px;
+    gap: 8px;
+    top: 65px;
+    height: 45px;
+  }
+  .searchform {
+    margin-top: -6px;
+    height: 35px;
+  }
+  .icon{
+    margin-top: 5px;
+    font-size: 23px;
+    margin-right: -4px;
+  }
+  .searchtext,
+  .filter,
+  .recomended {
+    display: none;
+  }
+}

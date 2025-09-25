@@ -1,0 +1,146 @@
+.container{
+    display: flex;
+    padding-bottom: 300px;
+    background-color: black;
+    border-top: rgb(255, 0, 0) 4px solid;
+    padding-top: 80px;
+    padding-left: 100px;
+    bottom: 0;
+    gap: 20px;
+    height: 30px;
+}
+.rightcontainer{
+    display: flex;
+    gap: 10px;
+    flex: 1;
+    height: 10px;
+}
+.logo{
+    padding-top: 10px;
+    color: white;
+    display: flex;
+    justify-items: center;
+}
+.maintext{
+    align-content: center;
+    align-items: center;
+    color: rgb(255, 0, 0);
+    font-size: 30px;
+    font-weight: bold;
+}
+.midcontainer{
+    padding-right: 10%;
+    display: flex;
+    flex: 2;
+    gap: 10px;
+}
+.text{
+    color: white;
+    align-items: center;
+    justify-content: center;
+}
+/* ===========================
+   2560px (Extra Large Screens)
+=========================== */
+@media screen and (max-width: 2560px) {
+  .container {
+    padding-left: 120px;
+    padding-right: 120px;
+    gap: 40px;
+  }
+  .maintext {
+    font-size: 36px;
+  }
+  .text {
+    font-size: 18px;
+  }
+}
+
+/* ===========================
+   1440px (Large Screens)
+=========================== */
+@media screen and (max-width: 1440px) {
+  .container {
+    padding-left: 80px;
+    padding-right: 80px;
+    gap: 30px;
+  }
+  .maintext {
+    font-size: 28px;
+  }
+  .text {
+    font-size: 16px;
+  }
+}
+
+/* ===========================
+   1024px (Tablets)
+=========================== */
+@media screen and (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    height: auto;
+    gap: 20px;
+  }
+  .midcontainer {
+    justify-content: center;
+    padding-right: 0;
+  }
+  .rightcontainer {
+    justify-content: center;
+    height: auto;
+  }
+  .maintext {
+    font-size: 24px;
+  }
+}
+
+/* ===========================
+   768px (Small Tablets / Phones)
+=========================== */
+@media screen and (max-width: 768px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 15px;
+    text-align: center;
+  }
+  .midcontainer {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+  .maintext {
+    font-size: 20px;
+  }
+  .text {
+    font-size: 14px;
+  }
+}
+
+/* ===========================
+   375px (Mobile Phones)
+=========================== */
+@media screen and (max-width: 375px) {
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 30px;
+    padding-bottom: 80px;
+    gap: 10px;
+  }
+  .maintext {
+    font-size: 18px;
+  }
+  .text {
+    font-size: 12px;
+  }
+  .midcontainer {
+    gap: 5px;
+  }
+}

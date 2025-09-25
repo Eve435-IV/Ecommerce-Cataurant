@@ -1,0 +1,218 @@
+.container{
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    border-bottom: rgb(0, 0, 0) 3px solid;
+    width: 100%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 10px;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.cambodiaBanner,
+.southkoreaBanner,
+.japaneseBanner,
+.fastfoodBanner{
+    width:340px;
+    height: 90px;
+    display: flex;
+    padding: 10px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content:center;
+    border: rgb(255, 255, 255) 5px solid;
+    background-color: rgb(255, 0, 0);
+    margin-bottom: 10px;
+}
+.cambodiaBanner:hover,
+.southkoreaBanner:hover,
+.japaneseBanner:hover,
+.fastfoodBanner:hover{
+  background-color: rgb(255, 0, 0);
+  border: rgb(255, 0, 0) 5px solid;
+  cursor: pointer;
+}
+.image{
+    border:rgb(255, 255, 255) 3px solid;
+    background-color: rgb(253, 178, 178);
+    border-radius: 10px;
+    padding: 4px;
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    margin-top: 5px;
+}
+.logo{
+  flex: 1;
+  width: 70px;
+  height: 70px;
+}
+.text{
+    flex: 3.5;
+    padding: 10px;
+    align-items: left;
+    justify-content: left;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+.text:hover{
+    color: rgb(255, 255, 255);
+}
+
+
+/* ===========================
+   1440px (Large Screens)
+=========================== */
+@media screen and (max-width: 1440px) {
+  .container {
+    gap: 5px;
+  }
+  .cambodiaBanner,
+  .southkoreaBanner,
+  .japaneseBanner,
+  .fastfoodBanner {
+    width:340px;
+    height: 90px;
+  }
+  .image {
+    border:white 2px solid;
+    padding: 0;
+    margin-top: 0px;
+    width: 70px;
+    height: 70px;
+  }
+  .text {
+    font-size: 20px;
+  }
+}
+
+/* ===========================
+   1024px (Tablets)
+=========================== */
+@media screen and (max-width: 1024px) {
+  .container {
+    flex-wrap: wrap;
+    gap: 2px;
+    justify-content: center;
+  }
+  .cambodiaBanner,
+  .southkoreaBanner,
+  .japaneseBanner,
+  .fastfoodBanner {
+    width:230px;
+    height: 65px;
+    font-size:19px;
+    padding: 2px;
+  }
+  .image {
+    margin-top: 10px;
+    margin-left: 3px;
+    width: 48px;
+    height: 48px;
+  }
+  .text {
+    font-size: 14px;
+  }
+}
+
+/* ===========================
+   768px (Small Tablets / Phones)
+=========================== */
+@media screen and (max-width: 768px) {
+  .container {
+    display: flex;
+    align-items: center;
+  }
+  .cambodiaBanner,
+  .southkoreaBanner,
+  .japaneseBanner,
+  .fastfoodBanner {
+    display: flex;
+    width: 170px;
+    height: 60px;
+  }
+  .image {
+    border: white 1px solid;
+    border-radius: 4px;
+    margin-top: 15px;
+    width: 40px;
+    height: 40px;
+  }
+  .text {
+    font-size: 16px;
+  }
+}
+
+/* ===========================
+   375px (Mobile Phones)
+=========================== */
+@media screen and (max-width: 500px) {
+  .container {
+    padding: 10px;
+    gap: 3px;
+  }
+  .cambodiaBanner,
+  .southkoreaBanner,
+  .japaneseBanner,
+  .fastfoodBanner {
+    font-size: 16px;
+    width: 230px;
+    height: 60px;
+    border-width: 2px;
+  }
+  .image {
+    margin-top: 14px;
+    width: 42px;
+    height: 42px;
+  }
+  .text {
+    font-size: 16px;
+    width: 140px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .dynamicimage{
+    display: flex;
+    margin: 0;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 5px;
+    border: rgb(255, 255, 255) 3px solid;
+} */
