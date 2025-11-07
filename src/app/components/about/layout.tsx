@@ -5,7 +5,15 @@ import south_korea from "./public/southkorea.png";
 import japanese from "./public/japanese.png";
 import fast_food from "./public/hamburger (1).png";
 
-const CuisineCard = ({ title, description, iconPath }) => (
+const CuisineCard = ({
+  title,
+  description,
+  iconPath,
+}: {
+  title: any;
+  description: any;
+  iconPath: any;
+}) => (
   <div className={styles.cuisineCard}>
     <div className={styles.iconContainer}>
       <img

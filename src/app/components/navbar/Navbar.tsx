@@ -8,7 +8,7 @@ import { RiShoppingCart2Line } from "react-icons/ri";
 import { FaSignInAlt, FaUserCircle } from "react-icons/fa";
 import { useCart, CartItem } from "../../../context/cartContext";
 import { useAuthStore } from "../../../hooks/AuthStore";
-
+import Image from "next/image";
 import Info from "./public/information.png";
 import Menu1 from "./public/menu.png";
 import OrderOnline from "./public/online-order.png";
@@ -129,7 +129,7 @@ export default function Navbar() {
                           <div className={styles.cartWrapper}>
                             <div className={styles.cartName}>{item.name}</div>
                             {item.imageUrl && (
-                              <img
+                              <Image
                                 src={item.imageUrl}
                                 width={70}
                                 height={70}
