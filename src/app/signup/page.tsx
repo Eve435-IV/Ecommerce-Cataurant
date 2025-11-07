@@ -237,7 +237,6 @@ function AuthForm() {
           >
             Login
           </button>
-
           <button
             type="button"
             className={`${styles["toggle-button"]} ${
