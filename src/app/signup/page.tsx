@@ -15,6 +15,9 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+type AuthFormProps = {
+  children?: React.ReactNode; // make optional
+};
 const SIGNUP_CUSTOMER = gql`
   mutation SignupCustomer($input: SignupCustomerInput!) {
     signupCustomer(input: $input) {

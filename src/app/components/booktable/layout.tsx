@@ -5,7 +5,7 @@ import { Loader2, Lock, CalendarDays, CheckCircle2 } from "lucide-react";
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 import { useAuthStore, AuthStore } from "../../../hooks/AuthStore";
-import AuthForm from "../../signup/layout";
+import AuthForm from "../../signup/layout"; // default import
 import styles from "./booktable.module.css";
 
 const GRAPHQL_URI = "http://localhost:4000/graphql";
@@ -45,6 +45,7 @@ const LoginPrompt = () => (
       <p className={styles.promptAction}>Please Sign Up or Log In below.</p>
     </div>
 
+    {/* AuthForm now works without children */}
     <AuthForm />
   </div>
 );
@@ -121,8 +122,8 @@ const BookTableForm = () => {
         <label className={styles.label}>Number of Guests</label>
         <input
           type="number"
-          min="1"
-          max="10"
+          min={1}
+          max={10}
           className={styles.input}
           value={guests}
           onChange={(e) => setGuests(Number(e.target.value))}
@@ -148,7 +149,7 @@ const BookTableForm = () => {
       {success && (
         <div className={styles.successBox}>
           <CheckCircle2 className={styles.successIcon} />
-          <p>Table successfully booked! </p>
+          <p>Table successfully booked!</p>
         </div>
       )}
     </form>
