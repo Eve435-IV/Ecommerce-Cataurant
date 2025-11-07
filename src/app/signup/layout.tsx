@@ -1,10 +1,29 @@
-// src/app/signup/layout.tsx
-import React from "react";
+"use client";
 
-export default function SignupLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <section style={{ padding: "2rem" }}>{children}</section>;
+import React from "react";
+import styles from "./authform.module.css";
+
+type AuthFormProps = {
+  children?: React.ReactNode; // make optional
+};
+
+export default function AuthForm({ children }: AuthFormProps) {
+  return (
+    <div className={styles.authFormContainer}>
+      {children}
+
+      <h2 className={styles.title}>Sign In / Sign Up</h2>
+      <form className={styles.form}>
+        <input type="email" placeholder="Email" className={styles.input} />
+        <input
+          type="password"
+          placeholder="Password"
+          className={styles.input}
+        />
+        <button type="submit" className={styles.submitButton}>
+          Continue
+        </button>
+      </form>
+    </div>
+  );
 }
