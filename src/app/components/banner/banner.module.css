@@ -1,192 +1,150 @@
-.mainbanner{
+.mainbanner {
     display: flex;
-    background-color: rgb(56, 56, 56);
-    margin-top: 90px;
-    height: fit-content;
-}
-.leftbanner{
-    margin: 0;
-    padding: 0;
-    flex: 1;
-    height: fit-content;
-    position: relative; 
-    display: inline-block;
-}
-.midbanner{
-    margin: 0;
-    padding: 0;
-    flex: 4;
-    height: fit-content;
-    position: relative; 
-    display: inline-block;
-}
-.rightbanner{
-   margin: 0;
-    padding: 0;
-    flex: 1;
-    height: fit-content;
-    position: relative; 
-    display: inline-block;
-}
-.header{  
-    align-content: center;
     justify-content: center;
-    color: rgb(255, 0, 0);
-    font-size: 90px;
-    font-weight: bold;  
-}
-.body{
-    color: rgb(255, 0, 0);
-    margin: 0;
-    font-weight: bold;
-    font-size: 70px;
-
-}
-.highlight {
-    font-size: 80px;
-    font-weight: bold;
-    color: rgb(255, 0, 0);
-}
-.toptext{
-    position: absolute;
-    bottom: 75%;
-    padding-left: 110px;
-    color: rgb(255, 255, 255);
-    font-size: 120px;
-    font-weight: bold;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-}
-.midtext{
-    position: absolute;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    bottom: 75%;
-    padding-left: 700px;
-    color: rgb(255, 0, 0);
-    font-size: 120px;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    align-items: center;
+    background-color: #1a202c;
+    margin-top: 110px;
+    height: 60vh;
+    max-height: 650px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    /* border: #e53e3e 5px solid; */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    position: relative;
+    transition: all 0.5s ease;
 }
 
-.bottext{
-    position: absolute;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    bottom: 60%;
-    padding-left: 200px;
-    color: #00f7ff;
-    font-size: 120px;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-}
-.smalltext{
-    position: absolute;
-    align-self: center;
-    justify-self: center;
-    bottom: 25%;
-    margin-left: 250px;
-    margin-right: 250px;
-    color: rgb(255, 255, 255);
-    font-size: 20px;   
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-.image{
-    width: 2560px;
-    height: 860px;
-    margin: 0;
-    opacity: 0.6; 
-
-}
-@media (max-width: 1440px) {
-  .mainbanner{
-    margin-top: 70px;
-  }
-  .image {
-    height: 650px;
-  }
-  .toptext {
-    font-size: 110px;
-    padding-left: 60px;
-    bottom: 65%;
-  }
-  .midtext {
-    font-size: 70px;
-    padding-left: 250px;
-    bottom: 55%;
-  }
-  .bottext {
-    font-size: 90px;
-    padding-left: 350px;
-    bottom: 38%;
-  }
-  .smalltext {
-    font-size: 18px;
-    width: 450px;
-    padding-left: 120px;
-  }
+.midbanner {
+    /* background-image: url('https://media.istockphoto.com/id/2162958657/photo/variety-of-korean-food.jpg?s=2048x2048&w=is&k=20&c=1QEUN5wauoXffk4wiGLbNc20UIEOmp_7Yyr9OyQeE2s='); */
+    /* background-image: url('https://i.pinimg.com/1200x/1a/e4/06/1ae4066c666821d44aec34cb42fd8a5e.jpg'); */
+    /* background-image: url('https://i.pinimg.com/1200x/06/48/8a/06488a29a35ce4dfacae8e06f79a6293.jpg'); */
+    background-image: url('https://i.pinimg.com/1200x/24/58/57/24585717b5a02120e430a8dc583d3c0a.jpg');
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-size: contain; */
 }
 
-/* ===========================
-   1024px (Tablets)
-=========================== */
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* opacity: 0.75; */
+    transition: opacity 0.5s ease;
+}
+
+.toptext,
+.midtext,
+.bottext {
+    position: absolute;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 1);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.toptext {
+    font-size: 5vw;
+    top: 25%;
+    color: #ffffff;
+}
+
+.midtext {
+    font-size: 8vw;
+    top: 50%;
+    color: #e53e3e;
+}
+
+.bottext {
+    font-size: 3vw;
+    top: 75%;
+    color: #f7fafc;
+}
+
 @media (max-width: 1024px) {
-  .mainbanner{
-    margin-top: 10px;
-  }
-  .image {
-    height: 500px;
-  }
-  .toptext {
-    font-size: 80px;
-    padding-left: 40px;
-    bottom: 65%;
-  }
-  .midtext {
-    font-size: 55px;
-    padding-left: 180px;
-    bottom: 52%;
-  }
-  .bottext {
-    font-size: 70px;
-    padding-left: 250px;
-    bottom: 35%;
-  }
-  .smalltext {
-    font-size: 16px;
-    width: 350px;
-    padding-left: 80px;
-  }
+    .mainbanner {
+        margin-top: 50px;
+        height: 50vh;
+        width: 95%;
+    }
+
+    .toptext {
+        font-size: 7vw;
+        top: 25%;
+    }
+
+    .midtext {
+        font-size: 11vw;
+        top: 50%;
+    }
+
+    .bottext {
+        font-size: 5vw;
+        top: 75%;
+    }
 }
 
-/* ===========================
-   768px (Small Tablets / Phones)
-=========================== */
 @media (max-width: 768px) {
-  .image {
-    height: 400px;
-  }
-  .toptext {
-   display: none;
-  }
-  .midtext {
-   display: none;
-  }
-  .bottext {
-    display: none;
-  }
-  .smalltext {
-    display: none;
-  }
+    .mainbanner {
+        height: 40vh;
+        max-height: 450px;
+        margin-top: 40px;
+    }
+
+    .toptext {
+        font-size: 9vw;
+        top: 30%;
+    }
+
+    .midtext {
+        font-size: 14vw;
+        top: 50%;
+    }
+
+    .bottext {
+        font-size: 7vw;
+        top: 70%;
+    }
 }
 
-/* ===========================
-   375px (Phones)
-=========================== */
 @media (max-width: 425px) {
-  .mainbanner{
-    width: 100%;
-  }
-  .image {
-    height: 280px;
-    width: 100%;
-  }
+    .mainbanner {
+        margin-top: 30px;
+        height: 35vh;
+        border-width: 3px;
+    }
+
+    .toptext {
+        font-size: 10vw;
+        top: 30%;
+    }
+
+    .midtext {
+        font-size: 15vw;
+        top: 50%;
+    }
+
+    .bottext {
+        font-size: 8vw;
+        top: 70%;
+    }
+}
+
+.leftbanner,
+.rightbanner,
+.header,
+.body,
+.highlight,
+.smalltext {
+    display: none;
 }

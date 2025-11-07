@@ -1,0 +1,538 @@
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.auth-wrapper {
+    margin-top: 250px;
+    margin-bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    min-height: 85vh;
+    background-color: #fcfcfc; 
+    font-family: 'Inter', sans-serif;
+    padding: 20px;
+}
+
+.auth-card,
+.profile-card {
+    border: none;
+    background-color: #ffffff;
+    box-shadow: 0 15px 40px -8px rgba(217, 35, 45, 0.1), 0 5px 15px -2px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 520px; 
+    min-width: unset;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-card:hover,
+.profile-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -10px rgba(217, 35, 45, 0.18);
+}
+
+.auth-header {
+    background-color: #D9232D;
+    color: #ffffff;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.auth-form {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 30px;
+}
+
+.input-group {
+    display: flex;
+    gap: 20px;
+}
+
+.input-group .field-wrapper {
+    flex: 1;
+}
+
+.field-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0;
+}
+
+.auth-input {
+    padding: 14px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #111827;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-input::placeholder {
+    color: #9ca3af;
+}
+
+.auth-input:focus {
+    outline: none;
+    border-color: #D9232D;
+    box-shadow: 0 0 0 4px rgba(217, 35, 45, 0.15);
+}
+
+.auth-input:disabled {
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+}
+
+.main-auth-button {
+    background-color: #D9232D;
+    color: #ffffff;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.main-auth-button:hover:not(:disabled) {
+    background-color: #B01E25;
+}
+
+.main-auth-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.main-auth-button:disabled {
+    background-color: #fca5a5;
+    cursor: not-allowed;
+}
+
+.toggle-buttons-wrapper {
+    display: flex;
+    border-top: 1px solid #e5e7eb;
+}
+
+.toggle-button {
+    flex: 1;
+    padding: 18px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-button.active {
+    background-color: #fff8f8;
+    color: #D9232D;
+    border-top: 3px solid #D9232D;
+}
+
+.toggle-button.inactive {
+    color: #6b7280;
+}
+
+.toggle-button:hover:not(.active):not(:disabled) {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.toggle-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.message-box {
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.message-box p {
+    margin: 0;
+}
+
+.message-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.error-message {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #D9232D;
+}
+
+.success-message {
+    background-color: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #059669;
+}
+
+.social-divider-wrapper {
+    position: relative;
+    text-align: center;
+    margin: 30px 0 25px 0;
+}
+
+.social-divider-line>div {
+    height: 1px;
+    background-color: #e5e7eb;
+}
+
+.social-divider-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 0 15px;
+    font-size: 0.85rem;
+    color: #6b7280;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.social-icons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 15px;
+}
+
+.social-icon-wrapper {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    background-color: #ffffff;
+}
+
+.social-icon-wrapper:hover {
+    background-color: #fef2f2;
+    border-color: #D9232D;
+    box-shadow: 0 0 0 2px rgba(217, 35, 45, 0.1);
+}
+
+.social-icon {
+    width: 28px;
+    height: 28px;
+    color: #4b5563;
+}
+
+.profile-header-bg {
+    background: linear-gradient(135deg, #D9232D, #B01E25);
+    padding: 50px 20px 40px 20px;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    position: relative;
+}
+
+.user-icon-display {
+    position: relative;
+    margin-bottom: 0;
+}
+
+.user-icon-circle {
+    width: 90px;
+    height: 90px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
+}
+
+.user-icon {
+    width: 55px;
+    height: 55px;
+    color: #D9232D;
+}
+
+.profile-name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.profile-subtext {
+    font-size: 1rem;
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.profile-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.data-display-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid #fee2e2;
+    border-radius: 12px;
+    background-color: #fffafa;
+    overflow: hidden;
+    box-shadow: 0 5px 15px -3px rgba(0, 0, 0, 0.03);
+}
+
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #fce3e3;
+    padding: 18px 20px;
+    transition: background-color 0.2s;
+}
+
+.data-row:last-child {
+    border-bottom: none;
+}
+
+.data-row.no-border {
+    border-bottom: none;
+}
+
+.data-row:hover {
+    background-color: #fef2f2;
+}
+
+.data-label {
+    font-weight: 600;
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
+.data-label-icon {
+    width: 20px;
+    height: 20px;
+    color: #D9232D;
+}
+
+.data-value {
+    font-weight: 500;
+    color: #111827;
+    font-size: 1rem;
+}
+
+.role-badge {
+    background-color: #D9232D;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.edit-form-field-group {
+    display: flex;
+    gap: 20px;
+}
+
+.edit-input {
+    flex: 1;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    color: #111827;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-input:focus {
+    outline: none;
+    border-color: #D9232D;
+    box-shadow: 0 0 0 3px rgba(217, 35, 45, 0.15);
+}
+
+.edit-input:disabled {
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+}
+
+.save-changes-button {
+    background: #D9232D;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 14px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 10px;
+}
+
+.save-changes-button:hover:not(:disabled) {
+    background: #B01E25;
+    transform: translateY(-1px);
+}
+
+.save-changes-button:disabled {
+    background-color: #fca5a5;
+    cursor: not-allowed;
+}
+
+.save-changes-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.edit-toggle-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.edit-toggle-button:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+.edit-toggle-icon-edit,
+.edit-toggle-icon-x {
+    width: 20px;
+    height: 20px;
+    color: #ffffff;
+}
+
+.logout-button {
+    background-color: #EF4444; 
+    color: #ffffff;
+    font-weight: 700;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 15px;
+}
+
+.logout-button:hover {
+    background-color: #D9232D;
+    transform: translateY(-1px);
+}
+.toggle-buttons-wrapper {
+    display: flex;
+    border-top: 1px solid #e5e7eb;
+}
+
+.toggle-button {
+    flex: 1;
+    padding: 18px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-button.active {
+    background-color: #fff8f8;
+    color: #D9232D;
+    border-top: 3px solid #D9232D;
+}
+
+@media(max-width:550px) {
+    .auth-wrapper {
+        min-height: 100vh;
+        align-items: flex-start;
+        padding: 0;
+    }
+
+    .auth-card,
+    .profile-card {
+        max-width: 100%;
+        min-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .auth-form {
+        padding: 25px 20px;
+        gap: 20px;
+    }
+
+    .input-group,
+    .edit-form-field-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

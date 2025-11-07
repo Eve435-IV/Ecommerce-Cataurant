@@ -1,146 +1,175 @@
-.container{
+.container {
     display: flex;
-    padding-bottom: 300px;
-    background-color: black;
-    border-top: rgb(255, 0, 0) 4px solid;
-    padding-top: 80px;
-    padding-left: 100px;
-    bottom: 0;
-    gap: 20px;
-    height: 30px;
-}
-.rightcontainer{
-    display: flex;
-    gap: 10px;
-    flex: 1;
-    height: 10px;
-}
-.logo{
-    padding-top: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 80px 100px 50px 100px;
+    background-color: #111;
+    border-top: 4px solid #e53e3e;
     color: white;
-    display: flex;
-    justify-items: center;
-}
-.maintext{
-    align-content: center;
-    align-items: center;
-    color: rgb(255, 0, 0);
-    font-size: 30px;
-    font-weight: bold;
-}
-.midcontainer{
-    padding-right: 10%;
-    display: flex;
-    flex: 2;
-    gap: 10px;
-}
-.text{
-    color: white;
-    align-items: center;
-    justify-content: center;
-}
-/* ===========================
-   2560px (Extra Large Screens)
-=========================== */
-@media screen and (max-width: 2560px) {
-  .container {
-    padding-left: 120px;
-    padding-right: 120px;
+    font-family: sans-serif;
     gap: 40px;
-  }
-  .maintext {
-    font-size: 36px;
-  }
-  .text {
-    font-size: 18px;
-  }
 }
 
-/* ===========================
-   1440px (Large Screens)
-=========================== */
-@media screen and (max-width: 1440px) {
-  .container {
-    padding-left: 80px;
-    padding-right: 80px;
-    gap: 30px;
-  }
-  .maintext {
-    font-size: 28px;
-  }
-  .text {
+.leftBranding {
+    flex: 1;
+    min-width: 250px;
+}
+
+.logoTitle {
+    color: #e53e3e;
+    font-size: 32px;
+    font-weight: 900;
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.tagline {
     font-size: 16px;
-  }
+    color: #a0aec0;
+    margin-bottom: 30px;
 }
 
-/* ===========================
-   1024px (Tablets)
-=========================== */
-@media screen and (max-width: 1024px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 50px;
-    padding-bottom: 100px;
-    height: auto;
-    gap: 20px;
-  }
-  .midcontainer {
-    justify-content: center;
-    padding-right: 0;
-  }
-  .rightcontainer {
-    justify-content: center;
-    height: auto;
-  }
-  .maintext {
-    font-size: 24px;
-  }
-}
-
-/* ===========================
-   768px (Small Tablets / Phones)
-=========================== */
-@media screen and (max-width: 768px) {
-  .container {
-    padding-left: 20px;
-    padding-right: 20px;
-    gap: 15px;
-    text-align: center;
-  }
-  .midcontainer {
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-  }
-  .maintext {
-    font-size: 20px;
-  }
-  .text {
+.copyright {
     font-size: 14px;
-  }
+    color: #718096;
 }
 
-/* ===========================
-   375px (Mobile Phones)
-=========================== */
+.midcontainer {
+    flex: 2;
+    display: flex;
+    justify-content: space-around;
+    min-width: 400px;
+}
+
+.linkColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.maintext {
+    color: #e53e3e;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #333;
+    width: fit-content;
+}
+
+.linkItem {
+    color: #ccc;
+    font-size: 16px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.linkItem:hover {
+    color: #e53e3e;
+}
+
+.rightcontainer {
+    flex-direction: column;
+    min-width: 180px;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.socialLink {
+    opacity: 0.8;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.socialLink:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+@media screen and (min-width: 2000px) {
+    .container {
+        padding: 100px 200px 60px 200px;
+    }
+    .logoTitle { font-size: 40px; }
+    .maintext { font-size: 24px; }
+    .linkItem { font-size: 18px; }
+}
+
+@media screen and (max-width: 1440px) {
+    .container {
+        padding: 60px 80px 40px 80px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 50px 40px;
+        gap: 50px;
+    }
+
+    .leftBranding {
+        flex: auto;
+    }
+
+    .midcontainer {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .linkColumn {
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .maintext {
+        margin-bottom: 10px;
+        width: auto;
+    }
+
+    .rightcontainer {
+        text-align: center;
+    }
+    
+    .socialIcons {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 40px 20px;
+        gap: 30px;
+    }
+
+    .midcontainer {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .linkColumn {
+        align-items: center;
+    }
+    
+    .logoTitle { font-size: 28px; }
+    .maintext { font-size: 18px; }
+    .tagline { font-size: 14px; }
+}
+
 @media screen and (max-width: 375px) {
-  .container {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 30px;
-    padding-bottom: 80px;
-    gap: 10px;
-  }
-  .maintext {
-    font-size: 18px;
-  }
-  .text {
-    font-size: 12px;
-  }
-  .midcontainer {
-    gap: 5px;
-  }
+    .container {
+        padding: 30px 15px;
+    }
+    .socialIcons {
+        gap: 10px;
+    }
 }

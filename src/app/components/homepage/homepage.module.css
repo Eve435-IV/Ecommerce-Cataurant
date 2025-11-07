@@ -1,0 +1,442 @@
+.pageWrapper {
+display: flex;
+margin: 0;
+padding: 0;
+width: 100%;
+min-height: 100vh;
+background-color: #ffffff;
+font-family: 'Inter', sans-serif;
+box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+border-radius: 10px;
+margin-bottom: 20px;
+}
+
+.sidebar {
+flex: 0 0 280px;
+max-width: 280px;
+position: sticky;
+border-radius: 10px;
+top: 0;
+height: 100vh;
+overflow-y: auto;
+padding: 30px 20px;
+background-color: #ffffff;
+border-right: 1px solid #e1e4e8;
+box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+transition: all 0.3s ease-in-out;
+}
+
+.sidebarTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ff2d2d;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #ff2d2d;
+  padding-bottom: 8px;
+}
+
+.listTittle {
+  font-weight: 700;
+  color: #e60000;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  border-left: 4px solid #ff4d4d;
+  padding-left: 10px;
+}
+
+.sidebarList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebarList li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.sidebarList label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #333;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebarList label:hover {
+  background-color: #ffe5e5;
+  color: #ff2d2d;
+  font-weight: 600;
+  transform: translateX(4px);
+}
+
+.sidebarList input[type="checkbox"],
+.sidebarList input[type="radio"] {
+  transform: scale(1.2);
+  cursor: pointer;
+  accent-color: #ff2d2d;
+}
+
+.sidebarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.closeBtn {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.closeBtn:hover {
+  transform: rotate(90deg);
+  opacity: 1;
+}
+.filter {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) saturate(100%) invert(29%) sepia(90%) saturate(7405%) hue-rotate(356deg)
+    brightness(99%) contrast(104%);
+}
+
+.mainContainer.shrink {
+flex: 1;
+padding: 30px;
+transition: all 0.3s ease-in-out;
+}
+
+.mainContainer.fullWidth {
+flex: 1 1 100%;
+padding: 30px 60px;
+transition: all 0.3s ease-in-out;
+}
+
+.banner {
+background-image: url('https://i.pinimg.com/1200x/0e/bd/14/0ebd14261d0b5081261481aeeaaa7805.jpg');
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-radius: 16px;
+padding: 35px 50px;
+height: 180px;
+margin-bottom: 40px;
+color: #ffffff;
+box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.banner p {
+font-size: 1.6rem;
+font-weight: 500;
+line-height: 1.3;
+max-width: 500px;
+}
+
+.banner button {
+margin-top: 15px;
+background-color: #ffffff;
+padding: 12px 25px;
+border-radius: 8px;
+color: #1c3d5e;
+font-weight: 800;
+border: none;
+transition: background-color 0.2s, transform 0.1s, color 0.2s;
+}
+
+.banner button:hover {
+cursor: pointer;
+background-color: #e2e8f0;
+transform: translateY(-2px);
+}
+
+.rightBanner {
+display: flex;
+justify-content: flex-end;
+align-items: flex-end;
+gap: 20px;
+}
+
+.pawIcon { opacity: 0.9; width: 90px; height: 90px; margin-bottom: 7px;}
+.headIcon { opacity: 0.9; width: 150px; height: 150px; margin-top: 45px;}
+
+.title {
+font-weight: 800;
+font-size: 2.2rem;
+color: #1a202c;
+margin-bottom: 30px;
+border-left: 5px solid #ff0000;
+padding-left: 15px;
+}
+
+.boxContiner {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 25px;
+margin-bottom: 50px;
+}
+
+.box {
+background-color: #ffffff;
+border: 1px solid #e2e8f0;
+height: 120px;
+border-radius: 12px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-weight: 600;
+font-size: 1.1rem;
+color: #ff0000;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+transition: transform 0.2s, box-shadow 0.2s;
+padding: 15px;
+cursor: pointer;
+/* background-image: url('https://static.vecteezy.com/system/resources/thumbnails/017/128/530/small_2x/3d-sale-template-promo-banner-with-50-off-discount-special-offer-and-percentage-sign-vector.jpg'); */
+}
+
+.box:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+border-color: #ff0000;
+}
+
+.cambodiaContainer, 
+.japanContainer{
+display: flex;
+border-radius: 18px;
+padding: 30px;
+margin-bottom: 45px;
+height: auto;
+gap: 25px;
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+/* box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); */
+transition: transform 0.3s;
+min-height: 320px;
+align-items: center;
+}
+ .fastfoodContainer, 
+ .koreaContainer {
+display: flex;
+border-radius: 18px;
+padding: 30px;
+margin-bottom: 45px;
+height: auto;
+gap: 25px;
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+transition: transform 0.3s;
+min-height: 320px;
+
+}
+.fastfoodContainer:hover, .koreaContainer:hover {
+transform: translateY(-8px);
+}
+
+.cambodiaContainer:hover, .japanContainer:hover{
+transform: translateY(-8px);
+}
+
+.cambodiaContainer {
+background: linear-gradient(135deg, #5798ff ,#f0f4f8 );
+}
+
+.japanContainer {
+background: linear-gradient(135deg, #f97316, #fefcbf);
+}
+
+.koreaContainer {
+background: linear-gradient(135deg, #fee2e2, #f87171);
+}
+
+.fastfoodContainer {
+background: linear-gradient(135deg, #e1fdec, #4cbb8f);
+}
+
+.textContainer {
+flex: 2;
+padding: 25px;
+background-color: rgba(255, 255, 255, 0.95);
+border-radius: 14px;
+box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+align-self: stretch;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.mainText {
+color: #313131;
+font-size: 2.1rem;
+font-weight: 800;
+text-align: left;
+margin-bottom: 10px;
+}
+
+.smallText {
+color: #4a5568;
+text-align: left;
+margin: 0;
+font-size: 1rem;
+line-height: 1.5;
+}
+
+.smallContainer {
+flex: 1;
+min-width: 150px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+border-radius: 12px;
+background-color: #ffffff;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+padding: 20px 10px;
+transition: all 0.2s ease;
+cursor: pointer;
+height: 100%;
+}
+
+.smallContainer:hover {
+transform: scale(1.05);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+border-color: #007bff;
+}
+
+.image {
+width: 100px;
+height: 100px;
+object-fit: contain;
+margin: 10px 0;
+transition: transform 0.2s;
+}
+
+.smallContainer:hover .image {
+transform: scale(1.05);
+}
+
+.titleText {
+padding-top: 10px;
+font-size: 1.2rem;
+font-weight: 700;
+margin-bottom: 10px;
+color: #343a40;
+}
+
+.nameText {
+padding: 10px 0;
+font-size: 1rem;
+font-weight: 600;
+font-family: 'Inter', sans-serif;
+color: #000000;
+}
+
+@media (max-width: 1200px) {
+.sidebar {
+flex: 0 0 250px;
+max-width: 250px;
+}
+.mainContainer.fullWidth {
+padding: 30px 40px;
+}
+.banner p {
+font-size: 1.4rem;
+}
+}
+
+@media (max-width: 992px) {
+.boxContiner {
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.cambodiaContainer, .japanContainer, .fastfoodContainer, .koreaContainer {
+flex-direction: column;
+min-height: auto;
+}
+.textContainer {
+order: -1;
+margin-bottom: 15px;
+}
+.koreaContainer .textContainer, .fastfoodContainer .textContainer {
+order: 1;
+margin-top: 15px;
+}
+.smallContainer {
+min-width: 100%;
+margin: 10px 0;
+}
+.sidebar {
+  flex: 0 0 280px;
+  max-width: 280px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 25px 20px;
+  background: linear-gradient(180deg, #fff 0%, #ffe6e6 100%);
+  border-right: 2px solid #ff4d4d;
+  box-shadow: 6px 0 20px rgba(255, 0, 0, 0.05);
+  border-radius: 0 20px 20px 0;
+  transition: all 0.3s ease-in-out;
+}
+.mainContainer.shrink {
+margin-left: 0;
+}
+.rightBanner {
+display: none;
+}
+}
+
+@media (max-width: 768px) {
+.mainContainer.fullWidth {
+padding: 20px;
+}
+.banner {
+height: auto;
+padding: 20px;
+text-align: center;
+flex-direction: column;
+}
+.banner p {
+font-size: 1.2rem;
+max-width: 100%;
+}
+.title {
+font-size: 1.8rem;
+margin-bottom: 20px;
+}
+.boxContiner {
+gap: 15px;
+}
+}
+
+@media (max-width: 480px) {
+.pageWrapper {
+flex-direction: column;
+}
+.mainContainer.shrink, .mainContainer.fullWidth {
+padding: 15px;
+}
+.title {
+font-size: 1.5rem;
+}
+.banner {
+margin-top: 10px;
+padding: 15px;
+}
+.smallContainer {
+padding: 15px 5px;
+}
+.mainText {
+font-size: 1.6rem;
+}
+.smallText {
+font-size: 0.9rem;
+}
+}

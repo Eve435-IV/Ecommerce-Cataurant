@@ -1,16 +1,14 @@
-
 import type { Metadata } from "next";
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ApolloProviderWrapper from "../providers/ApolloProviderWrapper";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
-import Searchbar from "./components/searchbar/Searchbar";
-import Banner from "./components/banner/Banner";
-import Menu from "./components/menu/Menu";
+import { CartProvider } from "../context/cartContext";
 import React from "react";
 
-const inter = Inter ({ subsets:["latin"]})
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Cātaurant",
@@ -22,17 +20,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (    
+  return (
     <html lang="en">
-      <body className="main">
-        <AppRouterCacheProvider>
-        <Navbar/>  
-        <Banner />
-        <Searchbar/>
-        <Menu/>        
-        {children}               
-        <Footer/>  
-      </AppRouterCacheProvider>      
+      <body className={inter.className}>
+        <ApolloProviderWrapper>
+          <AppRouterCacheProvider>
+            <CartProvider>
+              <Navbar />
+              <div className="main">{children}</div>
+              <Footer />
+            </CartProvider>
+          </AppRouterCacheProvider>
+        </ApolloProviderWrapper>
       </body>
     </html>
   );

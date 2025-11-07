@@ -1,0 +1,241 @@
+.pageWrapper {
+    margin-top: 110px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+min-height: 1200px;
+background-color: #f7fafc;
+padding-top: 0;
+color: #2d3748;
+font-family: 'Inter', sans-serif;
+overflow-x: hidden;
+box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.sectionHeading {
+font-size: 3rem;
+font-weight: 800;
+text-align: center;
+color: #e53e3e;
+margin-bottom: 20px;
+letter-spacing: -0.02em;
+}
+
+.showcaseSubtitle {
+font-size: 1.25rem;
+text-align: center;
+color: #a0aec0;
+margin-bottom: 50px;
+max-width: 800px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.heroSection {
+background-image: url('https://static01.nyt.com/images/2024/01/10/multimedia/10Korean-Fried-Chicken-lfcg/10Korean-Fried-Chicken-lfcg-videoSixteenByNineJumbo1600.jpg');
+background-size: cover;
+background-position: center;
+height: 450px;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+box-shadow: inset 0 0 0 1000px rgba(58, 58, 58, 0.65);
+}
+
+.heroContent {
+text-align: center;
+color: white;
+padding: 20px;
+}
+
+.heroTitle {
+font-size: 4.5rem;
+font-weight: 900;
+margin-bottom: 15px;
+text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+letter-spacing: 2px;
+}
+
+.heroSubtitle {
+font-size: 1.5rem;
+font-weight: 400;
+opacity: 0.95;
+}
+
+.missionSection {
+padding: 80px 5% 60px 5%;
+background-color: white;
+}
+
+.missionGrid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 40px;
+max-width: 1200px;
+margin: 0 auto;
+margin-top: 40px;
+}
+
+.missionText {
+font-size: 1.15rem;
+line-height: 1.8;
+color: #4a5568;
+border-left: 3px solid #e53e3e;
+padding-left: 20px;
+}
+
+.showcaseSection {
+padding: 80px 5% 100px 5%;
+background-color: #1a202c;
+color: white;
+}
+
+.cuisineGrid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 30px;
+max-width: 1300px;
+margin: 0 auto;
+}
+
+.cuisineCard {
+background-color: #2d3748;
+border-radius: 12px;
+padding: 30px;
+text-align: center;
+box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+border: 2px solid transparent;
+}
+
+.cuisineCard:hover {
+transform: translateY(-5px);
+box-shadow: 0 15px 25px rgba(229, 62, 62, 0.3);
+border-color: #e53e3e;
+}
+
+.iconContainer {
+margin-bottom: 25px;
+display: flex;
+justify-content: center;
+}
+
+.cuisineIcon {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+background-color: #2b2b2b;
+padding: 10px;
+object-fit: contain;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.cardTitle {
+font-size: 1.8rem;
+font-weight: 800;
+margin-bottom: 10px;
+color: white;
+}
+
+.cardDescription {
+color: #a0aec0;
+margin-bottom: 20px;
+line-height: 1.6;
+}
+
+.cardLink {
+display: inline-block;
+color: white;
+font-weight: 600;
+text-decoration: none;
+padding: 10px 20px;
+border-radius: 8px;
+background-color: #e53e3e;
+transition: background-color 0.3s;
+}
+
+.cardLink:hover {
+background-color: #c53030;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.ctaSection {
+background-color: #f7fafc;
+padding: 80px 5% 80px 5%;
+text-align: center;
+}
+
+.ctaTitle {
+font-size: 2.5rem;
+font-weight: 800;
+color: #2d3748;
+margin-bottom: 15px;
+}
+
+.ctaText {
+font-size: 1.2rem;
+color: #4a5568;
+margin-bottom: 40px;
+}
+
+.ctaButton {
+display: inline-block;
+padding: 15px 40px;
+font-size: 1.25rem;
+font-weight: 700;
+text-decoration: none;
+color: white;
+background-color: #e53e3e;
+border-radius: 8px;
+transition: transform 0.3s, box-shadow 0.3s;
+box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
+}
+
+.ctaButton:hover {
+background-color: #c53030;
+transform: translateY(-3px);
+box-shadow: 0 10px 25px rgba(229, 62, 62, 0.6);
+}
+
+@media screen and (max-width: 1200px) {
+.heroTitle { font-size: 4rem; }
+}
+
+@media screen and (max-width: 900px) {
+.missionGrid {
+grid-template-columns: 1fr;
+gap: 30px;
+}
+.missionText {
+border-left: none;
+padding-left: 0;
+border-top: 3px solid #e53e3e;
+padding-top: 20px;
+}
+}
+
+@media screen and (max-width: 768px) {
+.heroSection {
+height: 300px;
+}
+.heroTitle {
+font-size: 2.8rem;
+}
+.heroSubtitle {
+font-size: 1rem;
+}
+.sectionHeading {
+font-size: 2rem;
+}
+.missionText {
+font-size: 1rem;
+}
+.cuisineCard {
+padding: 25px;
+}
+.cardTitle {
+font-size: 1.5rem;
+}
+.ctaTitle { font-size: 2rem; }
+.ctaButton { padding: 12px 30px; font-size: 1.1rem; }
+}

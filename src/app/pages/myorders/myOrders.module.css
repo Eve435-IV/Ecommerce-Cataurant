@@ -1,0 +1,121 @@
+
+.ordersPage {
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 70vh; 
+  background-color: #fffefe;
+box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1000px; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heading {
+  padding-bottom: 1.5rem;
+  font-weight: 700; 
+  color: #333;
+}
+
+.ordersScrollArea {
+  width: 100%;
+  max-width: 900px;
+  height: 63.8vh; 
+  overflow-y: auto;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #fc3333; 
+  border: 1px solid #e0e0e0; 
+}
+
+.ordersScrollArea::-webkit-scrollbar {
+  width: 8px;
+}
+.ordersScrollArea::-webkit-scrollbar-thumb {
+  background-color: #787373;
+  border-radius: 4px;
+}
+.ordersScrollArea::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+
+.batchCard {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  background: #ffffff;
+box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s;
+}
+
+.batchCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.batchHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.orderItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee; 
+}
+
+.orderItem:last-child {
+  border-bottom: none;
+}
+
+.orderStatus {
+    display: flex;
+    align-items: center;
+    min-width: 100px; 
+    justify-content: flex-end;
+}
+
+.statusIndicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.loading, .error, .empty {
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 85vh; 
+  /* height: 1000px; */
+  background-color: #ffffff;
+box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1000px; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty {
+    padding: 40px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    border: 1px dashed #ccc;
+    margin-top: 40px;
+}
