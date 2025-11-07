@@ -93,7 +93,7 @@ export default function UserProfilePage() {
   const [updateUser, { loading: updating }] = useMutation(
     UPDATE_USER_MUTATION,
     {
-      onCompleted: (res) => {
+      onCompleted: (res: any) => {
         const { isSuccess, messageEn } = res.updateUser;
         if (isSuccess && user) {
           const token = localStorage.getItem("auth_token") || "";
@@ -117,7 +117,7 @@ export default function UserProfilePage() {
   const [changePassword, { loading: changingPassword }] = useMutation(
     CHANGE_PASSWORD_MUTATION,
     {
-      onCompleted: (res) => {
+      onCompleted: (res: any) => {
         if (res.changePassword.isSuccess) {
           setFeedback({
             message: "Password changed successfully! 🔒",

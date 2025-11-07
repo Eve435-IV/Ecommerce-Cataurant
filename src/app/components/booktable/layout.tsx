@@ -5,7 +5,7 @@ import { Loader2, Lock, CalendarDays, CheckCircle2 } from "lucide-react";
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 import { useAuthStore, AuthStore } from "../../../hooks/AuthStore";
-import { AuthForm } from "../../signup/layout";
+import AuthForm from "../../signup/layout";
 import styles from "./booktable.module.css";
 
 const GRAPHQL_URI = "http://localhost:4000/graphql";

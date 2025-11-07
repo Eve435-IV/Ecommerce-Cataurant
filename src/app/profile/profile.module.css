@@ -1,4 +1,3 @@
-/* --- Global & Container Enhancements (No changes here) --- */
 .container {
   max-width: 1400px;
   margin: 120px auto 10px;
@@ -26,7 +25,6 @@
   }
 }
 
-/* --- Profile Column, Card, Avatar, Display (No changes here) --- */
 .profileColumn {
   border-right: none;
   display: flex;
@@ -109,7 +107,6 @@
   font-weight: 700;
 }
 
-/* --- Form View (No changes here) --- */
 .form { 
   display: flex;
   flex-direction: column;
@@ -147,7 +144,6 @@
   cursor: default;
 }
 
-/* --- Buttons (Recolored) --- */
 .buttonGroup {
   display: flex;
   flex-direction: column; 
@@ -168,21 +164,17 @@
   width: 100%;
 }
 
-/* 🟥 PRIMARY ACTION 1 (Default View): Edit Profile Button 🟥 */
 .editProfile { 
-  /* Light theme color, high contrast border, text color is main red */
   background-color: #ffffff;
   border-color: #B71C1C;
   color: #B71C1C;
 }
 .editProfile:hover {
-  /* Fills with solid red on hover */
   background-color: #B71C1C;
   color: white;
   box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
 }
 
-/* 🟥 PRIMARY ACTION 2 (Form View): Save Changes 🟥 */
 .saveChanges {
   /* Solid main theme color for saving/confirming */
   background-color: #B71C1C;

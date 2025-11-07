@@ -15,7 +15,7 @@ import { ApolloProvider } from "@apollo/client/react";
 import Image from "next/image";
 
 import { useAuthStore, AuthStore } from "../../../hooks/AuthStore";
-import { AuthForm } from "../../signup/layout";
+import AuthForm from "../../signup/layout";
 import styles from "./orderonline.module.css";
 
 interface Product {
