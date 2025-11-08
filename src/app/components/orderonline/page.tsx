@@ -113,9 +113,9 @@ const OrderForm = () => {
         {error && (
           <div className={`${styles.promptCard} ${styles.errorCard}`}>
             <AlertTriangle className={styles.lockIcon} />
-            <p className={styles.promptMessage}>
-              Error loading featured items: {error.message}
-            </p>
+            {/* <p className={styles.promptMessage}>
+              Error loading featured items: {error."err"}
+            </p> */}
           </div>
         )}
 
