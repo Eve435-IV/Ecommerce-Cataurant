@@ -26,7 +26,7 @@ export default function RootLayout({
         <ApolloProviderWrapper>
           <AppRouterCacheProvider>
             <CartProvider>
-              <Navbar />
+              {/* <Navbar /> */}
               <div className="main">{children}</div>
               <Footer />
             </CartProvider>
