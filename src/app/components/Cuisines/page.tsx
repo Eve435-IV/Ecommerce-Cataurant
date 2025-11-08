@@ -32,7 +32,7 @@ const mapCuisineToCategory = (cuisine: string) => {
   }
 };
 
-export default function CuisineLayout({ cuisine = "South Korea" }) {
+export default function CuisinePage({ cuisine = "South Korea" }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialPage = Number(searchParams.get("page")) || 1;
