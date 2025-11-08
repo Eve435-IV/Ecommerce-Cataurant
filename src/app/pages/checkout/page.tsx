@@ -9,6 +9,7 @@ import {
   CREATE_ORDERS,
   OrderInput,
   CreateOrdersResponse,
+  CuisineType, // ✅ from schema
 } from "../../schema/order";
 import { useAuthStore } from "../../../hooks/AuthStore";
 import { normalizeId } from "../../utils/normalize";
@@ -50,7 +51,6 @@ export default function CheckoutPage() {
 
   const handlePayment = async () => {
     if (!user?._id) {
-      // console.log(handlePayment, "handlePayment");
       alert("Please log in to place an order.");
       return router.push("/signup");
     }
@@ -59,15 +59,34 @@ export default function CheckoutPage() {
       return;
     }
 
+    // ✅ Map cuisine safely into valid CuisineType string union
+    const validCuisines: CuisineType[] = [
+      "KHMER",
+      "KOREAN",
+      "JAPANESE",
+      "FAST_FOOD",
+    ];
+
     const orderInputs: OrderInput[] = cartItems
       .filter((item) => item.productId)
-      .map((item) => ({
-        productId: normalizeId(item.productId),
-        quantity: Number(item.quantity) || 1,
-        flavour: item.flavour || [],
-        sideDish: item.sideDish || [],
-        cuisine: item.cuisine,
-      }));
+      .map((item) => {
+        const normalizedCuisine = item.cuisine
+          ?.toUpperCase()
+          .replace(/\s+/g, "_");
+        const cuisine: CuisineType = validCuisines.includes(
+          normalizedCuisine as CuisineType
+        )
+          ? (normalizedCuisine as CuisineType)
+          : "KHMER"; // fallback default
+
+        return {
+          productId: normalizeId(item.productId),
+          quantity: Number(item.quantity) || 1,
+          flavour: item.flavour || [],
+          sideDish: item.sideDish || [],
+          cuisine,
+        };
+      });
 
     if (orderInputs.length === 0) return alert("No valid items to checkout.");
 
@@ -76,9 +95,8 @@ export default function CheckoutPage() {
       const { data } = await createBatchOrder({
         variables: { inputs: orderInputs },
       });
-      console.log(createBatchOrder, "createBatchOrder");
+
       if (data?.createOrders?.success) {
-        console.log(setLoadingPayment, "setLoadingPayment");
         setPaymentSuccess(true);
         clearCart();
       } else {
@@ -115,7 +133,6 @@ export default function CheckoutPage() {
               width={300}
               height={300}
             />
-
             <div className={styles.successTitle}>Payment Successful!</div>
             <div className={styles.successDetails}>
               Thank you for your order.
