@@ -1,4 +1,5 @@
 "use client";
+
 export const dynamic = "force-dynamic";
 
 import React, { useState, useEffect } from "react";
@@ -36,9 +37,9 @@ const mapCuisineToCategory = (cuisine: string) => {
 export default function CuisinePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const defaultCuisine = "South Korea";
+
   const initialPage = Number(searchParams.get("page")) || 1;
-  const initialCuisine = searchParams.get("cuisine") || defaultCuisine;
+  const initialCuisine = searchParams.get("cuisine") || "South Korea";
 
   const [selectedCuisine, setSelectedCuisine] = useState(initialCuisine);
   const [page, setPage] = useState(initialPage);
@@ -50,7 +51,7 @@ export default function CuisinePage() {
     params.set("page", page.toString());
     params.set("cuisine", selectedCuisine);
     router.replace(`?${params.toString()}`, { scroll: false });
-  }, [page, selectedCuisine]);
+  }, [page, selectedCuisine, router]);
 
   const { data, loading, error } = useQuery<GetProductWithPaginationResponse>(
     GET_PRODUCT_PAGINATION,
@@ -74,6 +75,7 @@ export default function CuisinePage() {
     setSelectedProduct(product);
     setPopupOpen(true);
   };
+
   const closePopup = () => {
     setPopupOpen(false);
     setSelectedProduct(null);
