@@ -1,5 +1,5 @@
 "use client";
-export const dynamic = "force-dynamic"; // Disable static generation
+export const dynamic = "force-dynamic";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -33,11 +33,12 @@ const mapCuisineToCategory = (cuisine: string) => {
   }
 };
 
-export default function CuisinePage({ cuisine = "South Korea" }) {
+export default function CuisinePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const defaultCuisine = "South Korea";
   const initialPage = Number(searchParams.get("page")) || 1;
-  const initialCuisine = searchParams.get("cuisine") || cuisine;
+  const initialCuisine = searchParams.get("cuisine") || defaultCuisine;
 
   const [selectedCuisine, setSelectedCuisine] = useState(initialCuisine);
   const [page, setPage] = useState(initialPage);
