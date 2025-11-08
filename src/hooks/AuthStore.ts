@@ -27,12 +27,12 @@ export interface AuthStore {
   resetPassword: (userId: string, newPassword: string) => Promise<void>;
   isInitialized: boolean;
 }
-
 // ==========================
 // Apollo Client
 // ==========================
 const GRAPHQL_URI =
   process.env.NEXT_PUBLIC_GRAPHQL_URI || "http://localhost:4000/graphql";
+
 
 const apolloClient = new ApolloClient({
   link: new HttpLink({ uri: GRAPHQL_URI }),
