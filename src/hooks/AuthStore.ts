@@ -29,14 +29,14 @@ export interface AuthStore {
 //   process.env.NEXT_PUBLIC_GRAPHQL_URI || "http://localhost:4000/graphql";
 
 
-const apolloClient = new ApolloClient({
-  link: new HttpLink({ uri: "https://cataurant-backend-cms.onrender.com"}),
-  cache: new InMemoryCache(),
-});
 // const apolloClient = new ApolloClient({
-//   link: new HttpLink({ uri:  process.env.MONGO_DB ||process.env.NEXT_PUBLIC_GRAPHQL_URI }),
+//   link: new HttpLink({ uri: "https://cataurant-backend-cms.onrender.com"}),
 //   cache: new InMemoryCache(),
 // });
+const apolloClient = new ApolloClient({
+  link: new HttpLink({ uri:process.env.NEXT_PUBLIC_GRAPHQL_URI }),
+  cache: new InMemoryCache(),
+});
 
 
 export const useAuthStore = (): AuthStore => {
