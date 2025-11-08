@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "../../hooks/AuthStore";
 import { Loader2 } from "lucide-react";
 import styles from "./login.module.css";
-import { SignupCustomerInput, SignupResponse } from "../../hooks/AuthStore";
+import { SignupCustomerInput, SignupResponse } from "../schema/users";
 
 // =======================
 // GraphQL Mutation
