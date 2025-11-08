@@ -4,14 +4,16 @@ import { useState, useEffect } from "react";
 import { ApolloClient, InMemoryCache, HttpLink, gql } from "@apollo/client";
 
 // ==========================
-// Interfaces
+// Types
 // ==========================
+export type RoleType = "ADMIN" | "MANAGER" | "STAFF" | "CUSTOMER" | "GUEST";
+
 export interface UserFragment {
   _id: string;
   firstName: string;
   lastName?: string;
   email: string;
-  role: "ADMIN" | "MANAGER" | "STAFF" | "CUSTOMER" | "GUEST";
+  role: RoleType;
   isActive: boolean;
   profileImage?: string;
   createdAt?: string;
@@ -27,7 +29,7 @@ export interface AuthStore {
 }
 
 // ==========================
-// Apollo Client Setup
+// Apollo Client
 // ==========================
 const GRAPHQL_URI =
   process.env.NEXT_PUBLIC_GRAPHQL_URI || "http://localhost:4000/graphql";
@@ -38,16 +40,16 @@ const apolloClient = new ApolloClient({
 });
 
 // ==========================
-// Custom Hook
+// Hook
 // ==========================
 export const useAuthStore = (): AuthStore => {
   const [user, setUser] = useState<UserFragment | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
-  // ✅ Initialize from localStorage (runs once)
+  // Initialize auth from localStorage
   useEffect(() => {
-    if (typeof window === "undefined") return; // SSR safety
+    if (typeof window === "undefined") return;
 
     const storedToken = localStorage.getItem("auth_token");
     const storedUser = localStorage.getItem("auth_user");
@@ -66,7 +68,7 @@ export const useAuthStore = (): AuthStore => {
     setIsInitialized(true);
   }, []);
 
-  // ✅ Login function
+  // Login
   const login = (userData: UserFragment, authToken: string) => {
     setUser(userData);
     setToken(authToken);
@@ -74,7 +76,7 @@ export const useAuthStore = (): AuthStore => {
     localStorage.setItem("auth_user", JSON.stringify(userData));
   };
 
-  // ✅ Logout function
+  // Logout
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -82,7 +84,7 @@ export const useAuthStore = (): AuthStore => {
     localStorage.removeItem("auth_user");
   };
 
-  // ✅ Password Reset Mutation
+  // Reset Password Mutation
   const RESET_PASSWORD = gql`
     mutation ResetUserPassword($id: ID!, $newPassword: String!) {
       resetUserPassword(_id: $id, newPassword: $newPassword) {
@@ -93,10 +95,18 @@ export const useAuthStore = (): AuthStore => {
     }
   `;
 
-  // ✅ resetPassword function
+  // Reset Password function
   const resetPassword = async (userId: string, newPassword: string) => {
     try {
-      const { data } = await apolloClient.mutate({
+      interface ResetPasswordResult {
+        resetUserPassword: {
+          success: boolean;
+          message?: string;
+          khMessage?: string;
+        };
+      }
+
+      const { data } = await apolloClient.mutate<ResetPasswordResult>({
         mutation: RESET_PASSWORD,
         variables: { id: userId, newPassword },
       });
