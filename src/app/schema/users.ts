@@ -6,8 +6,10 @@ export interface UserFragment {
   lastName?: string;
   email: string;
   phoneNumber?: string;
-  role: string;
+  role: "ADMIN" | "MANAGER" | "STAFF" | "CUSTOMER" | "GUEST"; // 👈 FIXED
   isActive: boolean;
+  profileImage?: string;
+  createdAt?: string;
 }
 
 export interface AuthFormData {
