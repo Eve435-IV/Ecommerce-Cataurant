@@ -130,6 +130,7 @@ export default function Navbar() {
                             <div className={styles.cartName}>{item.name}</div>
                             {item.imageUrl && (
                               <Image
+                                alt="image"
                                 src={item.imageUrl}
                                 width={70}
                                 height={70}
