@@ -1,10 +1,11 @@
+// src/app/components/Cuisines/page.tsx
 "use client";
 
 export const dynamic = "force-dynamic";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Action from "./action";
 import OrderPopup from "./popup";
 import styles from "./cuisine.module.css";
@@ -35,23 +36,28 @@ const mapCuisineToCategory = (cuisine: string) => {
 };
 
 export default function CuisinePage() {
+  return <CuisineClient />;
+}
+
+function CuisineClient() {
   const router = useRouter();
 
-  // Wrap useSearchParams inside useEffect to avoid prerender errors
-  const searchParams = useSearchParams();
+  // Client-side state
   const [selectedCuisine, setSelectedCuisine] = useState("South Korea");
   const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    const initialPage = Number(searchParams.get("page")) || 1;
-    const initialCuisine = searchParams.get("cuisine") || "South Korea";
-    setSelectedCuisine(initialCuisine);
-    setPage(initialPage);
-  }, [searchParams]);
-
   const [popupOpen, setPopupOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  // Sync URL query params on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const initialPage = Number(params.get("page")) || 1;
+    const initialCuisine = params.get("cuisine") || "South Korea";
+    setSelectedCuisine(initialCuisine);
+    setPage(initialPage);
+  }, []);
+
+  // Update URL whenever page or cuisine changes
   useEffect(() => {
     const params = new URLSearchParams();
     params.set("page", page.toString());
@@ -59,6 +65,7 @@ export default function CuisinePage() {
     router.replace(`?${params.toString()}`, { scroll: false });
   }, [page, selectedCuisine, router]);
 
+  // Apollo query
   const { data, loading, error } = useQuery<GetProductWithPaginationResponse>(
     GET_PRODUCT_PAGINATION,
     {
@@ -81,6 +88,7 @@ export default function CuisinePage() {
     setSelectedProduct(product);
     setPopupOpen(true);
   };
+
   const closePopup = () => {
     setPopupOpen(false);
     setSelectedProduct(null);
@@ -88,6 +96,7 @@ export default function CuisinePage() {
 
   return (
     <div className={styles.pageWrapper}>
+      {/* Cuisine selector */}
       <div className={styles.cuisineSelectorBar}>
         {CUISINE_OPTIONS.map((c) => (
           <button
@@ -105,10 +114,12 @@ export default function CuisinePage() {
         ))}
       </div>
 
+      {/* Loading / Error */}
       {loading && <div>Loading...</div>}
       {error && <div>{error.message}</div>}
       {!loading && products.length === 0 && <div>No dishes found.</div>}
 
+      {/* Product grid */}
       <div className={styles.container}>
         {products.map((product) => (
           <div key={normalizeId(product._id)} className={styles.box}>
@@ -134,6 +145,7 @@ export default function CuisinePage() {
         ))}
       </div>
 
+      {/* Pagination */}
       <div className={styles.paginationControls}>
         <button
           onClick={() => page > 1 && setPage(page - 1)}
@@ -154,6 +166,7 @@ export default function CuisinePage() {
         </button>
       </div>
 
+      {/* Order popup */}
       {selectedProduct && (
         <OrderPopup
           open={popupOpen}
