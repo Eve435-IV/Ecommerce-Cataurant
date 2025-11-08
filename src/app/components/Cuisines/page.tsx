@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic"; // Disable static generation
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -32,24 +33,23 @@ const mapCuisineToCategory = (cuisine: string) => {
   }
 };
 
-export default function CuisinePage() {
+export default function CuisinePage({ cuisine = "South Korea" }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialPage = Number(searchParams.get("page")) || 1;
-  const initialCuisine = searchParams.get("cuisine") || "South Korea";
+  const initialCuisine = searchParams.get("cuisine") || cuisine;
 
   const [selectedCuisine, setSelectedCuisine] = useState(initialCuisine);
   const [page, setPage] = useState(initialPage);
   const [popupOpen, setPopupOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Sync URL with page & cuisine
   useEffect(() => {
     const params = new URLSearchParams();
     params.set("page", page.toString());
     params.set("cuisine", selectedCuisine);
     router.replace(`?${params.toString()}`, { scroll: false });
-  }, [page, selectedCuisine, router]);
+  }, [page, selectedCuisine]);
 
   const { data, loading, error } = useQuery<GetProductWithPaginationResponse>(
     GET_PRODUCT_PAGINATION,
@@ -80,7 +80,6 @@ export default function CuisinePage() {
 
   return (
     <div className={styles.pageWrapper}>
-      {/* Cuisine Selector */}
       <div className={styles.cuisineSelectorBar}>
         {CUISINE_OPTIONS.map((c) => (
           <button
@@ -98,12 +97,10 @@ export default function CuisinePage() {
         ))}
       </div>
 
-      {/* Loading / Error / Empty */}
       {loading && <div>Loading...</div>}
       {error && <div>{error.message}</div>}
       {!loading && products.length === 0 && <div>No dishes found.</div>}
 
-      {/* Products Grid */}
       <div className={styles.container}>
         {products.map((product) => (
           <div key={normalizeId(product._id)} className={styles.box}>
@@ -129,7 +126,6 @@ export default function CuisinePage() {
         ))}
       </div>
 
-      {/* Pagination */}
       <div className={styles.paginationControls}>
         <button
           onClick={() => page > 1 && setPage(page - 1)}
@@ -150,7 +146,6 @@ export default function CuisinePage() {
         </button>
       </div>
 
-      {/* Order Popup */}
       {selectedProduct && (
         <OrderPopup
           open={popupOpen}
