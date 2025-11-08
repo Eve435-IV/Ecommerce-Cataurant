@@ -36,13 +36,19 @@ const mapCuisineToCategory = (cuisine: string) => {
 
 export default function CuisinePage() {
   const router = useRouter();
+
+  // Wrap useSearchParams inside useEffect to avoid prerender errors
   const searchParams = useSearchParams();
+  const [selectedCuisine, setSelectedCuisine] = useState("South Korea");
+  const [page, setPage] = useState(1);
 
-  const initialPage = Number(searchParams.get("page")) || 1;
-  const initialCuisine = searchParams.get("cuisine") || "South Korea";
+  useEffect(() => {
+    const initialPage = Number(searchParams.get("page")) || 1;
+    const initialCuisine = searchParams.get("cuisine") || "South Korea";
+    setSelectedCuisine(initialCuisine);
+    setPage(initialPage);
+  }, [searchParams]);
 
-  const [selectedCuisine, setSelectedCuisine] = useState(initialCuisine);
-  const [page, setPage] = useState(initialPage);
   const [popupOpen, setPopupOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -75,7 +81,6 @@ export default function CuisinePage() {
     setSelectedProduct(product);
     setPopupOpen(true);
   };
-
   const closePopup = () => {
     setPopupOpen(false);
     setSelectedProduct(null);
