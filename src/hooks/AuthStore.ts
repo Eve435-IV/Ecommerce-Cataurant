@@ -26,7 +26,7 @@ export interface AuthStore {
 }
 
 // const GRAPHQL_URI =
-//   process.env.NEXT_PUBLIC_GRAPHQL_URI || "http://localhost:4000/graphql";
+//   process.env.NEXT_PUBLIC_MONGO_DB || "http://localhost:4000/graphql";
 
 
 // const apolloClient = new ApolloClient({
@@ -34,7 +34,7 @@ export interface AuthStore {
 //   cache: new InMemoryCache(),
 // });
 const apolloClient = new ApolloClient({
-  link: new HttpLink({ uri:process.env.NEXT_PUBLIC_GRAPHQL_URI }),
+  link: new HttpLink({ uri: process.env.NEXT_PUBLIC_GRAPHQL_URI || "https://cataurant-backend-cms.onrender.com" }),
   cache: new InMemoryCache(),
 });
 
