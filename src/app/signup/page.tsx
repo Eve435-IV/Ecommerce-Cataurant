@@ -21,7 +21,7 @@ const SIGNUP_CUSTOMER = gql`
         firstName
         lastName
         email
-        phoneNumber
+        # phoneNumber
         role
         isActive
       }
