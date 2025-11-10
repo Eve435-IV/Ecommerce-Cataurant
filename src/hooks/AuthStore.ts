@@ -95,18 +95,33 @@ export const useAuthStore = (): AuthStore => {
   `;
 
   const resetPassword = async (userId: string, newPassword: string) => {
-    try {
-      const { data } = await apolloClient.mutate({
-        mutation: RESET_PASSWORD,
-        variables: { id: userId, newPassword },
-      });
-      const result = data?.resetUserPassword;
-      if (result?.success) alert(result.message || "Password reset successfully");
-      else alert(result?.message || "Password reset failed");
-    } catch (error: any) {
-      alert(`Error: ${error.message}`);
+  try {
+    // define the TypeScript type for the mutation result
+    interface ResetPasswordResult {
+      resetUserPassword: {
+        success: boolean;
+        message?: string;
+        khMessage?: string;
+      };
     }
-  };
+
+    const { data } = await apolloClient.mutate<ResetPasswordResult>({
+      mutation: RESET_PASSWORD,
+      variables: { id: userId, newPassword },
+    });
+
+    const result = data?.resetUserPassword;
+
+    if (result?.success) {
+      alert(result.message || "Password reset successfully");
+    } else {
+      alert(result?.message || "Password reset failed");
+    }
+  } catch (error: any) {
+    alert(`Error: ${error.message}`);
+  }
+};
+
 
   return { user, token, login, logout, resetPassword, isInitialized };
 };
