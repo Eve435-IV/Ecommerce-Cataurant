@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ApolloClient, InMemoryCache, HttpLink, gql } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink, ApolloLink, gql } from "@apollo/client";
 
 export type RoleType = "ADMIN" | "MANAGER" | "STAFF" | "CUSTOMER" | "GUEST";
 
@@ -25,19 +25,27 @@ export interface AuthStore {
   isInitialized: boolean;
 }
 
-// const GRAPHQL_URI =
-//   process.env.NEXT_PUBLIC_MONGO_DB || "http://localhost:4000/graphql";
+// Apollo Client with auth token middleware
+const GRAPHQL_URI = process.env.NEXT_PUBLIC_GRAPHQL_URI || "https://cataurant-backend-cms.onrender.com/graphql";
 
-
-// const apolloClient = new ApolloClient({
-//   link: new HttpLink({ uri: "https://cataurant-backend-cms.onrender.com"}),
-//   cache: new InMemoryCache(),
-// });
-const apolloClient = new ApolloClient({
-  link: new HttpLink({ uri: process.env.NEXT_PUBLIC_GRAPHQL_URI || "https://cataurant-backend-cms.onrender.com" }),
-  cache: new InMemoryCache(),
+const authLink = new ApolloLink((operation, forward) => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      operation.setContext({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+  }
+  return forward(operation);
 });
 
+const apolloClient = new ApolloClient({
+  link: authLink.concat(new HttpLink({ uri: GRAPHQL_URI })),
+  cache: new InMemoryCache(),
+});
 
 export const useAuthStore = (): AuthStore => {
   const [user, setUser] = useState<UserFragment | null>(null);
@@ -55,12 +63,10 @@ export const useAuthStore = (): AuthStore => {
         setUser(JSON.parse(storedUser));
         setToken(storedToken);
       } catch {
-        console.warn("Invalid auth data, clearing storage.");
-        localStorage.removeItem("auth_user");
         localStorage.removeItem("auth_token");
+        localStorage.removeItem("auth_user");
       }
     }
-
     setIsInitialized(true);
   }, []);
 
@@ -90,26 +96,13 @@ export const useAuthStore = (): AuthStore => {
 
   const resetPassword = async (userId: string, newPassword: string) => {
     try {
-      interface ResetPasswordResult {
-        resetUserPassword: {
-          success: boolean;
-          message?: string;
-          khMessage?: string;
-        };
-      }
-
-      const { data } = await apolloClient.mutate<ResetPasswordResult>({
+      const { data } = await apolloClient.mutate({
         mutation: RESET_PASSWORD,
         variables: { id: userId, newPassword },
       });
-
       const result = data?.resetUserPassword;
-
-      if (result?.success) {
-        alert(`${result.message || "Password reset successfully"}`);
-      } else {
-        alert(`${result?.message || "Password reset failed"}`);
-      }
+      if (result?.success) alert(result.message || "Password reset successfully");
+      else alert(result?.message || "Password reset failed");
     } catch (error: any) {
       alert(`Error: ${error.message}`);
     }

@@ -6,7 +6,7 @@ import { useMutation } from "@apollo/client/react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "../../hooks/AuthStore";
 import { Loader2 } from "lucide-react";
-import styles from "./login.module.css";
+import styles from "./signup.module.css";
 import { SignupCustomerInput, SignupResponse } from "../schema/users";
 
 // =======================
@@ -45,7 +45,6 @@ export default function SignupPage() {
 
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  // ✅ Properly typed mutation
   const [signupMutation, { loading, error }] = useMutation<
     SignupResponse,
     { input: SignupCustomerInput }
@@ -74,54 +73,102 @@ export default function SignupPage() {
   };
 
   return (
-    <div className={styles.signupContainer}>
-      <h2>Create Account</h2>
+    <div className={styles["auth-wrapper"]}>
+      <div className={styles["auth-card"]}>
+        <div className={styles["auth-header"]}>Create Account</div>
 
-      {feedback && <div className={styles.feedbackMessage}>{feedback}</div>}
+        {feedback && (
+          <div
+            className={`${styles["message-box"]} ${
+              feedback.includes("success")
+                ? styles["success-message"]
+                : styles["error-message"]
+            }`}
+          >
+            <p>{feedback}</p>
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit} className={styles.signupForm}>
-        <input
-          name="firstName"
-          type="text"
-          placeholder="First Name"
-          value={formData.firstName}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="lastName"
-          type="text"
-          placeholder="Last Name"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+        {error && (
+          <div
+            className={`${styles["message-box"]} ${styles["error-message"]}`}
+          >
+            <p>{error.message}</p>
+          </div>
+        )}
 
-        <button
-          type="submit"
-          className={styles.signupButton}
-          disabled={loading}
-        >
-          {loading ? <Loader2 className="animate-spin" /> : "Sign Up"}
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className={styles["auth-form"]}>
+          <div className={styles["input-group"]}>
+            <div className={styles["field-wrapper"]}>
+              <label className={styles["input-label"]}>First Name</label>
+              <input
+                name="firstName"
+                type="text"
+                className={styles["auth-input"]}
+                placeholder="Enter first name"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-      {error && <div className={styles.errorMessage}>{error.message}</div>}
+            <div className={styles["field-wrapper"]}>
+              <label className={styles["input-label"]}>Last Name</label>
+              <input
+                name="lastName"
+                type="text"
+                className={styles["auth-input"]}
+                placeholder="Enter last name"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className={styles["field-wrapper"]}>
+            <label className={styles["input-label"]}>Email</label>
+            <input
+              name="email"
+              type="email"
+              className={styles["auth-input"]}
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className={styles["field-wrapper"]}>
+            <label className={styles["input-label"]}>Password</label>
+            <input
+              name="password"
+              type="password"
+              className={styles["auth-input"]}
+              placeholder="Enter password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className={styles["main-auth-button"]}
+            disabled={loading}
+          >
+            {loading ? <Loader2 className={styles["spin"]} /> : "Sign Up"}
+          </button>
+        </form>
+
+        <div className={styles["toggle-buttons-wrapper"]}>
+          <button
+            className={`${styles["toggle-button"]} ${styles["inactive"]}`}
+            onClick={() => router.push("/login")}
+          >
+            Already have an account? Login
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

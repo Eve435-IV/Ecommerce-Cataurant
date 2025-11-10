@@ -5,9 +5,10 @@ import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client/react";
 import { useAuthStore, UserFragment } from "../../hooks/AuthStore";
 import { useRouter } from "next/navigation";
-import styles from "./profile.module.css";
 import { OrderBatchPaginator } from "../schema/order";
-// ================== GRAPHQL QUERIES & MUTATIONS ==================
+import styles from "./profile.module.css";
+
+// ================== GRAPHQL ==================
 const UPDATE_USER_MUTATION = gql`
   mutation UpdateUser($id: ID!, $input: UserUpdateInput) {
     updateUser(_id: $id, input: $input) {
@@ -75,6 +76,7 @@ export default function UserProfilePage() {
 
   const [isEditing, setIsEditing] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showImageButton, setShowImageButton] = useState(false); // show small "change picture" button
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -106,6 +108,7 @@ export default function UserProfilePage() {
             isError: false,
           });
           setIsEditing(false);
+          setShowChangePassword(false);
         } else {
           setFeedback({
             message: messageEn || "Profile update failed.",
@@ -143,7 +146,7 @@ export default function UserProfilePage() {
     }
   );
 
-  // ================== QUERY (✅ with correct type) ==================
+  // ================== QUERY ==================
   const {
     data: completedData,
     loading: completedLoading,
@@ -152,10 +155,9 @@ export default function UserProfilePage() {
     variables: { page: 1, limit: 20, pagination: true, isCompleted: true },
     fetchPolicy: "network-only",
   });
-
   const completedBatches = completedData?.getOrderWithPagination?.data || [];
 
-  // ================== EFFECTS ==================
+  // ================== EFFECT ==================
   useEffect(() => {
     if (user) {
       setFormData({
@@ -171,7 +173,7 @@ export default function UserProfilePage() {
     if (!user) router.push("/signup");
 
     if (feedback && !feedback.isError) {
-      const timer = setTimeout(() => setFeedback(null), 1000);
+      const timer = setTimeout(() => setFeedback(null), 2000);
       return () => clearTimeout(timer);
     }
   }, [user, isInitialized, feedback]);
@@ -179,7 +181,6 @@ export default function UserProfilePage() {
   // ================== HANDLERS ==================
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
     setPasswordForm({ ...passwordForm, [e.target.name]: e.target.value });
 
@@ -201,7 +202,6 @@ export default function UserProfilePage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setFeedback(null);
     if (!user?._id || updating) return;
     const { firstName, lastName, profileImage } = formData;
     updateUser({
@@ -211,7 +211,6 @@ export default function UserProfilePage() {
 
   const handlePasswordSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setFeedback(null);
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
       setFeedback({ message: "New passwords do not match.", isError: true });
       return;
@@ -251,28 +250,166 @@ export default function UserProfilePage() {
 
   return (
     <div className={styles.container}>
+      {/* Profile Column */}
       <div className={styles.profileColumn}>
-        <h2>
-          {isEditing
-            ? "Edit Profile"
-            : showChangePassword
-            ? "Change Password"
-            : "Profile Details"}
-        </h2>
+        <h2>{isEditing ? "Edit Profile" : "Profile Details"}</h2>
 
         {feedback && (
           <div
             className={`${styles.message} ${
               feedback.isError ? styles.messageError : styles.messageSuccess
             }`}
-            style={{ marginBottom: "1.5rem", width: "100%", maxWidth: "350px" }}
           >
             {feedback.message}
           </div>
         )}
 
-        {/* Profile Card */}
-        {/* ...same JSX as before... */}
+        <div className={styles.profileCard}>
+          <div
+            className={styles.avatarWrapper}
+            style={{ position: "relative" }}
+          >
+            {preview ? (
+              <img
+                src={preview}
+                className={styles.profileImage}
+                alt="Profile"
+                onClick={() => setShowImageButton(!showImageButton)}
+              />
+            ) : (
+              <div
+                className={styles.emptyAvatarStatic}
+                onClick={() => setShowImageButton(!showImageButton)}
+              >
+                {user.firstName.charAt(0)}
+              </div>
+            )}
+
+            {/* Small Change Image Button */}
+            {showImageButton && (
+              <button
+                type="button"
+                className={styles.forgotPassword}
+                style={{ marginTop: "8px", fontSize: "0.85rem" }}
+                onClick={() => document.getElementById("fileInput")?.click()}
+              >
+                Change Profile Picture
+              </button>
+            )}
+          </div>
+
+          {/* Username & Email */}
+          <div className={styles.usernameDisplay}>
+            <p>
+              <strong>
+                {user.firstName} {user.lastName || ""}
+              </strong>
+            </p>
+            <p>{user.email}</p>
+          </div>
+
+          <input
+            type="file"
+            id="fileInput"
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
+
+          {!isEditing ? (
+            <div className={styles.buttonGroup}>
+              <button
+                type="button"
+                onClick={() => setIsEditing(true)}
+                className={styles.editProfile}
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className={styles.LogoutProfile}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <label className={styles.dataLabel}>First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+
+              <label className={styles.dataLabel}>Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+
+              {showChangePassword && (
+                <>
+                  <label className={styles.dataLabel}>Old Password</label>
+                  <input
+                    type="password"
+                    name="oldPassword"
+                    value={passwordForm.oldPassword}
+                    onChange={handlePasswordChange}
+                  />
+
+                  <label className={styles.dataLabel}>New Password</label>
+                  <input
+                    type="password"
+                    name="newPassword"
+                    value={passwordForm.newPassword}
+                    onChange={handlePasswordChange}
+                  />
+
+                  <label className={styles.dataLabel}>Confirm Password</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={passwordForm.confirmPassword}
+                    onChange={handlePasswordChange}
+                  />
+                </>
+              )}
+
+              <div className={styles.buttonGroup}>
+                <button type="submit" className={styles.saveChanges}>
+                  {updating || changingPassword ? "Saving..." : "Save Changes"}
+                </button>
+                <button
+                  type="button"
+                  className={styles.forgotPassword}
+                  onClick={() => setShowChangePassword(!showChangePassword)}
+                >
+                  Change Password
+                </button>
+                {preview && (
+                  <button
+                    type="button"
+                    className={styles.forgotPassword}
+                    onClick={handleRemoveImage}
+                  >
+                    Remove Profile Image
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className={styles.forgotPassword}
+                  onClick={handleCancelEdit}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
       </div>
 
       {/* Orders History */}
@@ -289,45 +426,36 @@ export default function UserProfilePage() {
             {completedBatches.map((batch) => (
               <div key={batch.batchId} className={styles.batchCard}>
                 <p>
-                  <strong>Batch ID:</strong> {batch.batchId} |
-                  <strong>Date:</strong>
+                  <strong>Batch ID:</strong> {batch.batchId} |{" "}
+                  <strong>Date:</strong>{" "}
                   {batch.orderDate
-                    ? (() => {
-                        const timestamp = Number(batch.orderDate);
-                        const d = new Date(timestamp);
-                        return isNaN(d.getTime())
-                          ? "Invalid Date"
-                          : d.toLocaleString("en-US", {
-                              year: "numeric",
-                              month: "short",
-                              day: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            });
-                      })()
+                    ? new Date(Number(batch.orderDate)).toLocaleString()
                     : "N/A"}
                 </p>
                 <ul className={styles.orderList}>
                   {batch.orders.map((order) => (
                     <li key={order._id} className={styles.orderItem}>
                       <span>
-                        {order.productId?.name || "Unknown Product"} ×
-                        {order.quantity} — $
-                        {(order.productId?.price || 0 * order.quantity).toFixed(
-                          2
-                        )}
+                        {order.productId?.name || "Unknown"} × {order.quantity}{" "}
+                        — $
+                        {(
+                          Number(order.productId?.price || 0) * order.quantity
+                        ).toFixed(2)}
                       </span>
-                      {(order.flavour?.length > 0 ||
-                        order.sideDish?.length > 0) && (
+                      {(order.flavour?.length ||
+                        order.sideDish?.length ||
+                        order.cuisine) && (
                         <span className={styles.orderExtras}>
-                          {order.flavour?.length > 0 &&
-                            `Flavours: ${order.flavour.join(", ")}`}
-                          {order.flavour?.length > 0 &&
-                            order.sideDish?.length > 0 &&
-                            " | "}
-                          {order.sideDish?.length > 0 &&
-                            `Sides: ${order.sideDish.join(", ")}`}
-                          {order.cuisine && ` | Cuisine: ${order.cuisine}`}
+                          {order.flavour?.length
+                            ? `Flavours: ${order.flavour.join(", ")}`
+                            : ""}
+                          {order.flavour?.length && order.sideDish?.length
+                            ? " | "
+                            : ""}
+                          {order.sideDish?.length
+                            ? `Sides: ${order.sideDish.join(", ")}`
+                            : ""}
+                          {order.cuisine ? ` | Cuisine: ${order.cuisine}` : ""}
                         </span>
                       )}
                       <span className={styles.orderStatus}>
