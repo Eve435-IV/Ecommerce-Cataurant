@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
 import { useRouter } from "next/navigation";
@@ -53,6 +53,9 @@ const LOGIN_CUSTOMER = gql`
   }
 `;
 
+// =======================
+// Component
+// =======================
 export default function AuthPage() {
   const router = useRouter();
   const { login } = useAuthStore();
@@ -124,9 +127,6 @@ export default function AuthPage() {
     }
   };
 
-  // =======================
-  // JSX
-  // =======================
   return (
     <div className={styles["auth-wrapper"]}>
       <div className={styles["auth-card"]}>

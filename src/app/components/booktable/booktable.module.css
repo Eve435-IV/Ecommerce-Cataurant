@@ -1,21 +1,29 @@
 .pageContainer {
-  margin-top: 100px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  min-height: 70vh;
-  background-color: #fefcfb;
-  padding: 3rem 0.75rem;
+  margin-top: 110px;
+  border-radius: 12px;
+  min-height: 86vh;
+  background-color: #fff;
+  padding: 3rem 2rem;
+  color: #1f2937;
   font-family: "Inter", sans-serif;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  width: 1290px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ===== Loading ===== */
+.loadingWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.loadingContainer {
-  display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 80vh;
+  gap: 0.5rem;
 }
 
 .loadingIcon {
@@ -26,87 +34,89 @@
 }
 
 .loadingText {
-  margin-left: 0.5rem;
   font-size: 1rem;
   color: #6b7280;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.promptContainer {
-  max-width: 38rem;
+/* ===== Login Prompt ===== */
+.promptWrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   align-items: center;
+  gap: 2rem;
 }
 
 .promptCard {
-  position: absolute;
   text-align: center;
-  background: #fff;
-  margin-top: 0px;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 15px 20px -5px rgba(0,0,0,0.08);
-  border-left: 3px solid #ef4444;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); */
+  border-top: 4px solid #ef4444;
 }
 
 .lockIcon {
-  width: 2rem;
-  height: 2rem;
+  width: 2.2rem;
+  height: 2.2rem;
   color: #ef4444;
-  margin: 0 auto 0.75rem auto;
+  margin-bottom: 0.75rem;
 }
 
 .promptTitle {
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  font-weight: 700;
   color: #111827;
 }
 
 .promptMessage {
   font-size: 1rem;
   color: #4b5563;
+  margin: 0.25rem 0;
 }
 
 .promptAction {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #ef4444;
 }
 
-.formCard {
+.authBox {
   width: 100%;
-  max-width: 500px;
-  background: #fff;
-  border-radius: 0.75rem;
-  padding: 2rem;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-  border: 1px solid #f3f4f6;
+  max-width: 450px;
+}
+
+/* ===== Form Section ===== */
+.formWrapper {
   display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.formCard {
+  background: #fff;
+  border-radius: 1rem;
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); */
+  padding: 2.5rem 3rem;
+  width: 100%;
+  max-width: 700px;
 }
 
 .header {
   text-align: center;
   border-bottom: 1px solid #fee2e2;
   padding-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .headerIcon {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2rem;
+  height: 2rem;
   color: #ef4444;
-  margin: 0 auto 0.75rem auto;
+  margin: 0 auto 0.5rem;
 }
 
 .headerTitle {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #111827;
 }
@@ -114,12 +124,14 @@
 .headerSubtitle {
   font-size: 1rem;
   color: #6b7280;
+  max-width: 420px;
+  margin: 0.5rem auto 0;
 }
 
-.fieldGroup {
+.formBody {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 1.25rem;
 }
 
 .fieldRow {
@@ -135,8 +147,9 @@
 
 .label {
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #4b5563;
+  margin-bottom: 0.3rem;
 }
 
 .input,
@@ -146,20 +159,22 @@
   border-radius: 0.6rem;
   font-size: 0.95rem;
   color: #1f2937;
+  transition: all 0.2s ease-in-out;
 }
 
 .input:focus,
 .select:focus {
   outline: none;
   border-color: #ef4444;
-  box-shadow: 0 0 0 2px rgba(239,68,68,0.15);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
 }
 
+/* ===== Button ===== */
 .submitButton {
   background: linear-gradient(to right, #ef4444, #dc2626);
   color: #fff;
   font-weight: 700;
-  padding: 0.75rem;
+  padding: 0.8rem;
   border-radius: 0.6rem;
   font-size: 1rem;
   cursor: pointer;
@@ -168,6 +183,7 @@
   align-items: center;
   gap: 6px;
   border: none;
+  margin-top: 1.5rem;
   transition: all 0.2s ease-in-out;
 }
 
@@ -185,6 +201,7 @@
   animation: spin 1s linear infinite;
 }
 
+/* ===== Success Box ===== */
 .successBox {
   display: flex;
   align-items: center;
@@ -195,13 +212,19 @@
   color: #059669;
   border-radius: 0.6rem;
   padding: 0.6rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   animation: fadeIn 0.3s ease-in-out;
 }
 
 .successIcon {
   width: 1.2rem;
   height: 1.2rem;
+}
+
+/* Animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes fadeIn {

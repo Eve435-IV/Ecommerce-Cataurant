@@ -9,6 +9,9 @@ color: #2d3748;
 font-family: 'Inter', sans-serif;
 overflow-x: hidden;
 box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+width: 1300px;
+margin-left: auto;
+margin-right: auto;
 }
 
 .sectionHeading {

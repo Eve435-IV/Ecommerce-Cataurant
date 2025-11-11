@@ -3,17 +3,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import { GET_MY_ORDERS } from "../../schema/order";
-import {
-  Box,
-  Typography,
-  Paper,
-  Divider,
-  CircularProgress,
-  Tabs,
-  Tab,
-  List,
-  ListItem,
-} from "@mui/material";
 import { formatDistanceToNow, isValid } from "date-fns";
 import styles from "./myOrders.module.css";
 import {
@@ -36,9 +25,7 @@ export default function MyOrdersPage() {
 
   const { data, loading, error } = useQuery<GetMyOrdersResponse>(
     GET_MY_ORDERS,
-    {
-      fetchPolicy: "network-only",
-    }
+    { fetchPolicy: "network-only" }
   );
 
   const formatDate = (timestamp: string) => {
@@ -51,14 +38,18 @@ export default function MyOrdersPage() {
 
   if (loading)
     return (
-      <Box>
-        <CircularProgress /> Loading orders...
-      </Box>
+      <div className={styles.loading}>
+        <p>Loading orders...</p>
+      </div>
     );
 
-  if (error) return <Box>Error loading orders: {error.message}</Box>;
+  if (error)
+    return (
+      <div className={styles.error}>
+        <p>Error loading orders: {error.message}</p>
+      </div>
+    );
 
-  // Client-side filtering since backend does not support `isCompleted` argument
   const batches: OrderBatch[] =
     data?.getMyOrders
       ?.map((batch) => ({
@@ -68,60 +59,93 @@ export default function MyOrdersPage() {
       .filter((batch) => batch.orders.length > 0) || [];
 
   return (
-    <Box className={styles.ordersPage}>
-      <Typography variant="h4">My Orders</Typography>
-      <Tabs
-        value={selectedTab}
-        onChange={(_, newVal) => setSelectedTab(newVal)}
+    <div className={styles.ordersPage}>
+      <h2 className={styles.heading}>My Orders</h2>
+
+      {/* Tabs */}
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          marginBottom: "20px",
+        }}
       >
-        <Tab label="Active Orders" />
-        <Tab label="Completed Orders" />
-      </Tabs>
+        <button
+          onClick={() => setSelectedTab(0)}
+          style={{
+            padding: "8px 20px",
+            borderRadius: "20px",
+            border: "1px solid #ccc",
+            backgroundColor: !isCompletedTab ? "#ff5c5c" : "#fff",
+            fontWeight: !isCompletedTab ? 700 : 700,
+            color: !isCompletedTab ? "White" : "black",
+            cursor: "pointer",
+            transition: "0.2s",
+          }}
+        >
+          Active Orders
+        </button>
+        <button
+          onClick={() => setSelectedTab(1)}
+          style={{
+            padding: "8px 20px",
+            borderRadius: "20px",
+            border: "1px solid #ccc",
+            backgroundColor: !isCompletedTab ? "#fff" : "#ff5c5c",
+            fontWeight: !isCompletedTab ? 700 : 700,
+            color: !isCompletedTab ? "black" : "white",
+            cursor: "pointer",
+            transition: "0.2s",
+          }}
+        >
+          Completed Orders
+        </button>
+      </div>
 
       {batches.length === 0 ? (
-        <Typography>
+        <div className={styles.empty}>
           No {isCompletedTab ? "completed" : "active"} orders.
-        </Typography>
+        </div>
       ) : (
-        <List>
+        <div className={styles.ordersScrollArea}>
           {batches.map((batch) => (
-            <Paper key={batch.batchId} sx={{ mb: 2, p: 2 }}>
-              <Typography>Batch ID: {batch.batchId}</Typography>
-              <Typography>Order Date: {formatDate(batch.orderDate)}</Typography>
-              <Divider sx={{ my: 1 }} />
+            <div key={batch.batchId} className={styles.batchCard}>
+              <div className={styles.batchHeader}>
+                <span>Batch ID: {batch.batchId}</span>
+                <span>Order Date: {formatDate(batch.orderDate)}</span>
+              </div>
               {batch.orders.map((order: Order) => {
                 const status: OrderStatus | "Completed" = order.isCompleted
                   ? "Completed"
                   : order.status || OrderStatus.Pending;
                 const color = statusColors[status] || "#000";
 
-                // Fix red underline: default to empty arrays
                 const flavours = order.flavour || [];
                 const sides = order.sideDish || [];
 
                 return (
-                  <ListItem key={order._id}>
-                    {order.productId?.name} x {order.quantity} - $
-                    {order.productId?.price * order.quantity}
-                    {flavours.length > 0 &&
-                      ` | Flavours: ${flavours.join(", ")}`}
-                    {sides.length > 0 && ` | Sides: ${sides.join(", ")}`}
-                    <span
-                      style={{
-                        backgroundColor: color,
-                        marginLeft: 10,
-                        padding: "2px 5px",
-                      }}
-                    >
+                  <div key={order._id} className={styles.orderItem}>
+                    <div>
+                      {order.productId?.name} x {order.quantity} - $
+                      {order.productId?.price * order.quantity}
+                      {flavours.length > 0 &&
+                        ` | Flavours: ${flavours.join(", ")}`}
+                      {sides.length > 0 && ` | Sides: ${sides.join(", ")}`}
+                    </div>
+                    <div className={styles.orderStatus}>
+                      <span
+                        className={styles.statusIndicator}
+                        style={{ backgroundColor: color }}
+                      ></span>
                       {status}
-                    </span>
-                  </ListItem>
+                    </div>
+                  </div>
                 );
               })}
-            </Paper>
+            </div>
           ))}
-        </List>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }

@@ -1,24 +1,33 @@
 "use client";
 
 import React, { useState } from "react";
-import { Loader2, Lock, CalendarDays, CheckCircle2 } from "lucide-react";
+import {
+  Loader2,
+  Lock,
+  CalendarDays,
+  CheckCircle2,
+  Utensils,
+} from "lucide-react";
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 import { useAuthStore, AuthStore } from "../../../hooks/AuthStore";
-import AuthForm from "../../signup/layout"; // default import
+import AuthForm from "../../signup/layout";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import styles from "./booktable.module.css";
 
 const GRAPHQL_URI = "http://localhost:4000/graphql";
-
-const httpLink = new HttpLink({ uri: GRAPHQL_URI });
-const client = new ApolloClient({ link: httpLink, cache: new InMemoryCache() });
+const client = new ApolloClient({
+  link: new HttpLink({ uri: GRAPHQL_URI }),
+  cache: new InMemoryCache(),
+});
 
 export default function BookATable() {
   const { user, isInitialized } = useAuthStore() as AuthStore;
 
   if (!isInitialized) {
     return (
-      <div className={styles.loadingContainer}>
+      <div className={styles.loadingWrapper}>
         <Loader2 className={styles.loadingIcon} />
         <p className={styles.loadingText}>Loading...</p>
       </div>
@@ -35,7 +44,7 @@ export default function BookATable() {
 }
 
 const LoginPrompt = () => (
-  <div className={styles.promptContainer}>
+  <div className={styles.promptWrapper}>
     <div className={styles.promptCard}>
       <Lock className={styles.lockIcon} />
       <h1 className={styles.promptTitle}>Book a Table</h1>
@@ -44,16 +53,15 @@ const LoginPrompt = () => (
       </p>
       <p className={styles.promptAction}>Please Sign Up or Log In below.</p>
     </div>
-
-    {/* AuthForm now works without children */}
-    <AuthForm />
+    <div className={styles.authBox}>
+      <AuthForm />
+    </div>
   </div>
 );
 
 const BookTableForm = () => {
-  const [selectedTable, setSelectedTable] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [selectedCuisine, setSelectedCuisine] = useState("");
+  const [dateTime, setDateTime] = useState<Date | null>(null);
   const [guests, setGuests] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -65,70 +73,64 @@ const BookTableForm = () => {
       setIsSubmitting(false);
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
-    }, 1000);
+    }, 1200);
   };
 
   return (
     <form className={styles.formCard} onSubmit={handleSubmit}>
       <div className={styles.header}>
-        <CalendarDays className={styles.headerIcon} />
-        <h2 className={styles.headerTitle}>Reserve Your Table.</h2>
+        <Utensils className={styles.headerIcon} />
+        <h2 className={styles.headerTitle}>Reserve Your Table</h2>
         <p className={styles.headerSubtitle}>
-          Choose your favorite cuisine and time — we’ll get it ready for you.
+          Choose your cuisine and preferred time — we’ll get everything ready.
         </p>
       </div>
 
-      <div className={styles.fieldGroup}>
-        <label className={styles.label}>Cuisine Type</label>
-        <select
-          className={styles.select}
-          value={selectedTable}
-          onChange={(e) => setSelectedTable(e.target.value)}
-          required
-        >
-          <option value="">Select a Table Type</option>
-          <option value="KOREAN">Korean Table</option>
-          <option value="JAPANESE">Japanese Table</option>
-          <option value="CAMBODIAN">Cambodian Table</option>
-          <option value="FAST_FOOD">Fast Food Table</option>
-        </select>
-      </div>
-
-      <div className={styles.fieldRow}>
+      <div className={styles.formGrid}>
+        {/* Cuisine */}
         <div className={styles.field}>
-          <label className={styles.label}>Date</label>
-          <input
-            type="date"
+          <label className={styles.label}>Cuisine Type</label>
+          <select
+            className={styles.select}
+            value={selectedCuisine}
+            onChange={(e) => setSelectedCuisine(e.target.value)}
+            required
+          >
+            <option value="">Select a Cuisine</option>
+            <option value="KOREAN">Korean</option>
+            <option value="JAPANESE">Japanese</option>
+            <option value="CAMBODIAN">Cambodian</option>
+            <option value="FAST_FOOD">Fast Food</option>
+          </select>
+        </div>
+
+        {/* Date & Time Picker */}
+        <div className={styles.field}>
+          <label className={styles.label}>Date & Time</label>
+          <DatePicker
+            selected={dateTime}
+            onChange={(date) => setDateTime(date)}
+            showTimeSelect
+            dateFormat="MMMM d, yyyy h:mm aa"
+            placeholderText="Select date and time"
             className={styles.input}
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
             required
           />
         </div>
 
+        {/* Guests */}
         <div className={styles.field}>
-          <label className={styles.label}>Time</label>
+          <label className={styles.label}>Number of Guests</label>
           <input
-            type="time"
+            type="number"
+            min={1}
+            max={10}
             className={styles.input}
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
+            value={guests}
+            onChange={(e) => setGuests(Number(e.target.value))}
             required
           />
         </div>
-      </div>
-
-      <div className={styles.fieldGroup}>
-        <label className={styles.label}>Number of Guests</label>
-        <input
-          type="number"
-          min={1}
-          max={10}
-          className={styles.input}
-          value={guests}
-          onChange={(e) => setGuests(Number(e.target.value))}
-          required
-        />
       </div>
 
       <button

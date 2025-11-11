@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ApolloClient, gql, NormalizedCacheObject } from "@apollo/client";
+import { ApolloClient, gql } from "@apollo/client";
 import client from "../../lib/apollo-client";
 
 export type RoleType = "ADMIN" | "MANAGER" | "STAFF" | "CUSTOMER" | "GUEST";
@@ -26,9 +26,6 @@ export interface AuthStore {
   isInitialized: boolean;
 }
 
-// ======================
-// Type for reset password mutation response
-// ======================
 interface ResetUserPasswordResponse {
   resetUserPassword: {
     success: boolean;

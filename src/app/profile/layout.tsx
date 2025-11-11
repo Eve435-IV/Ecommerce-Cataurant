@@ -5,7 +5,12 @@ import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client/react";
 import { useAuthStore, UserFragment } from "../../hooks/AuthStore";
 import { useRouter } from "next/navigation";
-import { OrderBatch, Order, OrderStatus, Category } from "../schema/order";
+import {
+  GetMyOrdersResponse,
+  OrderBatch,
+  OrderStatus,
+  Category,
+} from "../schema/order";
 import styles from "./profile.module.css";
 
 // ================== GRAPHQL ==================
@@ -42,6 +47,24 @@ const GET_MY_ORDERS = gql`
       orderDate
       orders {
         _id
+        userId {
+          _id
+          firstName
+          lastName
+          email
+          role
+          profileImage
+          isActive
+          createdAt
+        }
+        productId {
+          _id
+          name
+          category
+          imageUrl
+          desc
+          price
+        }
         quantity
         flavour
         sideDish
@@ -50,20 +73,6 @@ const GET_MY_ORDERS = gql`
         isCompleted
         batchId
         orderDate
-        productId {
-          _id
-          name
-          price
-          imageUrl
-        }
-        userId {
-          _id
-          firstName
-          lastName
-          email
-          role
-          profileImage
-        }
       }
     }
   }
@@ -77,7 +86,6 @@ export default function UserProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showImageButton, setShowImageButton] = useState(false);
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -89,7 +97,6 @@ export default function UserProfilePage() {
     message: string;
     isError: boolean;
   } | null>(null);
-
   const [passwordForm, setPasswordForm] = useState({
     oldPassword: "",
     newPassword: "",
@@ -150,14 +157,21 @@ export default function UserProfilePage() {
 
   // ================== QUERY ==================
   const {
-    data: myOrdersData,
+    data,
     loading: ordersLoading,
     error: ordersError,
-  } = useQuery<{ getMyOrders: OrderBatch[] }>(GET_MY_ORDERS, {
+  } = useQuery<GetMyOrdersResponse>(GET_MY_ORDERS, {
     fetchPolicy: "network-only",
   });
 
-  const myOrders = myOrdersData?.getMyOrders || [];
+  // Filter completed orders
+  const completedOrders: OrderBatch[] =
+    data?.getMyOrders
+      .map((batch) => ({
+        ...batch,
+        orders: batch.orders.filter((order) => order.isCompleted),
+      }))
+      .filter((batch) => batch.orders.length > 0) || [];
 
   // ================== EFFECT ==================
   useEffect(() => {
@@ -411,16 +425,16 @@ export default function UserProfilePage() {
 
       {/* Orders History */}
       <div className={styles.profileHistory}>
-        <h2>Orders History</h2>
+        <h2>Completed Orders History</h2>
         {ordersLoading ? (
           <p>Loading your orders...</p>
         ) : ordersError ? (
           <p className={styles.messageError}>{ordersError.message}</p>
-        ) : myOrders.length === 0 ? (
-          <p>No orders found.</p>
+        ) : completedOrders.length === 0 ? (
+          <p>No completed orders found.</p>
         ) : (
           <div className={styles.completedOrdersList}>
-            {myOrders.map((batch) => (
+            {completedOrders.map((batch) => (
               <div key={batch.batchId} className={styles.batchCard}>
                 <p>
                   <strong>Batch ID:</strong> {batch.batchId} |{" "}
@@ -435,9 +449,7 @@ export default function UserProfilePage() {
                       <span>
                         {order.productId?.name || "Unknown"} × {order.quantity}{" "}
                         — $
-                        {(
-                          Number(order.productId?.price || 0) * order.quantity
-                        ).toFixed(2)}
+                        {(order.productId?.price * order.quantity).toFixed(2)}
                       </span>
                       {(order.flavour?.length ||
                         order.sideDish?.length ||

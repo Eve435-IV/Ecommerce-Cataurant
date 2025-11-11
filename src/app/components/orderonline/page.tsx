@@ -9,17 +9,19 @@ import {
   DollarSign,
   AlertTriangle,
 } from "lucide-react";
-import { useQuery } from "@apollo/client/react";
+import { useQuery, ApolloProvider } from "@apollo/client/react";
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import { ApolloProvider } from "@apollo/client/react";
 import Image from "next/image";
-
 import { useAuthStore, AuthStore } from "../../../hooks/AuthStore";
 import AuthForm from "../../signup/layout";
 import styles from "./orderonline.module.css";
 
+// =====================
+// Types
+// =====================
+
 interface Product {
-  id: string;
+  _id: string; // ✅ changed from id → _id (matches backend)
   name: string;
   description: string;
   price: number;
@@ -34,11 +36,15 @@ interface GetProductWithPaginationResponse {
   };
 }
 
+// =====================
+// Constants
+// =====================
+
 const GET_PRODUCT_PAGINATION =
   require("../../schema/product").GET_PRODUCT_PAGINATION;
 
 const GRAPHQL_URI = "http://localhost:4000/graphql";
-const FEATURED_LIMIT = 1 && 2;
+const FEATURED_LIMIT = 2;
 
 const CUISINE_CATEGORIES: { name: string; category: string }[] = [
   { name: "Cambodia", category: "KHMER" },
@@ -47,8 +53,16 @@ const CUISINE_CATEGORIES: { name: string; category: string }[] = [
   { name: "Fast Food", category: "FAST_FOOD" },
 ];
 
+// Apollo Client Setup
 const httpLink = new HttpLink({ uri: GRAPHQL_URI });
-const client = new ApolloClient({ link: httpLink, cache: new InMemoryCache() });
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
+
+// =====================
+// Custom Hook
+// =====================
 
 const useFeaturedProducts = () => {
   const results = CUISINE_CATEGORIES.map(({ category }) =>
@@ -58,7 +72,7 @@ const useFeaturedProducts = () => {
         limit: FEATURED_LIMIT,
         pagination: true,
         keyword: null,
-        category: category,
+        category,
       },
       fetchPolicy: "cache-and-network",
     })
@@ -66,14 +80,13 @@ const useFeaturedProducts = () => {
 
   const products: { categoryName: string; product: Product }[] = [];
   let loading = false;
-  let error = null;
+  let error: any = null;
 
   results.forEach((res, index) => {
     if (res.loading) loading = true;
     if (res.error) error = res.error;
 
     const featuredDish = res.data?.getProductWithPagination?.data[0];
-
     if (featuredDish) {
       products.push({
         categoryName: CUISINE_CATEGORIES[index].name,
@@ -84,6 +97,10 @@ const useFeaturedProducts = () => {
 
   return { products, loading, error };
 };
+
+// =====================
+// Components
+// =====================
 
 const OrderForm = () => {
   const { products, loading, error } = useFeaturedProducts();
@@ -113,9 +130,9 @@ const OrderForm = () => {
         {error && (
           <div className={`${styles.promptCard} ${styles.errorCard}`}>
             <AlertTriangle className={styles.lockIcon} />
-            {/* <p className={styles.promptMessage}>
-              Error loading featured items: {error."err"}
-            </p> */}
+            <p className={styles.promptMessage}>
+              Error loading featured items: {error.message}
+            </p>
           </div>
         )}
 
@@ -126,9 +143,11 @@ const OrderForm = () => {
             </p>
           </div>
         )}
+
         {!error &&
           products.map(({ categoryName, product }) => (
-            <div key={product.id} className={styles.productCard}>
+            <div key={product._id} className={styles.productCard}>
+              {/* ✅ fixed key issue: product._id */}
               <div className={styles.productInfo}>
                 <div
                   style={{
@@ -170,15 +189,19 @@ const OrderForm = () => {
               </div>
             </div>
           ))}
-      </div>
 
-      <button className={styles.checkoutButton}>
-        Review Cart & Checkout
-        <ArrowRight className={styles.checkoutIcon} />
-      </button>
+        <button className={styles.checkoutButton}>
+          Review Cart & Checkout
+          <ArrowRight className={styles.checkoutIcon} />
+        </button>
+      </div>
     </div>
   );
 };
+
+// =====================
+// Page Export
+// =====================
 
 export default function OrderOnline() {
   const { user, isInitialized } = useAuthStore() as AuthStore;
