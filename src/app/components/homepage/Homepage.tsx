@@ -162,13 +162,13 @@ export default function Homepage() {
               />
             </div>
           </div>
-          <div className={styles.title}>Daily deals</div>
+          {/* <div className={styles.title}>Daily deals</div>
           <div className={styles.boxContiner}>
             <div className={styles.box}>50%</div>
             <div className={styles.box}>20%</div>
             <div className={styles.box}>Buy 1 Free 1</div>
             <div className={styles.box}>30%</div>
-          </div>
+          </div> */}
 
           <div className={styles.title}>Your Favorite cuisines</div>
           <div className={styles.cambodiaContainer}>

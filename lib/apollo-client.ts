@@ -2,9 +2,13 @@
 
 import { ApolloClient, InMemoryCache, HttpLink, ApolloLink } from "@apollo/client";
 
-const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
-});
+// Choose URI based on environment
+const uri =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:4000/graphql"
+    : "https://cataurant-backend-cms.onrender.com";
+
+const httpLink = new HttpLink({ uri });
 
 const authLink = new ApolloLink((operation, forward) => {
   if (typeof window === "undefined") return forward(operation);
