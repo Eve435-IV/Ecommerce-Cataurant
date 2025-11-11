@@ -5,7 +5,7 @@ import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client/react";
 import { useAuthStore, UserFragment } from "../../hooks/AuthStore";
 import { useRouter } from "next/navigation";
-import { OrderBatchPaginator } from "../schema/order";
+import { BatchOrder } from "../schema/order";
 import styles from "./profile.module.css";
 
 // ================== GRAPHQL ==================
@@ -35,34 +35,35 @@ const CHANGE_PASSWORD_MUTATION = gql`
   }
 `;
 
-const GET_COMPLETED_ORDERS = gql`
-  query GetCompletedOrders(
-    $page: Int!
-    $limit: Int!
-    $pagination: Boolean!
-    $isCompleted: Boolean!
-  ) {
-    getOrderWithPagination(
-      page: $page
-      limit: $limit
-      pagination: $pagination
-      isCompleted: $isCompleted
-    ) {
-      data {
+// ✅ Replace getOrderWithPagination → getMyOrders
+const GET_MY_ORDERS = gql`
+  query GetMyOrders {
+    getMyOrders {
+      batchId
+      orderDate
+      orders {
+        _id
+        quantity
+        flavour
+        sideDish
+        cuisine
+        status
+        isCompleted
         batchId
         orderDate
-        orders {
+        productId {
           _id
-          productId {
-            name
-            price
-          }
-          quantity
-          status
-          isCompleted
-          flavour
-          sideDish
-          cuisine
+          name
+          price
+          image
+        }
+        userId {
+          _id
+          firstName
+          lastName
+          email
+          role
+          profileImage
         }
       }
     }
@@ -76,7 +77,7 @@ export default function UserProfilePage() {
 
   const [isEditing, setIsEditing] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
-  const [showImageButton, setShowImageButton] = useState(false); // show small "change picture" button
+  const [showImageButton, setShowImageButton] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -148,14 +149,14 @@ export default function UserProfilePage() {
 
   // ================== QUERY ==================
   const {
-    data: completedData,
-    loading: completedLoading,
-    error: completedError,
-  } = useQuery<OrderBatchPaginator>(GET_COMPLETED_ORDERS, {
-    variables: { page: 1, limit: 20, pagination: true, isCompleted: true },
+    data: myOrdersData,
+    loading: ordersLoading,
+    error: ordersError,
+  } = useQuery<{ getMyOrders: BatchOrder[] }>(GET_MY_ORDERS, {
     fetchPolicy: "network-only",
   });
-  const completedBatches = completedData?.getOrderWithPagination?.data || [];
+
+  const myOrders = myOrdersData?.getMyOrders || [];
 
   // ================== EFFECT ==================
   useEffect(() => {
@@ -181,6 +182,7 @@ export default function UserProfilePage() {
   // ================== HANDLERS ==================
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
     setPasswordForm({ ...passwordForm, [e.target.name]: e.target.value });
 
@@ -265,10 +267,7 @@ export default function UserProfilePage() {
         )}
 
         <div className={styles.profileCard}>
-          <div
-            className={styles.avatarWrapper}
-            style={{ position: "relative" }}
-          >
+          <div className={styles.avatarWrapper}>
             {preview ? (
               <img
                 src={preview}
@@ -285,12 +284,10 @@ export default function UserProfilePage() {
               </div>
             )}
 
-            {/* Small Change Image Button */}
             {showImageButton && (
               <button
                 type="button"
                 className={styles.forgotPassword}
-                style={{ marginTop: "8px", fontSize: "0.85rem" }}
                 onClick={() => document.getElementById("fileInput")?.click()}
               >
                 Change Profile Picture
@@ -298,7 +295,6 @@ export default function UserProfilePage() {
             )}
           </div>
 
-          {/* Username & Email */}
           <div className={styles.usernameDisplay}>
             <p>
               <strong>
@@ -415,21 +411,21 @@ export default function UserProfilePage() {
       {/* Orders History */}
       <div className={styles.profileHistory}>
         <h2>Orders History</h2>
-        {completedLoading ? (
-          <p>Loading completed orders...</p>
-        ) : completedError ? (
-          <p className={styles.messageError}>{completedError.message}</p>
-        ) : completedBatches.length === 0 ? (
-          <p>No completed orders found.</p>
+        {ordersLoading ? (
+          <p>Loading your orders...</p>
+        ) : ordersError ? (
+          <p className={styles.messageError}>{ordersError.message}</p>
+        ) : myOrders.length === 0 ? (
+          <p>No orders found.</p>
         ) : (
           <div className={styles.completedOrdersList}>
-            {completedBatches.map((batch) => (
+            {myOrders.map((batch) => (
               <div key={batch.batchId} className={styles.batchCard}>
                 <p>
                   <strong>Batch ID:</strong> {batch.batchId} |{" "}
                   <strong>Date:</strong>{" "}
                   {batch.orderDate
-                    ? new Date(Number(batch.orderDate)).toLocaleString()
+                    ? new Date(batch.orderDate).toLocaleString()
                     : "N/A"}
                 </p>
                 <ul className={styles.orderList}>

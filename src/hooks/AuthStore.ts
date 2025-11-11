@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ApolloClient, InMemoryCache, HttpLink, ApolloLink, gql } from "@apollo/client";
+import { ApolloClient, gql } from "@apollo/client";
+import client from "../../lib/apollo-client";
 
 export type RoleType = "ADMIN" | "MANAGER" | "STAFF" | "CUSTOMER" | "GUEST";
 
@@ -25,36 +26,13 @@ export interface AuthStore {
   isInitialized: boolean;
 }
 
-// Apollo Client with auth token middleware
-const GRAPHQL_URI = process.env.NEXT_PUBLIC_GRAPHQL_URI || "https://cataurant-backend-cms.onrender.com/graphql";
-
-const authLink = new ApolloLink((operation, forward) => {
-  if (typeof window !== "undefined") {
-    const token = localStorage.getItem("auth_token");
-    if (token) {
-      operation.setContext({
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }
-  }
-  return forward(operation);
-});
-
-const apolloClient = new ApolloClient({
-  link: authLink.concat(new HttpLink({ uri: GRAPHQL_URI })),
-  cache: new InMemoryCache(),
-});
-
 export const useAuthStore = (): AuthStore => {
   const [user, setUser] = useState<UserFragment | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [isInitialized, setIsInitialized] = useState<boolean>(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
     const storedToken = localStorage.getItem("auth_token");
     const storedUser = localStorage.getItem("auth_user");
 
@@ -63,8 +41,8 @@ export const useAuthStore = (): AuthStore => {
         setUser(JSON.parse(storedUser));
         setToken(storedToken);
       } catch {
-        localStorage.removeItem("auth_token");
         localStorage.removeItem("auth_user");
+        localStorage.removeItem("auth_token");
       }
     }
     setIsInitialized(true);
@@ -89,39 +67,26 @@ export const useAuthStore = (): AuthStore => {
       resetUserPassword(_id: $id, newPassword: $newPassword) {
         success
         message
-        khMessage
       }
     }
   `;
 
   const resetPassword = async (userId: string, newPassword: string) => {
-  try {
-    // define the TypeScript type for the mutation result
-    interface ResetPasswordResult {
-      resetUserPassword: {
-        success: boolean;
-        message?: string;
-        khMessage?: string;
-      };
+    try {
+      const { data } = await client.mutate({
+        mutation: RESET_PASSWORD,
+        variables: { id: userId, newPassword },
+      });
+
+      if (data?.resetUserPassword?.success) {
+        alert(data.resetUserPassword.message || "Password reset successfully");
+      } else {
+        alert("Password reset failed");
+      }
+    } catch (err: any) {
+      alert(`Error: ${err.message}`);
     }
-
-    const { data } = await apolloClient.mutate<ResetPasswordResult>({
-      mutation: RESET_PASSWORD,
-      variables: { id: userId, newPassword },
-    });
-
-    const result = data?.resetUserPassword;
-
-    if (result?.success) {
-      alert(result.message || "Password reset successfully");
-    } else {
-      alert(result?.message || "Password reset failed");
-    }
-  } catch (error: any) {
-    alert(`Error: ${error.message}`);
-  }
-};
-
+  };
 
   return { user, token, login, logout, resetPassword, isInitialized };
 };

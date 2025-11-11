@@ -2,24 +2,26 @@
 
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import {
-  GET_ORDER_PAGINATION,
-  OrderBatchPaginator,
-  OrderBatch,
-} from "../../schema/order";
+import { GET_MY_ORDERS } from "../../schema/order";
 import {
   Box,
   Typography,
   Paper,
   Divider,
   CircularProgress,
-  List,
-  ListItem,
   Tabs,
   Tab,
+  List,
+  ListItem,
 } from "@mui/material";
 import { formatDistanceToNow, isValid } from "date-fns";
 import styles from "./myOrders.module.css";
+import {
+  GetMyOrdersResponse,
+  OrderBatch,
+  Order,
+  OrderStatus,
+} from "../../schema/order";
 
 const statusColors: Record<string, string> = {
   Pending: "#FFC107",
@@ -30,187 +32,96 @@ const statusColors: Record<string, string> = {
 
 export default function MyOrdersPage() {
   const [selectedTab, setSelectedTab] = useState(0);
-  const isCompleted = selectedTab === 1;
+  const isCompletedTab = selectedTab === 1;
 
-  const { data, loading, error, refetch } = useQuery<OrderBatchPaginator>(
-    GET_ORDER_PAGINATION,
+  const { data, loading, error } = useQuery<GetMyOrdersResponse>(
+    GET_MY_ORDERS,
     {
-      variables: { page: 1, limit: 20, pagination: true, isCompleted },
       fetchPolicy: "network-only",
     }
   );
 
-  const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
-    setSelectedTab(newValue);
-    refetch({
-      page: 1,
-      limit: 50,
-      pagination: true,
-      isCompleted: newValue === 1,
-    });
+  const formatDate = (timestamp: string) => {
+    const date = new Date(Number(timestamp));
+    if (!isValid(date)) return "N/A";
+    return `${date.toLocaleString()} (${formatDistanceToNow(date, {
+      addSuffix: true,
+    })})`;
   };
 
   if (loading)
     return (
-      <Box className={styles.loading}>
-        <CircularProgress color="primary" size={50} />
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          Loading your orders...
-        </Typography>
+      <Box>
+        <CircularProgress /> Loading orders...
       </Box>
     );
 
-  if (error)
-    return (
-      <Box className={styles.error}>
-        <Typography color="error" variant="h6">
-          Error loading orders: {error.message}
-        </Typography>
-      </Box>
-    );
+  if (error) return <Box>Error loading orders: {error.message}</Box>;
 
-  const batches: OrderBatch[] = data?.getOrderWithPagination?.data || [];
-
-  const formatOrderDate = (timestamp: string | number, completed: boolean) => {
-    const date = new Date(Number(timestamp));
-    if (!isValid(date)) return "N/A";
-
-    if (completed) {
-      // Completed orders show fixed date/time
-      return date.toLocaleString();
-    } else {
-      // Active orders show relative time
-      return `${date.toLocaleString()} (${formatDistanceToNow(date, {
-        addSuffix: true,
-      })})`;
-    }
-  };
+  // Client-side filtering since backend does not support `isCompleted` argument
+  const batches: OrderBatch[] =
+    data?.getMyOrders
+      ?.map((batch) => ({
+        ...batch,
+        orders: batch.orders.filter((o) => o.isCompleted === isCompletedTab),
+      }))
+      .filter((batch) => batch.orders.length > 0) || [];
 
   return (
     <Box className={styles.ordersPage}>
-      <Typography variant="h4" component="h1" className={styles.heading}>
-        My Orders
-      </Typography>
-
+      <Typography variant="h4">My Orders</Typography>
       <Tabs
         value={selectedTab}
-        onChange={handleTabChange}
-        centered
-        sx={{
-          mb: 3,
-          "& .MuiTab-root": { fontWeight: 600, textTransform: "none" },
-          "& .Mui-selected": { color: "var(--primary-color)" },
-          "& .MuiTabs-indicator": { backgroundColor: "var(--primary-color)" },
-        }}
+        onChange={(_, newVal) => setSelectedTab(newVal)}
       >
         <Tab label="Active Orders" />
         <Tab label="Completed Orders" />
       </Tabs>
 
-      <Box className={styles.ordersScrollArea}>
-        {batches.length === 0 ? (
-          <Box className={styles.empty}>
-            <Typography variant="h6" color="text.secondary">
-              {isCompleted
-                ? "No completed orders yet."
-                : "You don't have any active orders right now."}
-            </Typography>
-          </Box>
-        ) : (
-          <List>
-            {batches.map((batch) => (
-              <Paper
-                key={batch.batchId}
-                className={styles.batchCard}
-                elevation={6}
-              >
-                <Box className={styles.batchHeader}>
-                  <Typography
-                    variant="subtitle1"
-                    component="h2"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    Batch ID: #{batch.batchId}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Order Date:{" "}
-                    {formatOrderDate(
-                      batch.orderDate,
-                      batch.orders.every((o) => o.isCompleted)
-                    )}
-                  </Typography>
-                </Box>
+      {batches.length === 0 ? (
+        <Typography>
+          No {isCompletedTab ? "completed" : "active"} orders.
+        </Typography>
+      ) : (
+        <List>
+          {batches.map((batch) => (
+            <Paper key={batch.batchId} sx={{ mb: 2, p: 2 }}>
+              <Typography>Batch ID: {batch.batchId}</Typography>
+              <Typography>Order Date: {formatDate(batch.orderDate)}</Typography>
+              <Divider sx={{ my: 1 }} />
+              {batch.orders.map((order: Order) => {
+                const status: OrderStatus | "Completed" = order.isCompleted
+                  ? "Completed"
+                  : order.status || OrderStatus.Pending;
+                const color = statusColors[status] || "#000";
 
-                <Divider sx={{ mb: 1.5 }} />
+                // Fix red underline: default to empty arrays
+                const flavours = order.flavour || [];
+                const sides = order.sideDish || [];
 
-                {batch.orders.map((order) => {
-                  const displayStatus = order.isCompleted
-                    ? "Completed"
-                    : order.status || "Pending";
-
-                  const color =
-                    order.isCompleted && !statusColors[displayStatus]
-                      ? statusColors["Completed"]
-                      : statusColors[displayStatus] || statusColors["Pending"];
-
-                  return (
-                    <ListItem
-                      key={order._id}
-                      className={styles.orderItem}
-                      disableGutters
+                return (
+                  <ListItem key={order._id}>
+                    {order.productId?.name} x {order.quantity} - $
+                    {order.productId?.price * order.quantity}
+                    {flavours.length > 0 &&
+                      ` | Flavours: ${flavours.join(", ")}`}
+                    {sides.length > 0 && ` | Sides: ${sides.join(", ")}`}
+                    <span
+                      style={{
+                        backgroundColor: color,
+                        marginLeft: 10,
+                        padding: "2px 5px",
+                      }}
                     >
-                      <Box sx={{ flexGrow: 1 }}>
-                        <Typography>
-                          <strong>
-                            {order.productId?.name || "Unknown Product"}
-                          </strong>
-                          x {order.quantity} - $
-                          {(
-                            (order.productId?.price || 0) * order.quantity
-                          ).toFixed(2)}
-                        </Typography>
-
-                        {(order.flavour?.length > 0 ||
-                          order.sideDish?.length > 0) && (
-                          <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            sx={{ mt: 0.5 }}
-                          >
-                            {order.flavour?.length > 0 &&
-                              `Flavours: ${order.flavour.join(", ")}`}
-                            {order.flavour?.length > 0 &&
-                              order.sideDish?.length > 0 &&
-                              " | "}
-                            {order.sideDish?.length > 0 &&
-                              `Sides: ${order.sideDish.join(", ")}`}
-                            {order.cuisine && ` | Cuisine: ${order.cuisine}`}
-                          </Typography>
-                        )}
-                      </Box>
-
-                      <Typography
-                        variant="body2"
-                        className={styles.orderStatus}
-                        sx={{ ml: 2 }}
-                      >
-                        <Box
-                          component="span"
-                          style={{ backgroundColor: color }}
-                          className={styles.statusIndicator}
-                        />
-                        <Box component="span" sx={{ fontWeight: "bold" }}>
-                          {displayStatus}
-                        </Box>
-                      </Typography>
-                    </ListItem>
-                  );
-                })}
-              </Paper>
-            ))}
-          </List>
-        )}
-      </Box>
+                      {status}
+                    </span>
+                  </ListItem>
+                );
+              })}
+            </Paper>
+          ))}
+        </List>
+      )}
     </Box>
   );
 }

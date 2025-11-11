@@ -1,18 +1,13 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
-export const CREATE_ORDERS = gql`
-  mutation CreateOrders($inputs: [OrderInput!]!) {
-    createOrders(inputs: $inputs) {
-      success
-      message
-    }
-  }
-`;
+// =======================
+// GRAPHQL QUERIES / MUTATIONS
+// =======================
 
-export const GET_ORDER_PAGINATION = gql`
- query GetOrderWithPagination($page: Int, $limit: Int, $pagination: Boolean, $isCompleted: Boolean) {
-  getOrderWithPagination(page: $page, limit: $limit, pagination: $pagination, isCompleted: $isCompleted) {
-    data {
+// Get all orders for the logged-in user
+export const GET_MY_ORDERS = gql`
+  query GetMyOrders {
+    getMyOrders {
       batchId
       orderDate
       orders {
@@ -45,115 +40,132 @@ export const GET_ORDER_PAGINATION = gql`
         orderDate
       }
     }
-    paginator {
-      slNo
-      prev
-      next
-      perPage
-      totalPosts
-      totalPages
-      currentPage
-      hasPrevPage
-      hasNextPage
-      totalDocs
-    }
   }
-}
 `;
 
-export type CuisineType = "KHMER" | "KOREAN" | "JAPANESE" | "FAST_FOOD";
-export type OrderStatus = "Pending" | "Accepted" | "Declined";
+// Create orders
+export const CREATE_ORDERS = gql`
+  mutation CreateOrders($inputs: [OrderInput!]!) {
+    createOrders(inputs: $inputs) {
+      success
+      message
+      orders {
+        _id
+        userId {
+          _id
+          firstName
+          lastName
+          email
+          role
+          profileImage
+          isActive
+          createdAt
+        }
+        productId {
+          _id
+          name
+          category
+          imageUrl
+          desc
+          price
+        }
+        quantity
+        flavour
+        sideDish
+        cuisine
+        status
+        isCompleted
+        batchId
+        orderDate
+      }
+    }
+  }
+`;
 
-export interface UserType {
+// =======================
+// ENUMS
+// =======================
+
+export enum Category {
+  KHMER = "KHMER",
+  KOREAN = "KOREAN",
+  JAPANESE = "JAPANESE",
+  FAST_FOOD = "FAST_FOOD",
+}
+
+export enum OrderStatus {
+  Pending = "Pending",
+  Accepted = "Accepted",
+  Declined = "Declined",
+}
+
+// =======================
+// TYPESCRIPT TYPES
+// =======================
+
+// User type
+export interface User {
   _id: string;
   firstName: string;
   lastName: string;
   email: string;
   role: string;
-  isActive: boolean;
   profileImage?: string;
-  createdAt?: string;
+  isActive: boolean;
+  createdAt: string;
 }
 
-export interface ProductType {
+// Product type
+export interface Product {
   _id: string;
   name: string;
-  category: string;
-  imageUrl: string;
-  desc: string;
+  category: Category;
+  imageUrl?: string;
+  desc?: string;
   price: number;
 }
 
+// Order type
 export interface Order {
   _id: string;
-  userId: UserType;
-  productId: ProductType;
+  userId: User;
+  productId: Product;
   quantity: number;
-  flavour: string[];
-  sideDish: string[];
-  cuisine: CuisineType;
-  status: OrderStatus;
+  flavour?: string[];
+  sideDish?: string[];
+  cuisine: Category;
+  status?: OrderStatus;
   isCompleted: boolean;
   batchId: string;
   orderDate: string;
 }
 
-export interface OrderInput {
-  productId: string;
-  quantity: number;
-  flavour: string[];
-  sideDish: string[];
-  cuisine: CuisineType;
-  status?: OrderStatus;
-  isCompleted?: boolean;
-  batchId?: string;
-  orderDate?: string;
-}
-
-export interface CreateOrdersResponse {
-  createOrders: {
-    success: boolean;
-    message: string;
-  };
-}
-
-export interface UpdateOrderResponse {
-  updateOrder: {
-    success: boolean;
-    message: string;
-    order: Order;
-  };
-}
-
-export interface DeleteOrderResponse {
-  deleteOrder: {
-    success: boolean;
-    message: string;
-  };
-}
-
+// Batch type
 export interface OrderBatch {
   batchId: string;
   orderDate: string;
   orders: Order[];
 }
 
-export interface Paginator {
-  slNo?: number;
-  prev?: number;
-  next?: number;
-  perPage?: number;
-  totalPosts?: number;
-  totalPages?: number;
-  currentPage: number;
-  hasPrevPage?: boolean;
-  hasNextPage?: boolean;
-  totalDocs?: number;
+// Query response types
+export interface GetMyOrdersResponse {
+  getMyOrders: OrderBatch[];
 }
 
-export interface OrderBatchPaginator {
-  getOrderWithPagination: {
-    data: OrderBatch[];
-    paginator: Paginator;
+// Mutation input types
+export interface OrderInput {
+  productId: string;
+  quantity: number;
+  flavour?: string[];
+  sideDish?: string[];
+  cuisine: Category;
+}
+
+// Mutation response type
+export interface CreateOrdersResponse {
+  createOrders: {
+    success: boolean;
+    message: string;
+    orders: Order[];
   };
 }
