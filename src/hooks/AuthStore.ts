@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ApolloClient, gql } from "@apollo/client";
+import { ApolloClient, gql, NormalizedCacheObject } from "@apollo/client";
 import client from "../../lib/apollo-client";
 
 export type RoleType = "ADMIN" | "MANAGER" | "STAFF" | "CUSTOMER" | "GUEST";
@@ -24,6 +24,16 @@ export interface AuthStore {
   logout: () => void;
   resetPassword: (userId: string, newPassword: string) => Promise<void>;
   isInitialized: boolean;
+}
+
+// ======================
+// Type for reset password mutation response
+// ======================
+interface ResetUserPasswordResponse {
+  resetUserPassword: {
+    success: boolean;
+    message?: string;
+  };
 }
 
 export const useAuthStore = (): AuthStore => {
@@ -73,7 +83,7 @@ export const useAuthStore = (): AuthStore => {
 
   const resetPassword = async (userId: string, newPassword: string) => {
     try {
-      const { data } = await client.mutate({
+      const { data } = await client.mutate<ResetUserPasswordResponse>({
         mutation: RESET_PASSWORD,
         variables: { id: userId, newPassword },
       });
@@ -81,7 +91,7 @@ export const useAuthStore = (): AuthStore => {
       if (data?.resetUserPassword?.success) {
         alert(data.resetUserPassword.message || "Password reset successfully");
       } else {
-        alert("Password reset failed");
+        alert(data?.resetUserPassword?.message || "Password reset failed");
       }
     } catch (err: any) {
       alert(`Error: ${err.message}`);
