@@ -200,45 +200,69 @@ transform: translateY(-3px);
 box-shadow: 0 10px 25px rgba(229, 62, 62, 0.6);
 }
 
-@media screen and (max-width: 1200px) {
-.heroTitle { font-size: 4rem; }
+
+@media screen and (max-width: 1400px) {
+  .pageWrapper {
+    width: 95%;
+    min-height: 1000px;
+  }
 }
 
-@media screen and (max-width: 900px) {
-.missionGrid {
-grid-template-columns: 1fr;
-gap: 30px;
-}
-.missionText {
-border-left: none;
-padding-left: 0;
-border-top: 3px solid #e53e3e;
-padding-top: 20px;
-}
+/* Hero section adjustments */
+@media screen and (max-width: 600px) {
+  .heroSection {
+    height: 250px;
+    padding: 0 10px;
+  }
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+  .heroSubtitle {
+    font-size: 0.9rem;
+  }
 }
 
-@media screen and (max-width: 768px) {
-.heroSection {
-height: 300px;
+/* Cuisine grid tweaks for small screens */
+@media screen and (max-width: 500px) {
+  .cuisineGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .cuisineCard {
+    padding: 20px;
+  }
+  .cardTitle {
+    font-size: 1.3rem;
+  }
+  .cardDescription {
+    font-size: 0.95rem;
+  }
+  .cardLink {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
 }
-.heroTitle {
-font-size: 2.8rem;
+
+/* Mission section tweaks for very small screens */
+@media screen and (max-width: 400px) {
+  .missionSection {
+    padding: 60px 3% 40px 3%;
+  }
+  .missionText {
+    font-size: 0.95rem;
+  }
 }
-.heroSubtitle {
-font-size: 1rem;
-}
-.sectionHeading {
-font-size: 2rem;
-}
-.missionText {
-font-size: 1rem;
-}
-.cuisineCard {
-padding: 25px;
-}
-.cardTitle {
-font-size: 1.5rem;
-}
-.ctaTitle { font-size: 2rem; }
-.ctaButton { padding: 12px 30px; font-size: 1.1rem; }
+
+/* CTA Section tweaks */
+@media screen and (max-width: 500px) {
+  .ctaTitle {
+    font-size: 1.8rem;
+  }
+  .ctaText {
+    font-size: 1rem;
+  }
+  .ctaButton {
+    padding: 10px 25px;
+    font-size: 1rem;
+  }
 }

@@ -2,8 +2,8 @@
   margin-top: 110px;
   border-radius: 12px;
   min-height: 86vh;
-  background-color: #fff;
-  padding: 3rem 2rem;
+  background-color: #f9fafb;
+  padding: 3rem;
   color: #1f2937;
   font-family: "Inter", sans-serif;
   overflow: hidden;
@@ -13,7 +13,7 @@
   margin-right: auto;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 /* ===== Loading ===== */
@@ -38,7 +38,7 @@
   color: #6b7280;
 }
 
-/* ===== Login Prompt ===== */
+/* ===== Prompt ===== */
 .promptWrapper {
   display: flex;
   flex-direction: column;
@@ -48,10 +48,10 @@
 
 .promptCard {
   text-align: center;
-  background: #ffffff;
+  background: #fff;
   padding: 2rem;
   border-radius: 1rem;
-  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
   border-top: 4px solid #ef4444;
 }
 
@@ -85,20 +85,14 @@
   max-width: 450px;
 }
 
-/* ===== Form Section ===== */
-.formWrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
+/* ===== Form ===== */
 .formCard {
-  background: #fff;
+  background: #ffffff;
   border-radius: 1rem;
-  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   padding: 2.5rem 3rem;
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
 }
 
 .header {
@@ -112,11 +106,11 @@
   width: 2rem;
   height: 2rem;
   color: #ef4444;
-  margin: 0 auto 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .headerTitle {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: #111827;
 }
@@ -128,19 +122,13 @@
   margin: 0.5rem auto 0;
 }
 
-.formBody {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.fieldRow {
-  display: flex;
-  gap: 1rem;
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
 }
 
 .field {
-  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -183,7 +171,7 @@
   align-items: center;
   gap: 6px;
   border: none;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   transition: all 0.2s ease-in-out;
 }
 
@@ -221,7 +209,6 @@
   height: 1.2rem;
 }
 
-/* Animations */
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

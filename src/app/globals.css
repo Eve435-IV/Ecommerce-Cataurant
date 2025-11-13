@@ -20,3 +20,10 @@ html, body {
   color: var(--textColor);
   margin-top: -20px;
 }
+
+@media screen and (max-width: 425px) {
+.main{
+  margin: 0;
+  padding: 0;
+}
+}

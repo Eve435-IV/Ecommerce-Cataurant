@@ -165,9 +165,11 @@
     .tagline { font-size: 14px; }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 425px) {
     .container {
-        padding: 30px 15px;
+        padding:0;
+        margin: 0;
+        max-width: 200px;
     }
     .socialIcons {
         gap: 10px;
