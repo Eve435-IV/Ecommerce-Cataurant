@@ -113,6 +113,7 @@ box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 .error, .empty {
+  margin-top: 110px;
   width: 100%;
   max-width: 1200px;
   height: 66vh; 
@@ -124,6 +125,7 @@ box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 .empty {
+  margin-top: 110px;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding: 290px;
     background-color: #fafafa;

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import { GET_MY_ORDERS } from "../../schema/order";
 import { formatDistanceToNow, isValid } from "date-fns";
 import styles from "./myOrders.module.css";
 import {
@@ -10,6 +9,7 @@ import {
   OrderBatch,
   Order,
   OrderStatus,
+  GET_MY_ORDERS,
 } from "../../schema/order";
 
 const statusColors: Record<string, string> = {
@@ -23,9 +23,14 @@ export default function MyOrdersPage() {
   const [selectedTab, setSelectedTab] = useState(0);
   const isCompletedTab = selectedTab === 1;
 
-  const { data, loading, error } = useQuery<GetMyOrdersResponse>(
+  const { data, loading, error } = useQuery<any>(
     GET_MY_ORDERS,
-    { fetchPolicy: "network-only" }
+    {
+      variables: {
+        isCompleted: null,
+      },
+    }
+    // { fetchPolicy: "network-only" }
   );
 
   const formatDate = (timestamp: string) => {
