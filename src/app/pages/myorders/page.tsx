@@ -23,7 +23,7 @@ export default function MyOrdersPage() {
   const [selectedTab, setSelectedTab] = useState(0);
   const isCompletedTab = selectedTab === 1;
 
-  const { data, loading, error } = useQuery<any>(
+  const { data, loading, error } = useQuery<GetMyOrdersResponse>(
     GET_MY_ORDERS,
     {
       variables: {
