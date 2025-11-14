@@ -153,17 +153,17 @@
 
     .toptext {
         font-size: 25vw;
-        top: 30%;
+        top: 20%;
     }
 
     .midtext {
-        font-size: 15vw;
+        font-size: 35vw;
         top: 50%;
     }
 
     .bottext {
-        font-size:15vw;
-        top: 70%;
+        font-size:20vw;
+        top: 80%;
     }
 }
 
