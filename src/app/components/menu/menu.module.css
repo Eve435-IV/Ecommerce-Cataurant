@@ -1,0 +1,19 @@
+.mainContianer{
+    position: fixed;
+    background-color: red;
+    color: white;
+    font-size: 60px;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    margin-top: 2800px;
+    justify-self: flex-end;
+    text-align: end;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.icon{
+   height: 90px;
+   width: 90px;
+}

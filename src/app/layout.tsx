@@ -5,6 +5,7 @@ import "./globals.css";
 import ApolloProviderWrapper from "../providers/ApolloProviderWrapper";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
+import Manu from "./components/menu/Menu";
 import { CartProvider } from "../context/cartContext";
 import React from "react";
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           <AppRouterCacheProvider>
             <CartProvider>
               <Navbar />
+              <Manu />
               <div className="main">{children}</div>
               <Footer />
             </CartProvider>
