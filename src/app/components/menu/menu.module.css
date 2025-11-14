@@ -1,20 +1,69 @@
+/* your existing button */
 .mainContianer {
     position: fixed;
-    bottom: 20px;        /* distance from bottom */
-    right: 20px;         /* distance from right */
-    
-    background-color: red;
-    color: white;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 0, 0);
+    font-weight: bold;
     font-size: 60px;
-    padding: 40px;
+    padding: 20px;
     border-radius: 30px;
-    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+    box-shadow:0 10px 20px rgba(0, 0, 0, 0.4);
     z-index: 9999;
-    
     text-align: end;
+    cursor: pointer;
+}
+
+.wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 9999;
 }
 
 .icon {
     height: 90px;
     width: 90px;
+    transition: transform 0.3s ease;  /* smooth rotation */
+}
+
+/* rotation when open */
+.rotate {
+    transform: rotate(-90deg);
+}
+
+/* Slide-out menu */
+.popMenu {
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    height: 13.6vh;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    animation: slide 0.25s ease-out;
+    margin-right: 140px;
+}
+
+/* Simple animation */
+@keyframes slide {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Menu links */
+.popMenu a {
+    font-size: 26px;
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+}
+
+.popMenu a:hover {
+    color: red;
 }
