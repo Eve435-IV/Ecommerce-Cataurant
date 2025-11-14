@@ -26,8 +26,8 @@
 }
 
 .icon {
-    height: 90px;
-    width: 90px;
+    height: 190px;
+    width: 190px;
     transition: transform 0.3s ease;  /* smooth rotation */
 }
 
@@ -35,19 +35,23 @@
 .rotate {
     transform: rotate(-90deg);
 }
+.menuIcon{
+    height: 90px;
+    width: 90px;
+}
 
 /* Slide-out menu */
 .popMenu {
     background: white;
     border-radius: 30px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    height: 13.6vh;
-    padding: 0 25px;
+    height: 27vh;
+    padding: 0 45px;
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 35px;
     animation: slide 0.25s ease-out;
-    margin-right: 140px;
+    margin-right: 240px;
 }
 
 /* Simple animation */
@@ -66,4 +70,30 @@
 
 .popMenu a:hover {
     color: red;
+}
+.topMenu {
+    position: absolute;
+    bottom: 240px; 
+    right: 0;
+
+    background: white;
+    border-radius: 30px;
+    padding: 45px 45px;
+    width: 230px;
+
+    display: flex;                
+    flex-direction: column;       
+    align-items: center;          
+    justify-content: center;      
+
+    gap: 25px;
+
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    animation: drop 0.25s ease-out;
+}
+
+/* animation for top popup */
+@keyframes drop {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
