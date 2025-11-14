@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Cātaurant",
-  description: "Selling felines Products",
+  description: "The Best Restaurant In Town!",
 };
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="body">
         <ApolloProviderWrapper>
           <AppRouterCacheProvider>
             <CartProvider>

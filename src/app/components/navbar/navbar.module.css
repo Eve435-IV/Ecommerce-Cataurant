@@ -244,21 +244,21 @@
 
 @media screen and (max-width: 1440px) {
     .mainlogo {
-        font-size: 30px;
+        font-size: 40px;
     }
 
     .midcontainer {
-        gap: 25px;
+        gap: 20px;
     }
 
     .link {
-        font-size: 15px;
+        font-size: 20px;
     }
 
     .icon {
-        width: 20px;
-        height: 20px;
-    }
+        width: 35px;
+        height: 35px;
+}
 }
 
 @media screen and (max-width: 1024px) {
@@ -267,7 +267,7 @@
     }
 
     .mainlogo {
-        font-size: 28px;
+        font-size: 35px;
     }
 
     .midcontainer {
@@ -275,12 +275,12 @@
     }
 
     .link {
-        font-size: 14px;
+        font-size: 20px;
     }
 
     .icon {
-        width: 18px;
-        height: 18px;
+        width: 32px;
+        height: 32px;
     }
 }
 
@@ -289,16 +289,31 @@
         padding: 10px 20px;
         height: 70px;
     }
-
-    .midcontainer {
-        display: none;
-    }
-
     .rightcontainer {
         gap: 15px;
     }
 
     .mainlogo {
-        font-size: 26px;
+        font-size: 30px;
+    }
+}
+@media screen and (max-width: 425px) {
+    .navbar {
+        padding: 30px;
+        height: 100px;
+    }
+    .rightcontainer {
+        gap: 15px;
+    }
+    .link {
+        font-size: 25px;
+    }
+
+    .icon {
+        width: 32px;
+        height: 32px;
+    }
+    .mainlogo {
+        font-size: 40px;
     }
 }

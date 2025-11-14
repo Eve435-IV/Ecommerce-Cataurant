@@ -12,8 +12,9 @@ html, body {
 }
 .main {
  flex: 1;
-  padding-left: 250px;
-  padding-right: 250px;
+
+  padding-left: 60px;
+  padding-right: 60px;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #ffffff;
@@ -21,9 +22,36 @@ html, body {
   margin-top: -20px;
 }
 
-@media screen and (max-width: 425px) {
+
+@media screen and (max-width: 1440px) {
 .main{
-  margin: 0;
-  padding: 0;
+  padding-top: 20px;
+  padding-left: 120px;
+  padding-right: 120px;
+   width: 1500px;
+}
+.body{
+  width: 1500px;
+}
+}
+@media screen and (max-width: 1024px) {
+.main{
+  padding-top: 80px;
+  padding-left: 120px;
+  padding-right: 120px;
+}
+}
+@media screen and (max-width: 768px) {
+.main{
+  padding-top: 70px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+}
+@media screen and (max-width: 768px) {
+.main{
+  padding-top: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 }
