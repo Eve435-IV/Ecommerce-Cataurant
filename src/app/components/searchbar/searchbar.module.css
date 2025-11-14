@@ -173,6 +173,7 @@ font-size: 20px;
     border-radius: 30px;
     top: 55px;
     padding: 15px 30px;
+    height: 180px;
 
   }
   .search{
@@ -184,16 +185,16 @@ font-size: 20px;
     flex: 1; 
     /* margin: 0 18px; */
     width: 700px;
-    height: 40px;
+    height: 125px;
     padding: 35px;
   }
   .icon {
-    font-size: 50px;
+    font-size: 100px;
     margin-top: 0;
   }
   
   .search {
-    font-size: 14px;
+    font-size: 20px;
   }
   .filterText,
   .recomendedText {
@@ -203,7 +204,11 @@ font-size: 20px;
   .filter,
   .recomended {
     /* border-radius: 0px; */
-    padding: 20px;
+    padding: 30px;
     border-radius:25px;
+  }
+    .filterIcon,
+  .recomendedIcon{
+    font-size: 60px;
   }
 }
