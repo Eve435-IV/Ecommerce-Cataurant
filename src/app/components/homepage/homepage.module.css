@@ -390,7 +390,7 @@ margin: 10px 0;
 margin-left: 0;
 }
 .rightBanner {
-display: none;
+/* display: none; */
 }
 }
 
@@ -398,7 +398,7 @@ display: none;
 .mainContainer.fullWidth {
 padding: 20px;
 }
-.banner {
+/* .banner {
 height: auto;
 padding: 20px;
 text-align: center;
@@ -407,7 +407,7 @@ flex-direction: column;
 .banner p {
 font-size: 1.2rem;
 max-width: 100%;
-}
+} */
 .title {
 font-size: 1.8rem;
 margin-bottom: 20px;
@@ -428,10 +428,10 @@ padding: 15px;
 font-size: 4rem;
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-.banner {
+/* .banner {
 margin-top: 10px;
 padding: 15px;
-}
+} */
 .smallContainer {
 padding: 15px 5px;
 }
@@ -455,4 +455,17 @@ transition: transform 0.2s;
 .smallText {
 font-size: 1.6rem;
 }
+.banner{
+  height: 300px;
+}
+.leftBanner button{
+  padding: 20px;
+  font-size: 50px;
+  border-radius: 30px;
+}
+.leftBanner p{
+  font-size: 40px;
+}
+.pawIcon { opacity: 0.9; width: 220px; height: 220px; margin-top: 85px;}
+.headIcon { opacity: 0.9; width: 250px; height: 250px; margin-top: 45px;}
 }
