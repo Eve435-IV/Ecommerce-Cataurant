@@ -175,8 +175,8 @@ export default function Homepage() {
             <div className={styles.textContainer}>
               <div className={styles.mainText}>Cambodia's Popular Dish</div>
               <p className={styles.smallText}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Sapiente inventore earum maiores officiis?
+                Fried rice,beer and ice cream are the most popular in Cambodia
+                cuisine.
               </p>
             </div>
             <div className={styles.smallContainer}>
