@@ -338,7 +338,7 @@ font-family: 'Inter', sans-serif;
 color: #000000;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1440px) {
 .sidebar {
 flex: 0 0 250px;
 max-width: 250px;
@@ -351,12 +351,12 @@ font-size: 1.4rem;
 }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
 .boxContiner {
 grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 .cambodiaContainer, .japanContainer, .fastfoodContainer, .koreaContainer {
-flex-direction: column;
+/* flex-direction: column; */
 min-height: auto;
 }
 .textContainer {
@@ -368,7 +368,7 @@ order: 1;
 margin-top: 15px;
 }
 .smallContainer {
-min-width: 100%;
+/* min-width: 100%; */
 margin: 10px 0;
 }
 .sidebar {
@@ -416,15 +416,16 @@ gap: 15px;
 }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 425px) {
 .pageWrapper {
-flex-direction: column;
+/* flex-direction: column; */
 }
 .mainContainer.shrink, .mainContainer.fullWidth {
 padding: 15px;
 }
 .title {
-font-size: 1.5rem;
+font-size: 4rem;
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .banner {
 margin-top: 10px;
