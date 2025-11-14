@@ -299,21 +299,18 @@
 }
 @media screen and (max-width: 425px) {
     .navbar {
-        padding: 30px;
-        height: 100px;
+        padding: 40px;
+        padding-left: 50px;
+        padding-right: 50px;
+        height: 250px;
     }
     .rightcontainer {
         gap: 15px;
     }
-    .link {
-        font-size: 25px;
-    }
-
-    .icon {
-        width: 32px;
-        height: 32px;
+    .midcontainer {
+        display: none;
     }
     .mainlogo {
-        font-size: 40px;
+        font-size: 80px;
     }
 }
