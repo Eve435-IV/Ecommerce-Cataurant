@@ -12,6 +12,7 @@ import Booking from "../navbar/public/calendar.png";
 import History from "../navbar/public/history.png";
 import Cart from "../navbar/public/online-shopping.png";
 import Profile from "../navbar/public/user (1).png";
+import Home from "../navbar/public/home.png";
 
 function Menu() {
   const [open, setOpen] = useState(false);
@@ -27,6 +28,10 @@ function Menu() {
 
           <Link href="/profile" className={styles.link}>
             <img src={Profile.src} alt="Profile" className={styles.menuIcon} />
+          </Link>
+
+          <Link href="/" className={styles.link}>
+            <img src={Home.src} alt="Home" className={styles.menuIcon} />
           </Link>
         </div>
       )}

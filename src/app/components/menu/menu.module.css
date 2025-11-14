@@ -1,9 +1,11 @@
 /* your existing button */
+@media screen and (max-width: 425px) {
 .mainContianer {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background-color: rgb(255, 255, 255);
+    border: red 10px solid;
     color: rgb(255, 0, 0);
     font-weight: bold;
     font-size: 60px;
@@ -36,22 +38,22 @@
     transform: rotate(-90deg);
 }
 .menuIcon{
-    height: 90px;
-    width: 90px;
+    height: 120px;
+    width: 120px;
 }
 
 /* Slide-out menu */
 .popMenu {
-    background: white;
-    border-radius: 30px;
+    background: rgb(255, 255, 255);
+    border-radius: 90px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    height: 27vh;
-    padding: 0 45px;
+    height: 26vh;
+    padding: 0 135px 0 45px;
     display: flex;
     align-items: center;
     gap: 35px;
     animation: slide 0.25s ease-out;
-    margin-right: 240px;
+    margin-right: 140px;
 }
 
 /* Simple animation */
@@ -73,20 +75,20 @@
 }
 .topMenu {
     position: absolute;
-    bottom: 240px; 
-    right: 0;
+    bottom: 150px; 
+    right: 5px;
 
-    background: white;
-    border-radius: 30px;
-    padding: 45px 45px;
-    width: 230px;
+    background: rgb(255, 255, 255);
+    border-radius: 90px;
+    padding: 45px 45px 125px 45px;
+    width: 220px;
 
     display: flex;                
     flex-direction: column;       
     align-items: center;          
     justify-content: center;      
 
-    gap: 25px;
+    gap: 35px;
 
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     animation: drop 0.25s ease-out;
@@ -96,4 +98,5 @@
 @keyframes drop {
     from { transform: translateY(20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
+}
 }

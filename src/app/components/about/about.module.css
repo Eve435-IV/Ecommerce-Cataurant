@@ -1,250 +1,303 @@
 .pageWrapper {
-    margin-top: 110px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-min-height: 1200px;
-background-color: #f7fafc;
-padding-top: 0;
-color: #2d3748;
-font-family: 'Inter', sans-serif;
-overflow-x: hidden;
-box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-width: 1300px;
-margin-left: auto;
-margin-right: auto;
+  margin-top: 110px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  min-height: 1200px;
+  background-color: #f7fafc;
+  padding-top: 0;
+  color: #2d3748;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sectionHeading {
-font-size: 3rem;
-font-weight: 800;
-text-align: center;
-color: #e53e3e;
-margin-bottom: 20px;
-letter-spacing: -0.02em;
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  color: #e53e3e;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
 }
 
 .showcaseSubtitle {
-font-size: 1.25rem;
-text-align: center;
-color: #a0aec0;
-margin-bottom: 50px;
-max-width: 800px;
-margin-left: auto;
-margin-right: auto;
+  font-size: 1.25rem;
+  text-align: center;
+  color: #a0aec0;
+  margin-bottom: 50px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .heroSection {
-background-image: url('https://static01.nyt.com/images/2024/01/10/multimedia/10Korean-Fried-Chicken-lfcg/10Korean-Fried-Chicken-lfcg-videoSixteenByNineJumbo1600.jpg');
-background-size: cover;
-background-position: center;
-height: 450px;
-display: flex;
-align-items: center;
-justify-content: center;
-position: relative;
-box-shadow: inset 0 0 0 1000px rgba(58, 58, 58, 0.65);
+  background-image: url('https://static01.nyt.com/images/2024/01/10/multimedia/10Korean-Fried-Chicken-lfcg/10Korean-Fried-Chicken-lfcg-videoSixteenByNineJumbo1600.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: inset 0 0 0 1000px rgba(58, 58, 58, 0.65);
 }
 
 .heroContent {
-text-align: center;
-color: white;
-padding: 20px;
+  text-align: center;
+  color: white;
+  padding: 20px;
 }
 
 .heroTitle {
-font-size: 4.5rem;
-font-weight: 900;
-margin-bottom: 15px;
-text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-letter-spacing: 2px;
+  font-size: 4.5rem;
+  font-weight: 900;
+  margin-bottom: 15px;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px;
 }
 
 .heroSubtitle {
-font-size: 1.5rem;
-font-weight: 400;
-opacity: 0.95;
+  font-size: 1.5rem;
+  font-weight: 400;
+  opacity: 0.95;
 }
 
 .missionSection {
-padding: 80px 5% 60px 5%;
-background-color: white;
+  padding: 80px 5% 60px 5%;
+  background-color: white;
 }
 
 .missionGrid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 40px;
-max-width: 1200px;
-margin: 0 auto;
-margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 40px;
 }
 
 .missionText {
-font-size: 1.15rem;
-line-height: 1.8;
-color: #4a5568;
-border-left: 3px solid #e53e3e;
-padding-left: 20px;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #4a5568;
+  border-left: 3px solid #e53e3e;
+  padding-left: 20px;
 }
 
 .showcaseSection {
-padding: 80px 5% 100px 5%;
-background-color: #1a202c;
-color: white;
+  padding: 80px 5% 100px 5%;
+  background-color: #1a202c;
+  color: white;
 }
 
 .cuisineGrid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-gap: 30px;
-max-width: 1300px;
-margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 .cuisineCard {
-background-color: #2d3748;
-border-radius: 12px;
-padding: 30px;
-text-align: center;
-box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
-border: 2px solid transparent;
+  background-color: #2d3748;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+  border: 2px solid transparent;
 }
 
 .cuisineCard:hover {
-transform: translateY(-5px);
-box-shadow: 0 15px 25px rgba(229, 62, 62, 0.3);
-border-color: #e53e3e;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(229, 62, 62, 0.3);
+  border-color: #e53e3e;
 }
 
 .iconContainer {
-margin-bottom: 25px;
-display: flex;
-justify-content: center;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
 }
 
 .cuisineIcon {
-width: 80px;
-height: 80px;
-border-radius: 50%;
-background-color: #2b2b2b;
-padding: 10px;
-object-fit: contain;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #2b2b2b;
+  padding: 10px;
+  object-fit: contain;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .cardTitle {
-font-size: 1.8rem;
-font-weight: 800;
-margin-bottom: 10px;
-color: white;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: white;
 }
 
 .cardDescription {
-color: #a0aec0;
-margin-bottom: 20px;
-line-height: 1.6;
+  color: #a0aec0;
+  margin-bottom: 20px;
+  line-height: 1.6;
 }
 
 .cardLink {
-display: inline-block;
-color: white;
-font-weight: 600;
-text-decoration: none;
-padding: 10px 20px;
-border-radius: 8px;
-background-color: #e53e3e;
-transition: background-color 0.3s;
+  display: inline-block;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #e53e3e;
+  transition: background-color 0.3s;
 }
 
 .cardLink:hover {
-background-color: #c53030;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  background-color: #c53030;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .ctaSection {
-background-color: #f7fafc;
-padding: 80px 5% 80px 5%;
-text-align: center;
+  background-color: #f7fafc;
+  padding: 80px 5% 80px 5%;
+  text-align: center;
 }
 
 .ctaTitle {
-font-size: 2.5rem;
-font-weight: 800;
-color: #2d3748;
-margin-bottom: 15px;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2d3748;
+  margin-bottom: 15px;
 }
 
 .ctaText {
-font-size: 1.2rem;
-color: #4a5568;
-margin-bottom: 40px;
+  font-size: 1.2rem;
+  color: #4a5568;
+  margin-bottom: 40px;
 }
 
 .ctaButton {
-display: inline-block;
-padding: 15px 40px;
-font-size: 1.25rem;
-font-weight: 700;
-text-decoration: none;
-color: white;
-background-color: #e53e3e;
-border-radius: 8px;
-transition: transform 0.3s, box-shadow 0.3s;
-box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+  background-color: #e53e3e;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
 }
 
 .ctaButton:hover {
-background-color: #c53030;
-transform: translateY(-3px);
-box-shadow: 0 10px 25px rgba(229, 62, 62, 0.6);
+  background-color: #c53030;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(229, 62, 62, 0.6);
 }
 
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1440px) {
   .pageWrapper {
-    width: 95%;
+    width: 100%;
     min-height: 1000px;
   }
 }
 
 /* Hero section adjustments */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .heroSection {
     height: 250px;
     padding: 0 10px;
   }
+
   .heroTitle {
     font-size: 2.2rem;
   }
+
   .heroSubtitle {
     font-size: 0.9rem;
   }
 }
 
 /* Cuisine grid tweaks for small screens */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 425px) {
+  .pageWrapper {
+    margin-top: 210px;
+  }
+
+  .heroSection {
+    height: 650px;
+  }
+
+  .heroTitle {
+    font-size: 120px;
+  }
+
+  .heroSubtitle {
+    font-size: 50px;
+  }
+  .sectionHeading{
+    font-size: 60px;
+  }
+  .missionText{
+    font-size: 50px;
+  }
+  .missionGrid{
+    display: flex;                
+    flex-direction: column;       
+    align-items: center;          
+    justify-content: center; 
+    text-align:center;
+    gap: 100px;
+  }
+
   .cuisineGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
+  .showcaseSubtitle{
+    font-size: 2.5rem;
+  }
+
   .cuisineCard {
-    padding: 20px;
+    height: 800px;
+    padding: 50px;
   }
+  .cuisineIcon{
+    width: 250px;
+    height: 250px;
+  }
+
   .cardTitle {
-    font-size: 1.3rem;
+    font-size: 3.3rem;
   }
+
   .cardDescription {
-    font-size: 0.95rem;
+    font-size: 2rem;
   }
+
   .cardLink {
-    padding: 8px 15px;
-    font-size: 0.9rem;
+    padding: 15px 35px;
+    font-size: 3em;
+  }
+  .ctaTitle{
+    font-size: 4rem;
+  }
+  .ctaText{
+    font-size: 2.5rem;
+  }
+  .ctaButton{
+    font-size: 4rem;
   }
 }
 
-/* Mission section tweaks for very small screens */
-@media screen and (max-width: 400px) {
+
+/* @media screen and (max-width: 400px) {
   .missionSection {
     padding: 60px 3% 40px 3%;
   }
@@ -253,7 +306,7 @@ box-shadow: 0 10px 25px rgba(229, 62, 62, 0.6);
   }
 }
 
-/* CTA Section tweaks */
+
 @media screen and (max-width: 500px) {
   .ctaTitle {
     font-size: 1.8rem;
@@ -265,4 +318,4 @@ box-shadow: 0 10px 25px rgba(229, 62, 62, 0.6);
     padding: 10px 25px;
     font-size: 1rem;
   }
-}
+}  */

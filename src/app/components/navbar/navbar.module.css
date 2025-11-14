@@ -313,4 +313,7 @@
     .mainlogo {
         font-size: 80px;
     }
+    .rightcontainer{
+        display: none;
+    }
 }
