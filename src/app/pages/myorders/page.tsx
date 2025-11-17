@@ -49,7 +49,7 @@ export default function MyOrdersPage() {
         ...batch,
         orders: batch.orders.filter((o) => o.isCompleted === isCompletedTab),
       }))
-      .filter((batch) => batch.orders.length > 0) || [];
+      ?.filter((batch) => batch.orders.length > 0) || [];
 
   return (
     <div className={styles.ordersPage}>
