@@ -21,7 +21,7 @@ import styles from "./orderonline.module.css";
 // =====================
 
 interface Product {
-  _id: string; // ✅ changed from id → _id (matches backend)
+  _id: string;
   name: string;
   description: string;
   price: number;
