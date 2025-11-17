@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import { formatDistanceToNow, isValid } from "date-fns";
-import styles from "./myOrders.module.css";
 import {
   GetMyOrdersResponse,
   OrderBatch,
@@ -11,6 +10,7 @@ import {
   OrderStatus,
   GET_MY_ORDERS,
 } from "../../schema/order";
+import styles from "./myOrders.module.css";
 
 const statusColors: Record<string, string> = {
   Pending: "#FFC107",
@@ -20,17 +20,15 @@ const statusColors: Record<string, string> = {
 };
 
 export default function MyOrdersPage() {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState<0 | 1>(0);
   const isCompletedTab = selectedTab === 1;
 
   const { data, loading, error } = useQuery<GetMyOrdersResponse>(
     GET_MY_ORDERS,
     {
-      variables: {
-        isCompleted: null,
-      },
+      variables: { page: 1, limit: 20, isCompleted: null },
+      fetchPolicy: "network-only",
     }
-    // { fetchPolicy: "network-only" }
   );
 
   const formatDate = (timestamp: string) => {
@@ -41,22 +39,12 @@ export default function MyOrdersPage() {
     })})`;
   };
 
-  if (loading)
-    return (
-      <div className={styles.loading}>
-        <p>Loading orders...</p>
-      </div>
-    );
+  if (loading) return <div className={styles.loading}>Loading orders...</div>;
+  if (error) return <div className={styles.error}>Error: {error.message}</div>;
 
-  if (error)
-    return (
-      <div className={styles.error}>
-        <p>Error loading orders: {error.message}</p>
-      </div>
-    );
-
+  // Access the paginated data
   const batches: OrderBatch[] =
-    data?.getMyOrders
+    data?.getMyOrders?.data
       ?.map((batch) => ({
         ...batch,
         orders: batch.orders.filter((o) => o.isCompleted === isCompletedTab),
@@ -68,40 +56,20 @@ export default function MyOrdersPage() {
       <h2 className={styles.heading}>My Orders</h2>
 
       {/* Tabs */}
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          marginBottom: "20px",
-        }}
-      >
+      <div className={styles.tabContainer}>
         <button
+          className={`${styles.tabButton} ${
+            !isCompletedTab ? styles.activeTab : ""
+          }`}
           onClick={() => setSelectedTab(0)}
-          style={{
-            padding: "8px 20px",
-            borderRadius: "20px",
-            border: "1px solid #ccc",
-            backgroundColor: !isCompletedTab ? "#ff5c5c" : "#fff",
-            fontWeight: !isCompletedTab ? 700 : 700,
-            color: !isCompletedTab ? "White" : "black",
-            cursor: "pointer",
-            transition: "0.2s",
-          }}
         >
           Active Orders
         </button>
         <button
+          className={`${styles.tabButton} ${
+            isCompletedTab ? styles.activeTab : ""
+          }`}
           onClick={() => setSelectedTab(1)}
-          style={{
-            padding: "8px 20px",
-            borderRadius: "20px",
-            border: "1px solid #ccc",
-            backgroundColor: !isCompletedTab ? "#fff" : "#ff5c5c",
-            fontWeight: !isCompletedTab ? 700 : 700,
-            color: !isCompletedTab ? "black" : "white",
-            cursor: "pointer",
-            transition: "0.2s",
-          }}
         >
           Completed Orders
         </button>
@@ -119,29 +87,30 @@ export default function MyOrdersPage() {
                 <span>Batch ID: {batch.batchId}</span>
                 <span>Order Date: {formatDate(batch.orderDate)}</span>
               </div>
+
               {batch.orders.map((order: Order) => {
                 const status: OrderStatus | "Completed" = order.isCompleted
                   ? "Completed"
                   : order.status || OrderStatus.Pending;
                 const color = statusColors[status] || "#000";
 
-                const flavours = order.flavour || [];
-                const sides = order.sideDish || [];
-
                 return (
                   <div key={order._id} className={styles.orderItem}>
                     <div>
-                      {order.productId?.name} x {order.quantity} - $
-                      {order.productId?.price * order.quantity}
-                      {flavours.length > 0 &&
-                        ` | Flavours: ${flavours.join(", ")}`}
-                      {sides.length > 0 && ` | Sides: ${sides.join(", ")}`}
+                      {order.productId?.name} x {order.quantity} — $
+                      {(order.productId?.price * order.quantity).toFixed(2)}
+                      {order.flavour?.length
+                        ? ` | Flavours: ${order.flavour.join(", ")}`
+                        : ""}
+                      {order.sideDish?.length
+                        ? ` | Sides: ${order.sideDish.join(", ")}`
+                        : ""}
                     </div>
                     <div className={styles.orderStatus}>
                       <span
                         className={styles.statusIndicator}
                         style={{ backgroundColor: color }}
-                      ></span>
+                      />
                       {status}
                     </div>
                   </div>

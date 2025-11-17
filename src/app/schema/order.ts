@@ -6,38 +6,52 @@ import { gql } from '@apollo/client';
 
 // Get all orders for the logged-in user
 export const GET_MY_ORDERS = gql`
-  query GetMyOrders($isCompleted: Boolean) {
-  getMyOrders(isCompleted: $isCompleted) {
-    batchId
-    orderDate
-    orders {
-      _id
-      userId {
-        _id
-        firstName
-        lastName
-        email
-        role
-        profileImage
-        isActive
-        createdAt
-      }
-      productId {
-        _id
-        name
-        category
-        imageUrl
-        desc
-        price
-      }
-      quantity
-      flavour
-      sideDish
-      cuisine
-      status
-      isCompleted
+  query GetMyOrders($page: Int, $limit: Int, $isCompleted: Boolean) {
+  getMyOrders(page: $page, limit: $limit, isCompleted: $isCompleted) {
+    data {
       batchId
       orderDate
+      orders {
+        _id
+        userId {
+          _id
+          firstName
+          lastName
+          email
+          role
+          profileImage
+          isActive
+          createdAt
+        }
+        productId {
+          _id
+          name
+          category
+          imageUrl
+          desc
+          price
+        }
+        quantity
+        flavour
+        sideDish
+        cuisine
+        status
+        isCompleted
+        batchId
+        orderDate
+      }
+    }
+    paginator {
+      slNo
+      prev
+      next
+      perPage
+      totalPosts
+      totalPages
+      currentPage
+      hasPrevPage
+      hasNextPage
+      totalDocs
     }
   }
 }

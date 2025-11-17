@@ -145,3 +145,33 @@ box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
     font-weight: 600;
     font-size: 20px;
 }
+.tabContainer {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tabButton {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #a52a2a; /* primary red text */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 transparent; /* no glow */
+}
+
+/* hover effect (optional) */
+.tabButton:hover {
+  background: #ffe5e5;
+}
+
+/* ACTIVE TAB STYLE */
+.activeTab {
+  background: #a52a2a; /* primary red background */
+  color: white;
+  /* box-shadow: 0 0 12px #ff4d4d;  */
+  transform: translateY(-2px); /* slight lift */
+}

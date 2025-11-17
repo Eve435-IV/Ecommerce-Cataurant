@@ -8,12 +8,11 @@ import { useRouter } from "next/navigation";
 import {
   GetMyOrdersResponse,
   OrderBatch,
+  Order,
   OrderStatus,
-  Category,
 } from "../schema/order";
 import styles from "./profile.module.css";
 
-// ================== GRAPHQL ==================
 const UPDATE_USER_MUTATION = gql`
   mutation UpdateUser($id: ID!, $input: UserUpdateInput) {
     updateUser(_id: $id, input: $input) {
@@ -43,42 +42,55 @@ const CHANGE_PASSWORD_MUTATION = gql`
 const GET_MY_ORDERS = gql`
   query GetMyOrders {
     getMyOrders {
-      batchId
-      orderDate
-      orders {
-        _id
-        userId {
-          _id
-          firstName
-          lastName
-          email
-          role
-          profileImage
-          isActive
-          createdAt
-        }
-        productId {
-          _id
-          name
-          category
-          imageUrl
-          desc
-          price
-        }
-        quantity
-        flavour
-        sideDish
-        cuisine
-        status
-        isCompleted
+      data {
         batchId
         orderDate
+        orders {
+          _id
+          userId {
+            _id
+            firstName
+            lastName
+            email
+            role
+            profileImage
+            isActive
+            createdAt
+          }
+          productId {
+            _id
+            name
+            category
+            imageUrl
+            desc
+            price
+          }
+          quantity
+          flavour
+          sideDish
+          cuisine
+          status
+          isCompleted
+          batchId
+          orderDate
+        }
+      }
+      paginator {
+        currentPage
+        totalPages
+        totalDocs
       }
     }
   }
 `;
 
-// ================== COMPONENT ==================
+const statusColors: Record<string, string> = {
+  Pending: "#FFC107",
+  Accepted: "#4CAF50",
+  Declined: "#F44336",
+  Completed: "#2196F3",
+};
+
 export default function UserProfilePage() {
   const { user, login, logout, isInitialized } = useAuthStore();
   const router = useRouter();
@@ -103,7 +115,6 @@ export default function UserProfilePage() {
     confirmPassword: "",
   });
 
-  // ================== MUTATIONS ==================
   const [updateUser, { loading: updating }] = useMutation(
     UPDATE_USER_MUTATION,
     {
@@ -155,7 +166,6 @@ export default function UserProfilePage() {
     }
   );
 
-  // ================== QUERY ==================
   const {
     data,
     loading: ordersLoading,
@@ -164,43 +174,36 @@ export default function UserProfilePage() {
     fetchPolicy: "network-only",
   });
 
-  // Filter completed orders
+  // Only completed orders
   const completedOrders: OrderBatch[] =
-    data?.getMyOrders
-      .map((batch) => ({
+    data?.getMyOrders?.data
+      ?.map((batch) => ({
         ...batch,
         orders: batch.orders.filter((order) => order.isCompleted),
       }))
       .filter((batch) => batch.orders.length > 0) || [];
 
-  // ================== EFFECT ==================
   useEffect(() => {
-    if (user) {
+    if (user)
       setFormData({
         firstName: user.firstName,
         lastName: user.lastName || "",
         email: user.email,
         profileImage: user.profileImage || "",
       });
-      setPreview(user.profileImage || null);
-    }
-
     if (!isInitialized) return;
     if (!user) router.push("/signup");
-
     if (feedback && !feedback.isError) {
       const timer = setTimeout(() => setFeedback(null), 2000);
       return () => clearTimeout(timer);
     }
   }, [user, isInitialized, feedback]);
 
-  // ================== HANDLERS ==================
+  // Handlers for profile form, password, image, cancel, logout
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
     setPasswordForm({ ...passwordForm, [e.target.name]: e.target.value });
-
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -211,21 +214,15 @@ export default function UserProfilePage() {
     };
     reader.readAsDataURL(file);
   };
-
   const handleRemoveImage = () => {
     setPreview(null);
     setFormData({ ...formData, profileImage: "" });
   };
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!user?._id || updating) return;
-    const { firstName, lastName, profileImage } = formData;
-    updateUser({
-      variables: { id: user._id, input: { firstName, lastName, profileImage } },
-    });
+    updateUser({ variables: { id: user._id, input: formData } });
   };
-
   const handlePasswordSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
@@ -241,7 +238,6 @@ export default function UserProfilePage() {
       },
     });
   };
-
   const handleCancelEdit = () => {
     if (user)
       setFormData({
@@ -255,13 +251,11 @@ export default function UserProfilePage() {
     setShowChangePassword(false);
     setFeedback(null);
   };
-
   const handleLogout = () => {
     logout();
     router.push("/signup");
   };
 
-  // ================== RENDER ==================
   if (!isInitialized) return <p>Loading Authentication...</p>;
   if (!user) return <p>Please login to access your profile.</p>;
 
@@ -270,7 +264,6 @@ export default function UserProfilePage() {
       {/* Profile Column */}
       <div className={styles.profileColumn}>
         <h2>{isEditing ? "Edit Profile" : "Profile Details"}</h2>
-
         {feedback && (
           <div
             className={`${styles.message} ${
@@ -280,7 +273,6 @@ export default function UserProfilePage() {
             {feedback.message}
           </div>
         )}
-
         <div className={styles.profileCard}>
           <div className={styles.avatarWrapper}>
             {preview ? (
@@ -298,7 +290,6 @@ export default function UserProfilePage() {
                 {user.firstName.charAt(0)}
               </div>
             )}
-
             {showImageButton && (
               <button
                 type="button"
@@ -309,7 +300,6 @@ export default function UserProfilePage() {
               </button>
             )}
           </div>
-
           <div className={styles.usernameDisplay}>
             <p>
               <strong>
@@ -318,7 +308,6 @@ export default function UserProfilePage() {
             </p>
             <p>{user.email}</p>
           </div>
-
           <input
             type="file"
             id="fileInput"
@@ -353,7 +342,6 @@ export default function UserProfilePage() {
                 onChange={handleChange}
                 required
               />
-
               <label className={styles.dataLabel}>Last Name</label>
               <input
                 type="text"
@@ -361,7 +349,6 @@ export default function UserProfilePage() {
                 value={formData.lastName}
                 onChange={handleChange}
               />
-
               {showChangePassword && (
                 <>
                   <label className={styles.dataLabel}>Old Password</label>
@@ -371,7 +358,6 @@ export default function UserProfilePage() {
                     value={passwordForm.oldPassword}
                     onChange={handlePasswordChange}
                   />
-
                   <label className={styles.dataLabel}>New Password</label>
                   <input
                     type="password"
@@ -379,7 +365,6 @@ export default function UserProfilePage() {
                     value={passwordForm.newPassword}
                     onChange={handlePasswordChange}
                   />
-
                   <label className={styles.dataLabel}>Confirm Password</label>
                   <input
                     type="password"
@@ -389,7 +374,6 @@ export default function UserProfilePage() {
                   />
                 </>
               )}
-
               <div className={styles.buttonGroup}>
                 <button type="submit" className={styles.saveChanges}>
                   {updating || changingPassword ? "Saving..." : "Save Changes"}
@@ -423,7 +407,7 @@ export default function UserProfilePage() {
         </div>
       </div>
 
-      {/* Orders History */}
+      {/* Completed Orders History */}
       <div className={styles.profileHistory}>
         <h2>Completed Orders History</h2>
         {ordersLoading ? (
@@ -444,34 +428,42 @@ export default function UserProfilePage() {
                     : "N/A"}
                 </p>
                 <ul className={styles.orderList}>
-                  {batch.orders.map((order) => (
-                    <li key={order._id} className={styles.orderItem}>
-                      <span>
-                        {order.productId?.name || "Unknown"} × {order.quantity}{" "}
-                        — $
-                        {(order.productId?.price * order.quantity).toFixed(2)}
-                      </span>
-                      {(order.flavour?.length ||
-                        order.sideDish?.length ||
-                        order.cuisine) && (
-                        <span className={styles.orderExtras}>
-                          {order.flavour?.length
-                            ? `Flavours: ${order.flavour.join(", ")}`
-                            : ""}
-                          {order.flavour?.length && order.sideDish?.length
-                            ? " | "
-                            : ""}
-                          {order.sideDish?.length
-                            ? `Sides: ${order.sideDish.join(", ")}`
-                            : ""}
-                          {order.cuisine ? ` | Cuisine: ${order.cuisine}` : ""}
+                  {batch.orders.map((order: Order) => {
+                    const status: OrderStatus | "Completed" = order.isCompleted
+                      ? "Completed"
+                      : order.status || OrderStatus.Pending;
+                    const color = statusColors[status] || "#000";
+                    return (
+                      <li key={order._id} className={styles.orderItem}>
+                        <span>
+                          {order.productId?.name || "Unknown"} ×{" "}
+                          {order.quantity} — $
+                          {(order.productId?.price * order.quantity).toFixed(2)}
                         </span>
-                      )}
-                      <span className={styles.orderStatus}>
-                        {order.isCompleted ? "Completed" : order.status}
-                      </span>
-                    </li>
-                  ))}
+                        {(order.flavour?.length ||
+                          order.sideDish?.length ||
+                          order.cuisine) && (
+                          <span className={styles.orderExtras}>
+                            {order.flavour?.length
+                              ? `Flavours: ${order.flavour.join(", ")}`
+                              : ""}
+                            {order.flavour?.length && order.sideDish?.length
+                              ? " | "
+                              : ""}
+                            {order.sideDish?.length
+                              ? `Sides: ${order.sideDish.join(", ")}`
+                              : ""}
+                            {order.cuisine
+                              ? ` | Cuisine: ${order.cuisine}`
+                              : ""}
+                          </span>
+                        )}
+                        <span className={styles.orderStatus} style={{ color }}>
+                          {status}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

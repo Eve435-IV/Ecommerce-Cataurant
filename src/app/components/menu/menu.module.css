@@ -4,9 +4,9 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 0, 0, 0.474);
     border: red 10px solid;
-    color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
     font-weight: bold;
     font-size: 60px;
     padding: 20px;
