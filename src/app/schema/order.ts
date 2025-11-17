@@ -7,54 +7,54 @@ import { gql } from '@apollo/client';
 // Get all orders for the logged-in user
 export const GET_MY_ORDERS = gql`
   query GetMyOrders($page: Int, $limit: Int, $isCompleted: Boolean) {
-  getMyOrders(page: $page, limit: $limit, isCompleted: $isCompleted) {
-    data {
-      batchId
-      orderDate
-      orders {
-        _id
-        userId {
-          _id
-          firstName
-          lastName
-          email
-          role
-          profileImage
-          isActive
-          createdAt
-        }
-        productId {
-          _id
-          name
-          category
-          imageUrl
-          desc
-          price
-        }
-        quantity
-        flavour
-        sideDish
-        cuisine
-        status
-        isCompleted
+    getMyOrders(page: $page, limit: $limit, isCompleted: $isCompleted) {
+      data {
         batchId
         orderDate
+        orders {
+          _id
+          userId {
+            _id
+            firstName
+            lastName
+            email
+            role
+            profileImage
+            isActive
+            createdAt
+          }
+          productId {
+            _id
+            name
+            category
+            imageUrl
+            desc
+            price
+          }
+          quantity
+          flavour
+          sideDish
+          cuisine
+          status
+          isCompleted
+          batchId
+          orderDate
+        }
+      }
+      paginator {
+        slNo
+        prev
+        next
+        perPage
+        totalPosts
+        totalPages
+        currentPage
+        hasPrevPage
+        hasNextPage
+        totalDocs
       }
     }
-    paginator {
-      slNo
-      prev
-      next
-      perPage
-      totalPosts
-      totalPages
-      currentPage
-      hasPrevPage
-      hasNextPage
-      totalDocs
-    }
   }
-}
 `;
 
 // Create orders
@@ -161,9 +161,26 @@ export interface OrderBatch {
   orders: Order[];
 }
 
-// Query response types
+// Paginator type (matches your backend customLabels result)
+export interface Paginator {
+  slNo: number;
+  prev: number | null;
+  next: number | null;
+  perPage: number;
+  totalPosts?: number; 
+  totalPages: number;
+  currentPage: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  totalDocs?: number;
+}
+
+// FINAL FIXED TYPE ✔
 export interface GetMyOrdersResponse {
-  getMyOrders: OrderBatch[];
+  getMyOrders: {
+    data: OrderBatch[];
+    paginator: Paginator;
+  };
 }
 
 // Mutation input types
