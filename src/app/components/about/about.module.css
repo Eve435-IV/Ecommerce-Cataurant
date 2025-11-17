@@ -1,5 +1,5 @@
 .pageWrapper {
-  margin-top: 80px;
+ margin-top: 87px;
   margin-bottom: 20px;
   border-radius: 10px;
   min-height: 1200px;
@@ -208,7 +208,6 @@
   }
 }
 
-/* Hero section adjustments */
 @media screen and (max-width: 768px) {
   .heroSection {
     height: 250px;
@@ -224,7 +223,6 @@
   }
 }
 
-/* Cuisine grid tweaks for small screens */
 @media screen and (max-width: 425px) {
   .pageWrapper {
     margin-top: 210px;
@@ -295,27 +293,3 @@
     font-size: 4rem;
   }
 }
-
-
-/* @media screen and (max-width: 400px) {
-  .missionSection {
-    padding: 60px 3% 40px 3%;
-  }
-  .missionText {
-    font-size: 0.95rem;
-  }
-}
-
-
-@media screen and (max-width: 500px) {
-  .ctaTitle {
-    font-size: 1.8rem;
-  }
-  .ctaText {
-    font-size: 1rem;
-  }
-  .ctaButton {
-    padding: 10px 25px;
-    font-size: 1rem;
-  }
-}  */

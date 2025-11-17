@@ -176,26 +176,23 @@
 }
 
 .saveChanges {
-  /* Solid main theme color for saving/confirming */
   background-color: #B71C1C;
   border-color: #B71C1C;
   color: white;
 }
 .saveChanges:hover:not(:disabled) {
-  background-color: #981818; /* Slightly darker red on hover */
+  background-color: #981818; 
   border-color: #981818;
 }
 .saveChanges:disabled {
-  background-color: #ffcdd2; /* Very light red/pink for disabled state */
+  background-color: #ffcdd2; 
   border-color: #ffcdd2;
   color: #a5a5a5;
   cursor: not-allowed;
 }
 
-/* 🛑 DANGER ACTION: Logout Button 🛑 */
 .LogoutProfile {
-  /* Strong red for the destructive action */
-  border: 2px solid #D32F2F; /* Slightly brighter red for danger */
+  border: 2px solid #D32F2F; 
   background-color: #D32F2F;
   color: white;
 }
@@ -205,9 +202,7 @@
   box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
 }
 
-/* ⬜ SECONDARY/CANCEL ACTION: Forgot Password / Cancel / Remove Picture ⬜ */
 .forgotPassword { 
-  /* Neutral/Subtle color, primarily white background with a gray border/text */
   background: none;
   border: 2px solid #90A4AE; 
   color: #546E7A;
@@ -219,7 +214,6 @@
   border-color: #37474F;
 }
 
-/* --- Feedback Messages (No changes here) --- */
 .message {
   padding: 12px;
   border-radius: 8px;
@@ -241,7 +235,6 @@
   border: 1px solid #008000;
 }
 
-/* --- Profile History Section (No changes here) --- */
 .profileHistory {
   display: flex;
   flex-direction: column;
@@ -277,7 +270,6 @@
   text-align: center;
 }
 
-/* Scrollbar Styles */
 .profileHistory::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
@@ -290,7 +282,6 @@
     background: #B71C1C; 
 }
 
-/* --- Order Items (No changes here) --- */
 .batchCard {
   padding: 1.5rem;
   border-radius: 10px;
@@ -370,7 +361,6 @@
   border: 1px solid #90caf9;
 }
 
-/* --- Responsive adjustments for Order Items (No changes here) --- */
 @media (max-width: 600px) {
     .orderItem {
         flex-direction: column;

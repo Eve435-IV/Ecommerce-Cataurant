@@ -1,4 +1,4 @@
-/* your existing button */
+
 @media screen and (max-width: 425px) {
 .mainContianer {
     position: fixed;
@@ -30,10 +30,9 @@
 .icon {
     height: 190px;
     width: 190px;
-    transition: transform 0.3s ease;  /* smooth rotation */
+    transition: transform 0.3s ease;  
 }
 
-/* rotation when open */
 .rotate {
     transform: rotate(-90deg);
 }
@@ -42,7 +41,6 @@
     width: 120px;
 }
 
-/* Slide-out menu */
 .popMenu {
     background: rgb(255, 255, 255);
     border-radius: 90px;
@@ -56,13 +54,11 @@
     margin-right: 140px;
 }
 
-/* Simple animation */
 @keyframes slide {
     from { transform: translateX(20px); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
 
-/* Menu links */
 .popMenu a {
     font-size: 26px;
     text-decoration: none;
@@ -94,7 +90,6 @@
     animation: drop 0.25s ease-out;
 }
 
-/* animation for top popup */
 @keyframes drop {
     from { transform: translateY(20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }

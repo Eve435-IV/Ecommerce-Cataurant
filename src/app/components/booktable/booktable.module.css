@@ -1,5 +1,5 @@
 .pageContainer {
-  margin-top: 80px;
+  margin-top: 87px;
   border-radius: 12px;
   min-height: 86vh;
   background-color: #f9fafb;
@@ -16,7 +16,6 @@
   align-items: center;
 }
 
-/* ===== Loading ===== */
 .loadingWrapper {
   display: flex;
   flex-direction: column;
@@ -38,7 +37,6 @@
   color: #6b7280;
 }
 
-/* ===== Prompt ===== */
 .promptWrapper {
   display: flex;
   flex-direction: column;
@@ -85,7 +83,6 @@
   max-width: 450px;
 }
 
-/* ===== Form ===== */
 .formCard {
   background: #ffffff;
   border-radius: 1rem;
@@ -157,7 +154,6 @@
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
 }
 
-/* ===== Button ===== */
 .submitButton {
   background: linear-gradient(to right, #ef4444, #dc2626);
   color: #fff;
@@ -189,7 +185,6 @@
   animation: spin 1s linear infinite;
 }
 
-/* ===== Success Box ===== */
 .successBox {
   display: flex;
   align-items: center;

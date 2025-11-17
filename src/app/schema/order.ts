@@ -1,10 +1,5 @@
 import { gql } from '@apollo/client';
 
-// =======================
-// GRAPHQL QUERIES / MUTATIONS
-// =======================
-
-// Get all orders for the logged-in user
 export const GET_MY_ORDERS = gql`
   query GetMyOrders($page: Int, $limit: Int, $isCompleted: Boolean) {
     getMyOrders(page: $page, limit: $limit, isCompleted: $isCompleted) {
@@ -57,7 +52,6 @@ export const GET_MY_ORDERS = gql`
   }
 `;
 
-// Create orders
 export const CREATE_ORDERS = gql`
   mutation CreateOrders($inputs: [OrderInput!]!) {
     createOrders(inputs: $inputs) {
@@ -96,10 +90,6 @@ export const CREATE_ORDERS = gql`
   }
 `;
 
-// =======================
-// ENUMS
-// =======================
-
 export enum Category {
   KHMER = "KHMER",
   KOREAN = "KOREAN",
@@ -113,11 +103,6 @@ export enum OrderStatus {
   Declined = "Declined",
 }
 
-// =======================
-// TYPESCRIPT TYPES
-// =======================
-
-// User type
 export interface User {
   _id: string;
   firstName: string;
@@ -129,7 +114,6 @@ export interface User {
   createdAt: string;
 }
 
-// Product type
 export interface Product {
   _id: string;
   name: string;
@@ -139,7 +123,6 @@ export interface Product {
   price: number;
 }
 
-// Order type
 export interface Order {
   _id: string;
   userId: User;
@@ -154,14 +137,12 @@ export interface Order {
   orderDate: string;
 }
 
-// Batch type
 export interface OrderBatch {
   batchId: string;
   orderDate: string;
   orders: Order[];
 }
 
-// Paginator type (matches your backend customLabels result)
 export interface Paginator {
   slNo: number;
   prev: number | null;
@@ -175,7 +156,6 @@ export interface Paginator {
   totalDocs?: number;
 }
 
-// FINAL FIXED TYPE ✔
 export interface GetMyOrdersResponse {
   getMyOrders: {
     data: OrderBatch[];
@@ -183,7 +163,6 @@ export interface GetMyOrdersResponse {
   };
 }
 
-// Mutation input types
 export interface OrderInput {
   productId: string;
   quantity: number;
@@ -192,7 +171,6 @@ export interface OrderInput {
   cuisine: Category;
 }
 
-// Mutation response type
 export interface CreateOrdersResponse {
   createOrders: {
     success: boolean;

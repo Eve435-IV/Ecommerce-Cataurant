@@ -6,7 +6,7 @@ export interface UserFragment {
   lastName?: string;
   email: string;
   // phoneNumber?: string;
-  role: "ADMIN" | "MANAGER" | "STAFF" | "CUSTOMER" | "GUEST"; // 👈 FIXED
+  role: "ADMIN" | "MANAGER" | "STAFF" | "CUSTOMER" | "GUEST"; 
   isActive: boolean;
   profileImage?: string;
   createdAt?: string;

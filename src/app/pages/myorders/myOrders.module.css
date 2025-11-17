@@ -1,6 +1,6 @@
 
 .ordersPage {
-  margin-top: 110px;
+  margin-top: 87px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -158,22 +158,20 @@ box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
   border: none;
   border-radius: 8px;
   background: #ffffff;
-  color: #a52a2a; /* primary red text */
+  color: #a52a2a; 
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 0 transparent; /* no glow */
+  box-shadow: 0 0 0 transparent; 
 }
 
-/* hover effect (optional) */
 .tabButton:hover {
   background: #ffe5e5;
 }
 
-/* ACTIVE TAB STYLE */
 .activeTab {
-  background: #a52a2a; /* primary red background */
+  background: #a52a2a; 
   color: white;
   /* box-shadow: 0 0 12px #ff4d4d;  */
-  transform: translateY(-2px); /* slight lift */
+  transform: translateY(-2px); 
 }

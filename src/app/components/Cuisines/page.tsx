@@ -1,4 +1,3 @@
-// src/app/components/Cuisines/page.tsx
 "use client";
 
 export const dynamic = "force-dynamic";
@@ -42,13 +41,11 @@ export default function CuisinePage() {
 function CuisineClient() {
   const router = useRouter();
 
-  // Client-side state
   const [selectedCuisine, setSelectedCuisine] = useState("South Korea");
   const [page, setPage] = useState(1);
   const [popupOpen, setPopupOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Sync URL query params on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const initialPage = Number(params.get("page")) || 1;
@@ -57,7 +54,6 @@ function CuisineClient() {
     setPage(initialPage);
   }, []);
 
-  // Update URL whenever page or cuisine changes
   useEffect(() => {
     const params = new URLSearchParams();
     params.set("page", page.toString());
@@ -65,7 +61,6 @@ function CuisineClient() {
     router.replace(`?${params.toString()}`, { scroll: false });
   }, [page, selectedCuisine, router]);
 
-  // Apollo query
   const { data, loading, error } = useQuery<GetProductWithPaginationResponse>(
     GET_PRODUCT_PAGINATION,
     {
@@ -96,7 +91,6 @@ function CuisineClient() {
 
   return (
     <div className={styles.pageWrapper}>
-      {/* Cuisine selector */}
       <div className={styles.cuisineSelectorBar}>
         {CUISINE_OPTIONS.map((c) => (
           <button
@@ -114,12 +108,10 @@ function CuisineClient() {
         ))}
       </div>
 
-      {/* Loading / Error */}
       {loading && <div>Loading...</div>}
       {error && <div>{error.message}</div>}
       {!loading && products.length === 0 && <div>No dishes found.</div>}
 
-      {/* Product grid */}
       <div className={styles.container}>
         {products.map((product) => (
           <div key={normalizeId(product._id)} className={styles.box}>
@@ -145,7 +137,6 @@ function CuisineClient() {
         ))}
       </div>
 
-      {/* Pagination */}
       <div className={styles.paginationControls}>
         <button
           onClick={() => page > 1 && setPage(page - 1)}
@@ -166,7 +157,6 @@ function CuisineClient() {
         </button>
       </div>
 
-      {/* Order popup */}
       {selectedProduct && (
         <OrderPopup
           open={popupOpen}

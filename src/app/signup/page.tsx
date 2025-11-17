@@ -14,9 +14,6 @@ import {
   LoginResponse,
 } from "../schema/users";
 
-// =======================
-// GraphQL Mutations
-// =======================
 const SIGNUP_CUSTOMER = gql`
   mutation SignupCustomer($input: SignupCustomerInput!) {
     signupCustomer(input: $input) {
@@ -53,9 +50,6 @@ const LOGIN_CUSTOMER = gql`
   }
 `;
 
-// =======================
-// Component
-// =======================
 export default function AuthPage() {
   const router = useRouter();
   const { login } = useAuthStore();
@@ -69,9 +63,6 @@ export default function AuthPage() {
   });
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  // =======================
-  // Mutations
-  // =======================
   const [signupMutation, { loading: signupLoading }] = useMutation<
     SignupResponse,
     { input: SignupCustomerInput }
@@ -96,9 +87,6 @@ export default function AuthPage() {
     onError: (err) => setFeedback(err.message),
   });
 
-  // =======================
-  // Handlers
-  // =======================
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

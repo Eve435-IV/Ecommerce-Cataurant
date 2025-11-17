@@ -16,7 +16,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./booktable.module.css";
 
-const GRAPHQL_URI = "http://localhost:4000/graphql";
+// const GRAPHQL_URI = "http://localhost:4000/graphql";
+const GRAPHQL_URI = "https://cataurant-backend-cms.onrender.com";
 const client = new ApolloClient({
   link: new HttpLink({ uri: GRAPHQL_URI }),
   cache: new InMemoryCache(),

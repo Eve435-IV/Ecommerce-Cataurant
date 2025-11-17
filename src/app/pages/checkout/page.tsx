@@ -13,7 +13,6 @@ import PaymentReceived from "./public/money-received.png";
 import cartIcon from "./public/shopping-bag.png";
 import styles from "./checkout.module.css";
 
-// --- GraphQL mutation ---
 const CREATE_ORDERS = gql`
   mutation CreateOrders($inputs: [OrderInput!]!) {
     createOrders(inputs: $inputs) {
@@ -46,7 +45,6 @@ const CREATE_ORDERS = gql`
   }
 `;
 
-// --- TypeScript types ---
 interface OrderProduct {
   _id: string;
   name: string;
@@ -101,7 +99,6 @@ export default function CheckoutPage() {
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [loadingPayment, setLoadingPayment] = useState(false);
 
-  // Typed mutation with auth client
   const [createBatchOrder] = useMutation<CreateOrdersResult>(CREATE_ORDERS, {
     client,
   });

@@ -16,10 +16,6 @@ import { useAuthStore, AuthStore } from "../../../hooks/AuthStore";
 import AuthForm from "../../signup/layout";
 import styles from "./orderonline.module.css";
 
-// =====================
-// Types
-// =====================
-
 interface Product {
   _id: string;
   name: string;
@@ -36,14 +32,11 @@ interface GetProductWithPaginationResponse {
   };
 }
 
-// =====================
-// Constants
-// =====================
-
 const GET_PRODUCT_PAGINATION =
   require("../../schema/product").GET_PRODUCT_PAGINATION;
 
-const GRAPHQL_URI = "http://localhost:4000/graphql";
+// const GRAPHQL_URI = "http://localhost:4000/graphql";
+const GRAPHQL_URI = "https://cataurant-backend-cms.onrender.com";
 const FEATURED_LIMIT = 2;
 
 const CUISINE_CATEGORIES: { name: string; category: string }[] = [
@@ -53,16 +46,11 @@ const CUISINE_CATEGORIES: { name: string; category: string }[] = [
   { name: "Fast Food", category: "FAST_FOOD" },
 ];
 
-// Apollo Client Setup
 const httpLink = new HttpLink({ uri: GRAPHQL_URI });
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
 });
-
-// =====================
-// Custom Hook
-// =====================
 
 const useFeaturedProducts = () => {
   const results = CUISINE_CATEGORIES.map(({ category }) =>
@@ -97,10 +85,6 @@ const useFeaturedProducts = () => {
 
   return { products, loading, error };
 };
-
-// =====================
-// Components
-// =====================
 
 const OrderForm = () => {
   const { products, loading, error } = useFeaturedProducts();
@@ -147,7 +131,6 @@ const OrderForm = () => {
         {!error &&
           products.map(({ categoryName, product }) => (
             <div key={product._id} className={styles.productCard}>
-              {/* ✅ fixed key issue: product._id */}
               <div className={styles.productInfo}>
                 <div
                   style={{
@@ -198,10 +181,6 @@ const OrderForm = () => {
     </div>
   );
 };
-
-// =====================
-// Page Export
-// =====================
 
 export default function OrderOnline() {
   const { user, isInitialized } = useAuthStore() as AuthStore;

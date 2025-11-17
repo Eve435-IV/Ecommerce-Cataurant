@@ -19,7 +19,6 @@ function Menu() {
 
   return (
     <div className={styles.wrapper}>
-      {/* TOP POPUP (cart + profile) */}
       {open && (
         <div className={styles.topMenu}>
           <Link href="/cart" className={styles.link}>
@@ -36,12 +35,10 @@ function Menu() {
         </div>
       )}
 
-      {/* BUTTON */}
       <div className={styles.mainContianer} onClick={() => setOpen(!open)}>
         <PawPrint className={`${styles.icon} ${open ? styles.rotate : ""}`} />
       </div>
 
-      {/* RIGHT POPUP */}
       {open && (
         <div className={styles.popMenu}>
           <Link href="/components/about" className={styles.link}>

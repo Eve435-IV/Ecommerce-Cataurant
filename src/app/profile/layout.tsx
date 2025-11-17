@@ -199,7 +199,6 @@ export default function UserProfilePage() {
     }
   }, [user, isInitialized, feedback]);
 
-  // Handlers for profile form, password, image, cancel, logout
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -261,7 +260,6 @@ export default function UserProfilePage() {
 
   return (
     <div className={styles.container}>
-      {/* Profile Column */}
       <div className={styles.profileColumn}>
         <h2>{isEditing ? "Edit Profile" : "Profile Details"}</h2>
         {feedback && (
@@ -406,8 +404,6 @@ export default function UserProfilePage() {
           )}
         </div>
       </div>
-
-      {/* Completed Orders History */}
       <div className={styles.profileHistory}>
         <h2>Completed Orders History</h2>
         {ordersLoading ? (

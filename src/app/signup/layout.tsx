@@ -4,7 +4,7 @@ import React from "react";
 import styles from "../profile/profile.module.css";
 
 type AuthFormProps = {
-  children?: React.ReactNode; // make optional
+  children?: React.ReactNode;
 };
 
 export default function AuthForm({ children }: AuthFormProps) {

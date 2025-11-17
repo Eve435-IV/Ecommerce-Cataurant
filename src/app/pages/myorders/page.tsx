@@ -42,7 +42,6 @@ export default function MyOrdersPage() {
   if (loading) return <div className={styles.loading}>Loading orders...</div>;
   if (error) return <div className={styles.error}>Error: {error.message}</div>;
 
-  // Access the paginated data
   const batches: OrderBatch[] =
     data?.getMyOrders?.data
       ?.map((batch) => ({
@@ -55,7 +54,6 @@ export default function MyOrdersPage() {
     <div className={styles.ordersPage}>
       <h2 className={styles.heading}>My Orders</h2>
 
-      {/* Tabs */}
       <div className={styles.tabContainer}>
         <button
           className={`${styles.tabButton} ${
