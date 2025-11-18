@@ -1,12 +1,13 @@
 .mainbanner {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-content: center;
     background-color: #1a202c;
-    margin-top: 110px;
+    margin-top: 87px;
     height: 60vh;
-    max-height: 650px;
-    width: 67%;
+    /* max-height: 80vh; */
+    width: 90%;
+    /* max-width: 1300px; */
     margin-left: auto;
     margin-right: auto;
     /* border: #e53e3e 5px solid; */
@@ -19,12 +20,12 @@
 
 .midbanner {
     /* background-image: url('https://media.istockphoto.com/id/2162958657/photo/variety-of-korean-food.jpg?s=2048x2048&w=is&k=20&c=1QEUN5wauoXffk4wiGLbNc20UIEOmp_7Yyr9OyQeE2s='); */
-    /* background-image: url('https://i.pinimg.com/1200x/1a/e4/06/1ae4066c666821d44aec34cb42fd8a5e.jpg'); */
-    /* background-image: url('https://i.pinimg.com/1200x/06/48/8a/06488a29a35ce4dfacae8e06f79a6293.jpg'); */
-    background-image: url('https://i.pinimg.com/1200x/24/58/57/24585717b5a02120e430a8dc583d3c0a.jpg');
+    background-image: url('https://i.pinimg.com/1200x/58/a0/e7/58a0e76097cc0fb3bde2bbff836c2758.jpg');
+    /* background-image: url('https://i.pinimg.com/1200x/5f/42/01/5f420112422e8c2c9f3c05c692817a1a.jpg'); */
+    /* background-image: url('https://i.pinimg.com/1200x/24/58/57/24585717b5a02120e430a8dc583d3c0a.jpg'); */
     width: 100%;
     height: 100%;
-    position: relative;
+    /* position: relative; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,12 +44,12 @@
 .bottext {
     position: absolute;
     font-weight: 800;
-    text-align: center;
+    /* text-align: center; */
     line-height: 1;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 1);
     font-family: 'Inter', sans-serif;
     transition: all 0.3s ease;
-    left: 50%;
+    /* left: 50%; */
     transform: translate(-50%, -50%);
 }
 
@@ -56,18 +57,22 @@
     font-size: 5vw;
     top: 25%;
     color: #ffffff;
+    margin-left: 90%;
+    text-align: end;
 }
 
 .midtext {
     font-size: 8vw;
     top: 50%;
     color: #e53e3e;
+    margin-left: 90%;
 }
 
 .bottext {
     font-size: 3vw;
     top: 75%;
     color: #f7fafc;
+    left: 62%;
 }
 
 @media (max-width: 1440px) {

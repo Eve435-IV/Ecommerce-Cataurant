@@ -182,7 +182,8 @@ box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 .tabButton:hover {
-  background: #ffe5e5;
+  background: #cb0c0c;
+  color: white;
 }
 
 .activeTab {

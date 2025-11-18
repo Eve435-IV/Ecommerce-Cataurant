@@ -13,8 +13,8 @@ html, body {
 .main {
  flex: 1;
 
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 300px;
+  padding-right: 300px;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #ffffff;
@@ -36,21 +36,21 @@ html, body {
 }
 @media screen and (max-width: 1024px) {
 .main{
-  padding-top: 80px;
+  /* padding-top: 80px; */
   padding-left: 120px;
   padding-right: 120px;
 }
 }
 @media screen and (max-width: 768px) {
 .main{
-  padding-top: 70px;
+  /* padding-top: 70px; */
   padding-left: 20px;
   padding-right: 20px;
 }
 }
 @media screen and (max-width: 768px) {
 .main{
-  padding-top: 80px;
+  /* padding-top: 80px; */
   padding-left: 10px;
   padding-right: 10px;
 }
