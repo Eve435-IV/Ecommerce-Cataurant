@@ -1,8 +1,10 @@
-.pageContainer{
-  margin-top: 87px;
+.pageContainer,
+.loadingCuisine{
+  margin-top: 75px;
   margin-bottom: 0px;
   border-radius: 10px;
-  min-height: 86vh;
+height: 89vh;
+margin-bottom: 5px;
   background-color: #f7fafc;
   padding-top: 0;
   color: #2d3748;
@@ -17,14 +19,14 @@
  .orderForm{
   margin: 60px 50px 20px 50px;
   border-radius: 10px;
-  min-height: 66vh;
+    height: 89vh;
   background-color: #f7fafc;
   color: #2d3748;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
 }
 .loadingCuisine{
-    height: 80vh;
+    height: 89vh;
     display: flex;
     justify-content: center;
     align-items: center;

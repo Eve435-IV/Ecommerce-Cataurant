@@ -39,26 +39,37 @@
 }
 
 .pageWrapper {
-    min-height: 100vh;
+    height: 89vh;
     /* width: 100%; */
     width: 1300px;
-    margin: auto;
-    padding: 20px 40px 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 40px 20px;
     box-sizing: border-box;
     border-radius: 12px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
     background-color: #FFFFFF;
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: 87px;
+    margin-top: 75px;
+    margin-bottom: 5px;
 }
 
-.cuisineSelectorBar {
+/* .cuisineSelectorBar {
     display: flex;
     justify-content: center;
     gap: 12px;
     padding-top: 0px;
     padding-bottom: 20px;
     margin-bottom: 35px;
+    border-bottom: 1px solid #E0E0E0;
+} */
+.cuisineSelectorBar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
     border-bottom: 1px solid #E0E0E0;
 }
 
@@ -98,7 +109,7 @@
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    gap: 20px;
     padding: 0;
     justify-content: center;
 }
@@ -111,7 +122,7 @@
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
     background-color: #FFFFFF;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    height: 400px;
+    height: 330px;
     padding-bottom: 10px;
     /* border: 1px solid #f0f0f0; */
 }
@@ -123,7 +134,7 @@
 
 .image {
     width: 100%;
-    height: 100%;
+    height: 70%;
     object-fit: cover;
     background-color: #EFEFEF;
     color: #6C757D;
@@ -139,7 +150,7 @@
     display: flex;
     /* flex-direction: column; */
     /* flex: 0.5; */
-    margin: 10px 30px 10px 30px;
+    margin: 0px 20px 0px 20px;
     justify-content: space-between;
     /* box-sizing: border-box; */
     /* background-color: #FFFFFF; */
@@ -174,7 +185,7 @@
 }
 
 .price {
-    margin-top: 15px;
+    margin-top: 10px;
     /* flex: 1; */
     font-size: 45px;
     font-weight: 700;
@@ -251,7 +262,7 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding: 50px 0 0px 0;
+    padding: 20px 0 0px 0;
 }
 
 .paginationButton {

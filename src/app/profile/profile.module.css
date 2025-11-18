@@ -1,12 +1,12 @@
 .container {
-  max-width: 1290px;
-  margin: 87px auto 10px;
+  max-width: 1300px;
+  margin: 75px auto 10px;
   padding: 2.5rem;
   border-radius: 16px;
   background-color: #ffffff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px #e0e0e0;
   font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
-  height: 85vh; 
+  height: 89vh; 
   overflow: hidden; 
   display: grid;
   grid-template-columns: 350px 1fr;

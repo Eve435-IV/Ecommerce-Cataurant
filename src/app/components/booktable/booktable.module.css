@@ -1,7 +1,9 @@
-.pageContainer {
-  margin-top: 87px;
+.pageContainer,
+.loadingWrapper {
+  margin-top: 75px;
   border-radius: 12px;
-  min-height: 86vh;
+height: 89vh;
+margin-bottom: 5px;
   background-color: #f9fafb;
   padding: 3rem;
   color: #1f2937;

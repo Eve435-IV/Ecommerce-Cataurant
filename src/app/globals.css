@@ -16,7 +16,7 @@ html, body {
   padding-left: 300px;
   padding-right: 300px;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
   background-color: #ffffff;
   color: var(--textColor);
   margin-top: -20px;

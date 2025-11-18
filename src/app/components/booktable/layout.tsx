@@ -30,7 +30,7 @@ export default function BookATable() {
     return (
       <div className={styles.loadingWrapper}>
         <Loader2 className={styles.loadingIcon} />
-        <p className={styles.loadingText}>Loading...</p>
+        <p className={styles.loadingText}></p>
       </div>
     );
   }

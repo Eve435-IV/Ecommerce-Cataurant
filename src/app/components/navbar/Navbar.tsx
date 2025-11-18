@@ -93,9 +93,9 @@ export default function Navbar() {
                 sx={{
                   position: "absolute",
                   right: 10,
-                  top: "110px",
+                  top: "99px",
                   width: 282,
-                  maxHeight: "87vh",
+                  maxHeight: "89vh",
                   display: "flex",
                   flexDirection: "column",
                   bgcolor: "white",

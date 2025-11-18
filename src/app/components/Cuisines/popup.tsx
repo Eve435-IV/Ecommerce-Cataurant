@@ -68,7 +68,7 @@ export default function OrderPopup({
 
   const handleSubmit = () => {
     if (flavour.length === 0) {
-      setError("Please select at least one flavour.");
+      setError("Please select a flavour.");
       return;
     }
 
@@ -132,6 +132,11 @@ export default function OrderPopup({
         <Divider sx={{ my: 2 }} />
         <div className={styles.stack}>
           <div className={styles.title}>Flavours</div>
+          {error && (
+            <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+              {error}
+            </Typography>
+          )}
           <Box display="flex" flexWrap="wrap" gap={1}>
             {FLAVOUR_OPTIONS.map((f) => (
               <FormControlLabel
@@ -146,11 +151,6 @@ export default function OrderPopup({
               />
             ))}
           </Box>
-          {error && (
-            <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-              {error}
-            </Typography>
-          )}
         </div>
 
         <Divider sx={{ my: 2 }} />
