@@ -23,6 +23,7 @@
   justify-content: center;
   min-height: 80vh;
   gap: 0.5rem;
+
 }
 
 .loadingIcon {
@@ -58,6 +59,8 @@
   height: 2.2rem;
   color: #ef4444;
   margin-bottom: 0.75rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .promptTitle {

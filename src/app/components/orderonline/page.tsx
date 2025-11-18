@@ -210,7 +210,7 @@ export default function OrderOnline() {
               </p>
             </div>
 
-            <AuthForm />
+            {/* <AuthForm /> */}
           </div>
         )}
       </div>

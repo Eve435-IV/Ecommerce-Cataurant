@@ -192,23 +192,20 @@
 }
 
 .promptContainer {
-  max-width: 38rem;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   align-items: center;
+  gap: 2rem;
 }
 
 .promptCard {
-  position: absolute;
   text-align: center;
   background: #fff;
-  margin-top: 0px;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.08);
-  border-left: 3px solid #ef4444;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  border-top: 4px solid #ef4444;
+  margin-top: 310px;
 }
 
 .lockIcon {
@@ -216,6 +213,8 @@
   height: 2rem;
   color: #ef4444;
   margin: 0 auto 0.75rem auto;
+  align-items: center;
+    text-align: center;
 }
 
 .promptTitle {

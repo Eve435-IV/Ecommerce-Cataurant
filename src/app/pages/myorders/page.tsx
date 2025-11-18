@@ -10,6 +10,7 @@ import {
   OrderStatus,
   GET_MY_ORDERS,
 } from "../../schema/order";
+import { Lock } from "lucide-react";
 import styles from "./myOrders.module.css";
 
 const statusColors: Record<string, string> = {
@@ -45,7 +46,25 @@ export default function MyOrdersPage() {
         <div className={styles.loaderRing}></div>
       </div>
     );
-  if (error) return <div className={styles.error}>Error: {error.message}</div>;
+  if (error)
+    return (
+      <div className={styles.error}>
+        <div className={styles.promptContainer}>
+          <div className={styles.promptCard}>
+            <Lock className={styles.lockIcon} />
+            <h1 className={styles.promptTitle}>My Orders</h1>
+            <p className={styles.promptMessage}>
+              You must be logged in to view orders.
+            </p>
+            <p className={styles.promptAction}>
+              Please Sign Up or Log In below.
+            </p>
+          </div>
+
+          {/* <AuthForm /> */}
+        </div>
+      </div>
+    );
 
   const batches: OrderBatch[] =
     data?.getMyOrders?.data

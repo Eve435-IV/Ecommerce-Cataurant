@@ -54,9 +54,9 @@ const LoginPrompt = () => (
       </p>
       <p className={styles.promptAction}>Please Sign Up or Log In below.</p>
     </div>
-    <div className={styles.authBox}>
+    {/* <div className={styles.authBox}>
       <AuthForm />
-    </div>
+    </div> */}
   </div>
 );
 
