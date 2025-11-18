@@ -207,18 +207,16 @@ export default function UserProfilePage() {
       .filter((batch) => batch.orders.length > 0) || [];
 
   useEffect(() => {
-    if (user)
+    if (user) {
       setFormData({
-        firstName: user.firstName,
+        firstName: user.firstName || "",
         lastName: user.lastName || "",
-        email: user.email,
+        email: user.email || "",
         profileImage: user.profileImage || "",
       });
-    if (!isInitialized) return;
-    if (!user) {
-      // keep the shell but show message if no user
-      // optionally route to signup after a timeout — but we keep current behavior
+      setPreview(user.profileImage || null);
     }
+    if (!isInitialized) return;
     if (feedback && !feedback.isError) {
       const timer = setTimeout(() => setFeedback(null), 2000);
       return () => clearTimeout(timer);
@@ -264,14 +262,15 @@ export default function UserProfilePage() {
     });
   };
   const handleCancelEdit = () => {
-    if (user)
+    if (user) {
       setFormData({
-        firstName: user.firstName,
+        firstName: user.firstName || "",
         lastName: user.lastName || "",
-        email: user.email,
+        email: user.email || "",
         profileImage: user.profileImage || "",
       });
-    setPreview(user?.profileImage || null);
+      setPreview(user.profileImage || null);
+    }
     setIsEditing(false);
     setShowChangePassword(false);
     setFeedback(null);
@@ -281,7 +280,6 @@ export default function UserProfilePage() {
     router.push("/signup");
   };
 
-  // Render: always render container shell. Show skeletons while !isInitialized
   const showSkeletons = !isInitialized;
 
   return (
@@ -330,7 +328,7 @@ export default function UserProfilePage() {
                     className={styles.emptyAvatarStatic}
                     onClick={() => setShowImageButton(!showImageButton)}
                   >
-                    {user.firstName.charAt(0)}
+                    {user?.firstName?.charAt(0) || "U"}
                   </div>
                 )}
                 {showImageButton && (
@@ -353,10 +351,10 @@ export default function UserProfilePage() {
               <div className={styles.usernameDisplay}>
                 <p>
                   <strong>
-                    {user.firstName} {user.lastName || ""}
+                    {user?.firstName || ""} {user?.lastName || ""}
                   </strong>
                 </p>
-                <p>{user.email}</p>
+                <p>{user?.email || ""}</p>
               </div>
               <input
                 type="file"
@@ -470,7 +468,6 @@ export default function UserProfilePage() {
         <h2>Completed Orders History</h2>
 
         {showSkeletons ? (
-          // skeleton list
           <div className={styles.completedOrdersList}>
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className={styles.batchCard}>
@@ -550,7 +547,7 @@ export default function UserProfilePage() {
             ))}
           </div>
         )}
-        {/* if initialized but no user, friendly message */}
+
         {isInitialized && !user && (
           <div style={{ textAlign: "center", marginTop: 12 }}>
             <p>Please login to access your profile.</p>
