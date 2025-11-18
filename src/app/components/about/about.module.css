@@ -1,5 +1,5 @@
 .pageWrapper {
- margin-top: 87px;
+  margin-top: 87px;
   margin-bottom: 20px;
   border-radius: 10px;
   min-height: 1200px;
@@ -95,7 +95,7 @@
 
 .cuisineGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr 1fr));
   gap: 30px;
   max-width: 1300px;
   margin: 0 auto;

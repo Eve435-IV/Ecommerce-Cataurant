@@ -168,7 +168,7 @@ export default function UserProfilePage() {
       onCompleted: (res: any) => {
         if (res.changePassword.isSuccess) {
           setFeedback({
-            message: "Password changed successfully! 🔒",
+            message: "Password changed successfully! ",
             isError: false,
           });
           setShowChangePassword(false);
@@ -194,10 +194,9 @@ export default function UserProfilePage() {
     error: ordersError,
   } = useQuery<GetMyOrdersResponse>(GET_MY_ORDERS, {
     fetchPolicy: "network-only",
-    skip: !isInitialized, // don't request orders until auth initialized
+    skip: !isInitialized,
   });
 
-  // Only completed orders
   const completedOrders: OrderBatch[] =
     data?.getMyOrders?.data
       ?.map((batch) => ({
@@ -364,8 +363,6 @@ export default function UserProfilePage() {
               />
             </>
           )}
-
-          {/* Actions / Form */}
           {showSkeletons ? (
             <div className={styles.buttonGroup}>
               <SkeletonLine width="100%" height={44} />
@@ -463,7 +460,6 @@ export default function UserProfilePage() {
         </div>
       </div>
 
-      {/* right column: history */}
       <div className={styles.profileHistory}>
         <h2>Completed Orders History</h2>
 
@@ -499,8 +495,8 @@ export default function UserProfilePage() {
             {completedOrders.map((batch) => (
               <div key={batch.batchId} className={styles.batchCard}>
                 <p>
-                  <strong>Batch ID:</strong> {batch.batchId} |{" "}
-                  <strong>Date:</strong>{" "}
+                  <strong>Batch ID:</strong> {batch.batchId} |
+                  <strong>Date:</strong>
                   {batch.orderDate
                     ? new Date(batch.orderDate).toLocaleString()
                     : "N/A"}
@@ -514,8 +510,8 @@ export default function UserProfilePage() {
                     return (
                       <li key={order._id} className={styles.orderItem}>
                         <span>
-                          {order.productId?.name || "Unknown"} ×{" "}
-                          {order.quantity} — $
+                          {order.productId?.name || "Unknown"} *{order.quantity}
+                          — $
                           {(order.productId?.price * order.quantity).toFixed(2)}
                         </span>
                         {(order.flavour?.length ||
