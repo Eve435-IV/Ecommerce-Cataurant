@@ -39,7 +39,12 @@ export default function MyOrdersPage() {
     })})`;
   };
 
-  if (loading) return <div className={styles.loading}>Loading orders...</div>;
+  if (loading)
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loaderRing}></div>
+      </div>
+    );
   if (error) return <div className={styles.error}>Error: {error.message}</div>;
 
   const batches: OrderBatch[] =

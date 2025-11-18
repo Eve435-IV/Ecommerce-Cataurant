@@ -1,5 +1,4 @@
-.pageContainer,
-.loadingContainer{
+.pageContainer{
   margin-top: 87px;
   margin-bottom: 0px;
   border-radius: 10px;
@@ -15,7 +14,6 @@
   margin-right: auto;
 
 }
-
  .orderForm{
   margin: 60px 50px 20px 50px;
   border-radius: 10px;
@@ -25,9 +23,28 @@
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
 }
+.loadingCuisine{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loaderRing {
+  width: 55px;
+  height: 55px;
+  border: 6px solid rgba(0,0,0,0.1);
+  border-top-color: #ff6b2b; /* your theme color */
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
 
-.loadingIcon {
+/* .loadingIcon {
   width: 2rem;
   height: 2rem;
   color: #dc2626;
@@ -47,7 +64,7 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 .orderHeader {
   text-align: center;

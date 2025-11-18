@@ -91,6 +91,28 @@ const statusColors: Record<string, string> = {
   Completed: "#2196F3",
 };
 
+function SkeletonCircle({ size = 150 }: { size?: number }) {
+  return (
+    <div
+      className={styles.skeletonCircle}
+      style={{ width: size, height: size }}
+    />
+  );
+}
+function SkeletonLine({
+  width = "100%",
+  height = 14,
+  style = {},
+}: {
+  width?: string | number;
+  height?: number;
+  style?: any;
+}) {
+  return (
+    <div className={styles.skeletonLine} style={{ width, height, ...style }} />
+  );
+}
+
 export default function UserProfilePage() {
   const { user, login, logout, isInitialized } = useAuthStore();
   const router = useRouter();
@@ -172,6 +194,7 @@ export default function UserProfilePage() {
     error: ordersError,
   } = useQuery<GetMyOrdersResponse>(GET_MY_ORDERS, {
     fetchPolicy: "network-only",
+    skip: !isInitialized, // don't request orders until auth initialized
   });
 
   // Only completed orders
@@ -192,7 +215,10 @@ export default function UserProfilePage() {
         profileImage: user.profileImage || "",
       });
     if (!isInitialized) return;
-    if (!user) router.push("/signup");
+    if (!user) {
+      // keep the shell but show message if no user
+      // optionally route to signup after a timeout — but we keep current behavior
+    }
     if (feedback && !feedback.isError) {
       const timer = setTimeout(() => setFeedback(null), 2000);
       return () => clearTimeout(timer);
@@ -255,13 +281,15 @@ export default function UserProfilePage() {
     router.push("/signup");
   };
 
-  if (!isInitialized) return <p>Loading Authentication...</p>;
-  if (!user) return <p>Please login to access your profile.</p>;
+  // Render: always render container shell. Show skeletons while !isInitialized
+  const showSkeletons = !isInitialized;
 
   return (
     <div className={styles.container}>
+      {/* left column: profile */}
       <div className={styles.profileColumn}>
         <h2>{isEditing ? "Edit Profile" : "Profile Details"}</h2>
+
         {feedback && (
           <div
             className={`${styles.message} ${
@@ -271,49 +299,81 @@ export default function UserProfilePage() {
             {feedback.message}
           </div>
         )}
+
         <div className={styles.profileCard}>
           <div className={styles.avatarWrapper}>
-            {preview ? (
-              <img
-                src={preview}
-                className={styles.profileImage}
-                alt="Profile"
-                onClick={() => setShowImageButton(!showImageButton)}
-              />
+            {showSkeletons ? (
+              <>
+                <SkeletonCircle />
+                <SkeletonLine
+                  width="60%"
+                  height={18}
+                  style={{ marginTop: 8 }}
+                />
+                <SkeletonLine
+                  width="80%"
+                  height={14}
+                  style={{ marginTop: 6 }}
+                />
+              </>
             ) : (
-              <div
-                className={styles.emptyAvatarStatic}
-                onClick={() => setShowImageButton(!showImageButton)}
-              >
-                {user.firstName.charAt(0)}
-              </div>
-            )}
-            {showImageButton && (
-              <button
-                type="button"
-                className={styles.forgotPassword}
-                onClick={() => document.getElementById("fileInput")?.click()}
-              >
-                Change Profile Picture
-              </button>
+              <>
+                {preview || user?.profileImage ? (
+                  <img
+                    src={preview || user?.profileImage || ""}
+                    className={styles.profileImage}
+                    alt="Profile"
+                    onClick={() => setShowImageButton(!showImageButton)}
+                  />
+                ) : (
+                  <div
+                    className={styles.emptyAvatarStatic}
+                    onClick={() => setShowImageButton(!showImageButton)}
+                  >
+                    {user.firstName.charAt(0)}
+                  </div>
+                )}
+                {showImageButton && (
+                  <button
+                    type="button"
+                    className={styles.forgotPassword}
+                    onClick={() =>
+                      document.getElementById("fileInput")?.click()
+                    }
+                  >
+                    Change Profile Picture
+                  </button>
+                )}
+              </>
             )}
           </div>
-          <div className={styles.usernameDisplay}>
-            <p>
-              <strong>
-                {user.firstName} {user.lastName || ""}
-              </strong>
-            </p>
-            <p>{user.email}</p>
-          </div>
-          <input
-            type="file"
-            id="fileInput"
-            style={{ display: "none" }}
-            onChange={handleImageChange}
-          />
 
-          {!isEditing ? (
+          {!showSkeletons && (
+            <>
+              <div className={styles.usernameDisplay}>
+                <p>
+                  <strong>
+                    {user.firstName} {user.lastName || ""}
+                  </strong>
+                </p>
+                <p>{user.email}</p>
+              </div>
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: "none" }}
+                onChange={handleImageChange}
+              />
+            </>
+          )}
+
+          {/* Actions / Form */}
+          {showSkeletons ? (
+            <div className={styles.buttonGroup}>
+              <SkeletonLine width="100%" height={44} />
+              <SkeletonLine width="100%" height={44} />
+            </div>
+          ) : !isEditing ? (
             <div className={styles.buttonGroup}>
               <button
                 type="button"
@@ -404,10 +464,35 @@ export default function UserProfilePage() {
           )}
         </div>
       </div>
+
+      {/* right column: history */}
       <div className={styles.profileHistory}>
         <h2>Completed Orders History</h2>
-        {ordersLoading ? (
-          <p>Loading your orders...</p>
+
+        {showSkeletons ? (
+          // skeleton list
+          <div className={styles.completedOrdersList}>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className={styles.batchCard}>
+                <SkeletonLine
+                  width="45%"
+                  height={16}
+                  style={{ marginBottom: 12 }}
+                />
+                <div
+                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                >
+                  <SkeletonLine width="70%" height={14} />
+                  <SkeletonLine width="60%" height={14} />
+                  <SkeletonLine width="40%" height={14} />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : ordersLoading ? (
+          <div className={styles.loading}>
+            <div className={styles.loaderRing}></div>
+          </div>
         ) : ordersError ? (
           <p className={styles.messageError}>{ordersError.message}</p>
         ) : completedOrders.length === 0 ? (
@@ -463,6 +548,12 @@ export default function UserProfilePage() {
                 </ul>
               </div>
             ))}
+          </div>
+        )}
+        {/* if initialized but no user, friendly message */}
+        {isInitialized && !user && (
+          <div style={{ textAlign: "center", marginTop: 12 }}>
+            <p>Please login to access your profile.</p>
           </div>
         )}
       </div>

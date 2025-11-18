@@ -91,9 +91,8 @@ const OrderForm = () => {
 
   if (loading) {
     return (
-      <div className={`${styles.orderForm} ${styles.centerContent}`}>
-        <Loader2 className={`${styles.loadingIcon} ${styles.iconSmall}`} />
-        <p className={styles.loadingText}>Loading today's featured dishes...</p>
+      <div className={styles.loadingCuisine}>
+        <div className={styles.loaderRing}></div>
       </div>
     );
   }
@@ -187,9 +186,8 @@ export default function OrderOnline() {
 
   if (!isInitialized) {
     return (
-      <div className={styles.loadingContainer}>
-        <Loader2 className={styles.loadingIcon} />
-        <p className={styles.loadingText}>Loading...</p>
+      <div className={styles.loadingCuisine}>
+        <div className={styles.loaderRing}></div>
       </div>
     );
   }

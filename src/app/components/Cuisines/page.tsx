@@ -108,7 +108,12 @@ function CuisineClient() {
         ))}
       </div>
 
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <div className={styles.loadingCuisine}>
+          <div className={styles.loaderRing}></div>
+        </div>
+      )}
+
       {error && <div>{error.message}</div>}
       {!loading && products.length === 0 && <div>No dishes found.</div>}
 

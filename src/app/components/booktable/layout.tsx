@@ -83,7 +83,7 @@ const BookTableForm = () => {
         <Utensils className={styles.headerIcon} />
         <h2 className={styles.headerTitle}>Reserve Your Table</h2>
         <p className={styles.headerSubtitle}>
-          Choose your cuisine and preferred time — we’ll get everything ready.
+          Choose your cuisine and preferred time — we'll get everything ready.
         </p>
       </div>
 
